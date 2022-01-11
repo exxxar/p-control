@@ -6,8 +6,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**latitude** | **String** |  |  [optional]
-**longitude** | **String** |  |  [optional]
+**name** | **String** |  |  [optional]
+**username** | **String** |  |  [optional]
+**password** | **String** |  |  [optional]
 
 
 

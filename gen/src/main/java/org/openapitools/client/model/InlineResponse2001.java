@@ -23,48 +23,37 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.openapitools.client.model.InlineResponse2001HeatMapData;
 
 /**
  * InlineResponse2001
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class InlineResponse2001 {
-  public static final String SERIALIZED_NAME_HEAT_MAP_DATA = "heat_map_data";
-  @SerializedName(SERIALIZED_NAME_HEAT_MAP_DATA)
-  private List<InlineResponse2001HeatMapData> heatMapData = null;
+  public static final String SERIALIZED_NAME_ADDRESS = "address";
+  @SerializedName(SERIALIZED_NAME_ADDRESS)
+  private String address;
 
 
-  public InlineResponse2001 heatMapData(List<InlineResponse2001HeatMapData> heatMapData) {
+  public InlineResponse2001 address(String address) {
     
-    this.heatMapData = heatMapData;
-    return this;
-  }
-
-  public InlineResponse2001 addHeatMapDataItem(InlineResponse2001HeatMapData heatMapDataItem) {
-    if (this.heatMapData == null) {
-      this.heatMapData = new ArrayList<InlineResponse2001HeatMapData>();
-    }
-    this.heatMapData.add(heatMapDataItem);
+    this.address = address;
     return this;
   }
 
    /**
-   * Get heatMapData
-   * @return heatMapData
+   * Get address
+   * @return address
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "г. Донецк, пр. Киевский, 28", value = "")
 
-  public List<InlineResponse2001HeatMapData> getHeatMapData() {
-    return heatMapData;
+  public String getAddress() {
+    return address;
   }
 
 
-  public void setHeatMapData(List<InlineResponse2001HeatMapData> heatMapData) {
-    this.heatMapData = heatMapData;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
 
@@ -77,12 +66,12 @@ public class InlineResponse2001 {
       return false;
     }
     InlineResponse2001 inlineResponse2001 = (InlineResponse2001) o;
-    return Objects.equals(this.heatMapData, inlineResponse2001.heatMapData);
+    return Objects.equals(this.address, inlineResponse2001.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(heatMapData);
+    return Objects.hash(address);
   }
 
 
@@ -90,7 +79,7 @@ public class InlineResponse2001 {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InlineResponse2001 {\n");
-    sb.append("    heatMapData: ").append(toIndentedString(heatMapData)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }

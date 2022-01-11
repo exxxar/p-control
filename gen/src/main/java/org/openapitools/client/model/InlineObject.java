@@ -27,60 +27,87 @@ import java.io.IOException;
 /**
  * InlineObject
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class InlineObject {
-  public static final String SERIALIZED_NAME_LATITUDE = "latitude";
-  @SerializedName(SERIALIZED_NAME_LATITUDE)
-  private String latitude;
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
 
-  public static final String SERIALIZED_NAME_LONGITUDE = "longitude";
-  @SerializedName(SERIALIZED_NAME_LONGITUDE)
-  private String longitude;
+  public static final String SERIALIZED_NAME_USERNAME = "username";
+  @SerializedName(SERIALIZED_NAME_USERNAME)
+  private String username;
+
+  public static final String SERIALIZED_NAME_PASSWORD = "password";
+  @SerializedName(SERIALIZED_NAME_PASSWORD)
+  private String password;
 
 
-  public InlineObject latitude(String latitude) {
+  public InlineObject name(String name) {
     
-    this.latitude = latitude;
+    this.name = name;
     return this;
   }
 
    /**
-   * Get latitude
-   * @return latitude
+   * Get name
+   * @return name
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "23.4445555", value = "")
+  @ApiModelProperty(example = "Олег", value = "")
 
-  public String getLatitude() {
-    return latitude;
+  public String getName() {
+    return name;
   }
 
 
-  public void setLatitude(String latitude) {
-    this.latitude = latitude;
+  public void setName(String name) {
+    this.name = name;
   }
 
 
-  public InlineObject longitude(String longitude) {
+  public InlineObject username(String username) {
     
-    this.longitude = longitude;
+    this.username = username;
     return this;
   }
 
    /**
-   * Get longitude
-   * @return longitude
+   * Get username
+   * @return username
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "35.2233444", value = "")
+  @ApiModelProperty(example = "0711234444", value = "")
 
-  public String getLongitude() {
-    return longitude;
+  public String getUsername() {
+    return username;
   }
 
 
-  public void setLongitude(String longitude) {
-    this.longitude = longitude;
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+
+  public InlineObject password(String password) {
+    
+    this.password = password;
+    return this;
+  }
+
+   /**
+   * Get password
+   * @return password
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getPassword() {
+    return password;
+  }
+
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 
@@ -93,13 +120,14 @@ public class InlineObject {
       return false;
     }
     InlineObject inlineObject = (InlineObject) o;
-    return Objects.equals(this.latitude, inlineObject.latitude) &&
-        Objects.equals(this.longitude, inlineObject.longitude);
+    return Objects.equals(this.name, inlineObject.name) &&
+        Objects.equals(this.username, inlineObject.username) &&
+        Objects.equals(this.password, inlineObject.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(latitude, longitude);
+    return Objects.hash(name, username, password);
   }
 
 
@@ -107,8 +135,9 @@ public class InlineObject {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InlineObject {\n");
-    sb.append("    latitude: ").append(toIndentedString(latitude)).append("\n");
-    sb.append("    longitude: ").append(toIndentedString(longitude)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");
     return sb.toString();
   }

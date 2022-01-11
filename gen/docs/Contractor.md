@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **moreInfo** | **String** | дополнительная информация о контролирующем \\ исполнительном органе |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) | Выбор типа организации:  * &#x60;EXECUTIVE&#x60; - исполнительные органы  * &#x60;SUPERVISING&#x60; - контролирующие органы  |  [optional]
 **schedule** | [**List&lt;ContractorSchedule&gt;**](ContractorSchedule.md) |  |  [optional]
-**problemCategories** | [**List&lt;ProblemCategory&gt;**](ProblemCategory.md) |  |  [optional]
+**problemCategories** | [**List&lt;ProblemCategory&gt;**](ProblemCategory.md) | категории проблем, за которые ответственный орган |  [optional]
 **isActive** | **Boolean** | Статус видимости организации в общем списке |  [optional]
 **generateDailyReport** | **Boolean** | Генерировать дневные отчеты |  [optional]
 **needInformByEmail** | **Boolean** | информировать по электронной почте |  [optional]

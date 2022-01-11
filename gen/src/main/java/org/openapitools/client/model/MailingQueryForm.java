@@ -28,7 +28,7 @@ import org.openapitools.client.model.MailingQueryMessageObject;
 /**
  * MailingQueryForm
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class MailingQueryForm {
   public static final String SERIALIZED_NAME_ADDRESS_TO = "address_to";
   @SerializedName(SERIALIZED_NAME_ADDRESS_TO)

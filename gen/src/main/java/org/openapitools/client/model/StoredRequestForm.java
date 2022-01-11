@@ -32,7 +32,7 @@ import org.openapitools.client.model.ProblemCategory;
 /**
  * StoredRequestForm
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class StoredRequestForm {
   public static final String SERIALIZED_NAME_USER_ID = "user_id";
   @SerializedName(SERIALIZED_NAME_USER_ID)
@@ -44,7 +44,7 @@ public class StoredRequestForm {
 
   public static final String SERIALIZED_NAME_PROBLEM_CATEGORIES = "problem_categories";
   @SerializedName(SERIALIZED_NAME_PROBLEM_CATEGORIES)
-  private List<ProblemCategory> problemCategories = null;
+  private List<ProblemCategory> problemCategories = new ArrayList<ProblemCategory>();
 
   public static final String SERIALIZED_NAME_LATITUDE = "latitude";
   @SerializedName(SERIALIZED_NAME_LATITUDE)
@@ -92,8 +92,7 @@ public class StoredRequestForm {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "Описание заявки", value = "")
+  @ApiModelProperty(example = "Описание заявки", required = true, value = "")
 
   public String getDescription() {
     return description;
@@ -112,9 +111,6 @@ public class StoredRequestForm {
   }
 
   public StoredRequestForm addProblemCategoriesItem(ProblemCategory problemCategoriesItem) {
-    if (this.problemCategories == null) {
-      this.problemCategories = new ArrayList<ProblemCategory>();
-    }
     this.problemCategories.add(problemCategoriesItem);
     return this;
   }
@@ -123,8 +119,7 @@ public class StoredRequestForm {
    * Get problemCategories
    * @return problemCategories
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
 
   public List<ProblemCategory> getProblemCategories() {
     return problemCategories;
@@ -146,8 +141,7 @@ public class StoredRequestForm {
    * Get latitude
    * @return latitude
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "23.2334444", value = "")
+  @ApiModelProperty(example = "23.2334444", required = true, value = "")
 
   public BigDecimal getLatitude() {
     return latitude;
@@ -169,8 +163,7 @@ public class StoredRequestForm {
    * Get longitude
    * @return longitude
   **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "45.7889111", value = "")
+  @ApiModelProperty(example = "45.7889111", required = true, value = "")
 
   public BigDecimal getLongitude() {
     return longitude;

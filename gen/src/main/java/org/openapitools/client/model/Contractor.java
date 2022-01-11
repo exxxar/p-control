@@ -31,7 +31,7 @@ import org.openapitools.client.model.ProblemCategory;
 /**
  * Contractor
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class Contractor {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -541,11 +541,11 @@ public class Contractor {
   }
 
    /**
-   * Get problemCategories
+   * категории проблем, за которые ответственный орган
    * @return problemCategories
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "категории проблем, за которые ответственный орган")
 
   public List<ProblemCategory> getProblemCategories() {
     return problemCategories;

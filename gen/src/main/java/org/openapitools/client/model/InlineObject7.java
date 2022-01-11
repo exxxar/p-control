@@ -23,92 +23,37 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 /**
  * InlineObject7
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class InlineObject7 {
-  public static final String SERIALIZED_NAME_DISTANCE = "distance";
-  @SerializedName(SERIALIZED_NAME_DISTANCE)
-  private BigDecimal distance = new BigDecimal("50");
-
-  public static final String SERIALIZED_NAME_LONGITUDE = "longitude";
-  @SerializedName(SERIALIZED_NAME_LONGITUDE)
-  private BigDecimal longitude;
-
-  public static final String SERIALIZED_NAME_LATITUDE = "latitude";
-  @SerializedName(SERIALIZED_NAME_LATITUDE)
-  private BigDecimal latitude;
+  public static final String SERIALIZED_NAME_ADDRESS = "address";
+  @SerializedName(SERIALIZED_NAME_ADDRESS)
+  private String address;
 
 
-  public InlineObject7 distance(BigDecimal distance) {
+  public InlineObject7 address(String address) {
     
-    this.distance = distance;
+    this.address = address;
     return this;
   }
 
    /**
-   * радиус охвата заявок
-   * @return distance
+   * Get address
+   * @return address
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "300", value = "радиус охвата заявок")
+  @ApiModelProperty(example = "г. Донецк, пр. Киевский, 28", value = "")
 
-  public BigDecimal getDistance() {
-    return distance;
+  public String getAddress() {
+    return address;
   }
 
 
-  public void setDistance(BigDecimal distance) {
-    this.distance = distance;
-  }
-
-
-  public InlineObject7 longitude(BigDecimal longitude) {
-    
-    this.longitude = longitude;
-    return this;
-  }
-
-   /**
-   * Get longitude
-   * @return longitude
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "23.332322", value = "")
-
-  public BigDecimal getLongitude() {
-    return longitude;
-  }
-
-
-  public void setLongitude(BigDecimal longitude) {
-    this.longitude = longitude;
-  }
-
-
-  public InlineObject7 latitude(BigDecimal latitude) {
-    
-    this.latitude = latitude;
-    return this;
-  }
-
-   /**
-   * Get latitude
-   * @return latitude
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "34.5242444", value = "")
-
-  public BigDecimal getLatitude() {
-    return latitude;
-  }
-
-
-  public void setLatitude(BigDecimal latitude) {
-    this.latitude = latitude;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
 
@@ -121,14 +66,12 @@ public class InlineObject7 {
       return false;
     }
     InlineObject7 inlineObject7 = (InlineObject7) o;
-    return Objects.equals(this.distance, inlineObject7.distance) &&
-        Objects.equals(this.longitude, inlineObject7.longitude) &&
-        Objects.equals(this.latitude, inlineObject7.latitude);
+    return Objects.equals(this.address, inlineObject7.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(distance, longitude, latitude);
+    return Objects.hash(address);
   }
 
 
@@ -136,9 +79,7 @@ public class InlineObject7 {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InlineObject7 {\n");
-    sb.append("    distance: ").append(toIndentedString(distance)).append("\n");
-    sb.append("    longitude: ").append(toIndentedString(longitude)).append("\n");
-    sb.append("    latitude: ").append(toIndentedString(latitude)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("}");
     return sb.toString();
   }

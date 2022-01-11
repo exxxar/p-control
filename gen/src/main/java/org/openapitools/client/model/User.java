@@ -23,12 +23,15 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.openapitools.client.model.Profile;
+import org.openapitools.client.model.Role;
 
 /**
  * User
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class User {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -38,9 +41,17 @@ public class User {
   @SerializedName(SERIALIZED_NAME_USERNAME)
   private String username;
 
+  public static final String SERIALIZED_NAME_PASSWORD = "password";
+  @SerializedName(SERIALIZED_NAME_PASSWORD)
+  private String password;
+
   public static final String SERIALIZED_NAME_PROFILE = "profile";
   @SerializedName(SERIALIZED_NAME_PROFILE)
   private Profile profile;
+
+  public static final String SERIALIZED_NAME_ROLES = "roles";
+  @SerializedName(SERIALIZED_NAME_ROLES)
+  private List<Role> roles = null;
 
   public static final String SERIALIZED_NAME_APPROVE_SMS_CODE = "approve_sms_code";
   @SerializedName(SERIALIZED_NAME_APPROVE_SMS_CODE)
@@ -120,6 +131,28 @@ public class User {
   }
 
 
+  public User password(String password) {
+    
+    this.password = password;
+    return this;
+  }
+
+   /**
+   * Get password
+   * @return password
+  **/
+  @ApiModelProperty(example = "admin", required = true, value = "")
+
+  public String getPassword() {
+    return password;
+  }
+
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+
   public User profile(Profile profile) {
     
     this.profile = profile;
@@ -140,6 +173,37 @@ public class User {
 
   public void setProfile(Profile profile) {
     this.profile = profile;
+  }
+
+
+  public User roles(List<Role> roles) {
+    
+    this.roles = roles;
+    return this;
+  }
+
+  public User addRolesItem(Role rolesItem) {
+    if (this.roles == null) {
+      this.roles = new ArrayList<Role>();
+    }
+    this.roles.add(rolesItem);
+    return this;
+  }
+
+   /**
+   * Get roles
+   * @return roles
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public List<Role> getRoles() {
+    return roles;
+  }
+
+
+  public void setRoles(List<Role> roles) {
+    this.roles = roles;
   }
 
 
@@ -338,7 +402,9 @@ public class User {
     User user = (User) o;
     return Objects.equals(this.id, user.id) &&
         Objects.equals(this.username, user.username) &&
+        Objects.equals(this.password, user.password) &&
         Objects.equals(this.profile, user.profile) &&
+        Objects.equals(this.roles, user.roles) &&
         Objects.equals(this.approveSmsCode, user.approveSmsCode) &&
         Objects.equals(this.approveEmailCode, user.approveEmailCode) &&
         Objects.equals(this.smsApprovedAt, user.smsApprovedAt) &&
@@ -351,7 +417,7 @@ public class User {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, profile, approveSmsCode, approveEmailCode, smsApprovedAt, emailApprovedAt, blockedAt, deletedAt, createdAt, updatedAt);
+    return Objects.hash(id, username, password, profile, roles, approveSmsCode, approveEmailCode, smsApprovedAt, emailApprovedAt, blockedAt, deletedAt, createdAt, updatedAt);
   }
 
 
@@ -361,7 +427,9 @@ public class User {
     sb.append("class User {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    profile: ").append(toIndentedString(profile)).append("\n");
+    sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
     sb.append("    approveSmsCode: ").append(toIndentedString(approveSmsCode)).append("\n");
     sb.append("    approveEmailCode: ").append(toIndentedString(approveEmailCode)).append("\n");
     sb.append("    smsApprovedAt: ").append(toIndentedString(smsApprovedAt)).append("\n");

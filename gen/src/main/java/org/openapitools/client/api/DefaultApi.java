@@ -30,17 +30,29 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import org.openapitools.client.model.Contractor;
 import org.openapitools.client.model.ContractorForm;
+import org.openapitools.client.model.ContractorTask;
+import org.openapitools.client.model.ContractorTaskForm;
 import org.openapitools.client.model.Error;
 import java.io.File;
 import org.openapitools.client.model.InlineObject;
 import org.openapitools.client.model.InlineObject1;
+import org.openapitools.client.model.InlineObject10;
+import org.openapitools.client.model.InlineObject12;
+import org.openapitools.client.model.InlineObject13;
+import org.openapitools.client.model.InlineObject14;
+import org.openapitools.client.model.InlineObject15;
+import org.openapitools.client.model.InlineObject2;
 import org.openapitools.client.model.InlineObject3;
 import org.openapitools.client.model.InlineObject4;
+import org.openapitools.client.model.InlineObject5;
 import org.openapitools.client.model.InlineObject6;
 import org.openapitools.client.model.InlineObject7;
-import org.openapitools.client.model.InlineObject8;
+import org.openapitools.client.model.InlineObject9;
 import org.openapitools.client.model.InlineResponse200;
 import org.openapitools.client.model.InlineResponse2001;
+import org.openapitools.client.model.InlineResponse2002;
+import org.openapitools.client.model.MailingQuery;
+import org.openapitools.client.model.MailingQueryForm;
 import org.openapitools.client.model.MediaContent;
 import org.openapitools.client.model.PaginateObject;
 import org.openapitools.client.model.ProblemCategory;
@@ -48,6 +60,8 @@ import org.openapitools.client.model.ProblemCategoryForm;
 import org.openapitools.client.model.Profile;
 import org.openapitools.client.model.ProfileForm;
 import org.openapitools.client.model.Request;
+import org.openapitools.client.model.Role;
+import org.openapitools.client.model.RoleForm;
 import org.openapitools.client.model.StoredRequest;
 import org.openapitools.client.model.StoredRequestForm;
 import org.openapitools.client.model.User;
@@ -78,6 +92,776 @@ public class DefaultApi {
         this.localVarApiClient = apiClient;
     }
 
+    /**
+     * Build call for authLoginPost
+     * @param inlineObject1  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authLoginPostCall(InlineObject1 inlineObject1, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject1;
+
+        // create path and map variables
+        String localVarPath = "/auth/login";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call authLoginPostValidateBeforeCall(InlineObject1 inlineObject1, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = authLoginPostCall(inlineObject1, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * авторизация пользователя в системе
+     * 
+     * @param inlineObject1  (optional)
+     * @return InlineResponse200
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public InlineResponse200 authLoginPost(InlineObject1 inlineObject1) throws ApiException {
+        ApiResponse<InlineResponse200> localVarResp = authLoginPostWithHttpInfo(inlineObject1);
+        return localVarResp.getData();
+    }
+
+    /**
+     * авторизация пользователя в системе
+     * 
+     * @param inlineObject1  (optional)
+     * @return ApiResponse&lt;InlineResponse200&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<InlineResponse200> authLoginPostWithHttpInfo(InlineObject1 inlineObject1) throws ApiException {
+        okhttp3.Call localVarCall = authLoginPostValidateBeforeCall(inlineObject1, null);
+        Type localVarReturnType = new TypeToken<InlineResponse200>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * авторизация пользователя в системе (asynchronously)
+     * 
+     * @param inlineObject1  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authLoginPostAsync(InlineObject1 inlineObject1, final ApiCallback<InlineResponse200> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = authLoginPostValidateBeforeCall(inlineObject1, _callback);
+        Type localVarReturnType = new TypeToken<InlineResponse200>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for authLogoutPost
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authLogoutPostCall(final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/auth/logout";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call authLogoutPostValidateBeforeCall(final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = authLogoutPostCall(_callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * выход из системы
+     * 
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public void authLogoutPost() throws ApiException {
+        authLogoutPostWithHttpInfo();
+    }
+
+    /**
+     * выход из системы
+     * 
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> authLogoutPostWithHttpInfo() throws ApiException {
+        okhttp3.Call localVarCall = authLogoutPostValidateBeforeCall(null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     * выход из системы (asynchronously)
+     * 
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authLogoutPostAsync(final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = authLogoutPostValidateBeforeCall(_callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for authRefreshtokenPost
+     * @param inlineObject2  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> неверный Refresh Token </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authRefreshtokenPostCall(InlineObject2 inlineObject2, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject2;
+
+        // create path and map variables
+        String localVarPath = "/auth/refreshtoken";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call authRefreshtokenPostValidateBeforeCall(InlineObject2 inlineObject2, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = authRefreshtokenPostCall(inlineObject2, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * обновления тоукена доступа
+     * 
+     * @param inlineObject2  (optional)
+     * @return InlineResponse200
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> неверный Refresh Token </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public InlineResponse200 authRefreshtokenPost(InlineObject2 inlineObject2) throws ApiException {
+        ApiResponse<InlineResponse200> localVarResp = authRefreshtokenPostWithHttpInfo(inlineObject2);
+        return localVarResp.getData();
+    }
+
+    /**
+     * обновления тоукена доступа
+     * 
+     * @param inlineObject2  (optional)
+     * @return ApiResponse&lt;InlineResponse200&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> неверный Refresh Token </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<InlineResponse200> authRefreshtokenPostWithHttpInfo(InlineObject2 inlineObject2) throws ApiException {
+        okhttp3.Call localVarCall = authRefreshtokenPostValidateBeforeCall(inlineObject2, null);
+        Type localVarReturnType = new TypeToken<InlineResponse200>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * обновления тоукена доступа (asynchronously)
+     * 
+     * @param inlineObject2  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> неверный Refresh Token </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authRefreshtokenPostAsync(InlineObject2 inlineObject2, final ApiCallback<InlineResponse200> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = authRefreshtokenPostValidateBeforeCall(inlineObject2, _callback);
+        Type localVarReturnType = new TypeToken<InlineResponse200>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for authResetPost
+     * @param inlineObject3  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authResetPostCall(InlineObject3 inlineObject3, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject3;
+
+        // create path and map variables
+        String localVarPath = "/auth/reset";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call authResetPostValidateBeforeCall(InlineObject3 inlineObject3, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = authResetPostCall(inlineObject3, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * сброс пароля на почту или на телефон пользователя
+     * 
+     * @param inlineObject3  (optional)
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public void authResetPost(InlineObject3 inlineObject3) throws ApiException {
+        authResetPostWithHttpInfo(inlineObject3);
+    }
+
+    /**
+     * сброс пароля на почту или на телефон пользователя
+     * 
+     * @param inlineObject3  (optional)
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> authResetPostWithHttpInfo(InlineObject3 inlineObject3) throws ApiException {
+        okhttp3.Call localVarCall = authResetPostValidateBeforeCall(inlineObject3, null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     * сброс пароля на почту или на телефон пользователя (asynchronously)
+     * 
+     * @param inlineObject3  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authResetPostAsync(InlineObject3 inlineObject3, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = authResetPostValidateBeforeCall(inlineObject3, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for authResetSavePost
+     * @param inlineObject4  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка токена </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authResetSavePostCall(InlineObject4 inlineObject4, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject4;
+
+        // create path and map variables
+        String localVarPath = "/auth/reset/save";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call authResetSavePostValidateBeforeCall(InlineObject4 inlineObject4, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = authResetSavePostCall(inlineObject4, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * сохранение пароля после сброса
+     * 
+     * @param inlineObject4  (optional)
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка токена </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public void authResetSavePost(InlineObject4 inlineObject4) throws ApiException {
+        authResetSavePostWithHttpInfo(inlineObject4);
+    }
+
+    /**
+     * сохранение пароля после сброса
+     * 
+     * @param inlineObject4  (optional)
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка токена </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> authResetSavePostWithHttpInfo(InlineObject4 inlineObject4) throws ApiException {
+        okhttp3.Call localVarCall = authResetSavePostValidateBeforeCall(inlineObject4, null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     * сохранение пароля после сброса (asynchronously)
+     * 
+     * @param inlineObject4  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка токена </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authResetSavePostAsync(InlineObject4 inlineObject4, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = authResetSavePostValidateBeforeCall(inlineObject4, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for authResetUpdatePost
+     * @param inlineObject5  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка ввода старого пароля </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authResetUpdatePostCall(InlineObject5 inlineObject5, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject5;
+
+        // create path and map variables
+        String localVarPath = "/auth/reset/update";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call authResetUpdatePostValidateBeforeCall(InlineObject5 inlineObject5, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = authResetUpdatePostCall(inlineObject5, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * сброс пароля
+     * 
+     * @param inlineObject5  (optional)
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка ввода старого пароля </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public void authResetUpdatePost(InlineObject5 inlineObject5) throws ApiException {
+        authResetUpdatePostWithHttpInfo(inlineObject5);
+    }
+
+    /**
+     * сброс пароля
+     * 
+     * @param inlineObject5  (optional)
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка ввода старого пароля </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> authResetUpdatePostWithHttpInfo(InlineObject5 inlineObject5) throws ApiException {
+        okhttp3.Call localVarCall = authResetUpdatePostValidateBeforeCall(inlineObject5, null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     * сброс пароля (asynchronously)
+     * 
+     * @param inlineObject5  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка ввода старого пароля </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authResetUpdatePostAsync(InlineObject5 inlineObject5, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = authResetUpdatePostValidateBeforeCall(inlineObject5, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for authSignupPost
+     * @param inlineObject  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authSignupPostCall(InlineObject inlineObject, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject;
+
+        // create path and map variables
+        String localVarPath = "/auth/signup";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call authSignupPostValidateBeforeCall(InlineObject inlineObject, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = authSignupPostCall(inlineObject, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * регистрация пользователя в системе
+     * 
+     * @param inlineObject  (optional)
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public void authSignupPost(InlineObject inlineObject) throws ApiException {
+        authSignupPostWithHttpInfo(inlineObject);
+    }
+
+    /**
+     * регистрация пользователя в системе
+     * 
+     * @param inlineObject  (optional)
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> authSignupPostWithHttpInfo(InlineObject inlineObject) throws ApiException {
+        okhttp3.Call localVarCall = authSignupPostValidateBeforeCall(inlineObject, null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     * регистрация пользователя в системе (asynchronously)
+     * 
+     * @param inlineObject  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Ошибка регистрации, такой пользователь уже есть </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call authSignupPostAsync(InlineObject inlineObject, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = authSignupPostValidateBeforeCall(inlineObject, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
     /**
      * Build call for contractorsContractorIdDelete
      * @param contractorId Parameter description in CommonMark or HTML. (required)
@@ -120,7 +904,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -369,7 +1153,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -719,6 +1503,130 @@ public class DefaultApi {
         return localVarCall;
     }
     /**
+     * Build call for contractorsContractorIdTasksGet
+     * @param contractorId Целочисленный идентификатор (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call contractorsContractorIdTasksGetCall(Long contractorId, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/contractors/{contractorId}/tasks"
+            .replaceAll("\\{" + "contractorId" + "\\}", localVarApiClient.escapeString(contractorId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call contractorsContractorIdTasksGetValidateBeforeCall(Long contractorId, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'contractorId' is set
+        if (contractorId == null) {
+            throw new ApiException("Missing the required parameter 'contractorId' when calling contractorsContractorIdTasksGet(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = contractorsContractorIdTasksGetCall(contractorId, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Находим активные задачи для выбранного исполнительного \\ контролирующего органа
+     * активными считаются те задачи, у которых не проставлено время выполнения \\ контроля
+     * @param contractorId Целочисленный идентификатор (required)
+     * @return ContractorTask
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ContractorTask contractorsContractorIdTasksGet(Long contractorId) throws ApiException {
+        ApiResponse<ContractorTask> localVarResp = contractorsContractorIdTasksGetWithHttpInfo(contractorId);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Находим активные задачи для выбранного исполнительного \\ контролирующего органа
+     * активными считаются те задачи, у которых не проставлено время выполнения \\ контроля
+     * @param contractorId Целочисленный идентификатор (required)
+     * @return ApiResponse&lt;ContractorTask&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ContractorTask> contractorsContractorIdTasksGetWithHttpInfo(Long contractorId) throws ApiException {
+        okhttp3.Call localVarCall = contractorsContractorIdTasksGetValidateBeforeCall(contractorId, null);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Находим активные задачи для выбранного исполнительного \\ контролирующего органа (asynchronously)
+     * активными считаются те задачи, у которых не проставлено время выполнения \\ контроля
+     * @param contractorId Целочисленный идентификатор (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call contractorsContractorIdTasksGetAsync(Long contractorId, final ApiCallback<ContractorTask> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = contractorsContractorIdTasksGetValidateBeforeCall(contractorId, _callback);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for contractorsGet
      * @param page идентификатор страницы (optional)
      * @param size размер выдачи на странице (optional)
@@ -879,7 +1787,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -947,6 +1855,732 @@ public class DefaultApi {
 
         okhttp3.Call localVarCall = contractorsPostValidateBeforeCall(contractorForm, _callback);
         Type localVarReturnType = new TypeToken<Contractor>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for mailingGet
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingGetCall(Long page, Long size, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/mailing";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (page != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
+        }
+
+        if (size != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("size", size));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call mailingGetValidateBeforeCall(Long page, Long size, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = mailingGetCall(page, size, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Список всех рассылок
+     * 
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @return PaginateObject
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public PaginateObject mailingGet(Long page, Long size) throws ApiException {
+        ApiResponse<PaginateObject> localVarResp = mailingGetWithHttpInfo(page, size);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Список всех рассылок
+     * 
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @return ApiResponse&lt;PaginateObject&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<PaginateObject> mailingGetWithHttpInfo(Long page, Long size) throws ApiException {
+        okhttp3.Call localVarCall = mailingGetValidateBeforeCall(page, size, null);
+        Type localVarReturnType = new TypeToken<PaginateObject>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Список всех рассылок (asynchronously)
+     * 
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingGetAsync(Long page, Long size, final ApiCallback<PaginateObject> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = mailingGetValidateBeforeCall(page, size, _callback);
+        Type localVarReturnType = new TypeToken<PaginateObject>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for mailingHandlerGet
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingHandlerGetCall(Long page, Long size, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/mailing/handler";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (page != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
+        }
+
+        if (size != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("size", size));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call mailingHandlerGetValidateBeforeCall(Long page, Long size, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = mailingHandlerGetCall(page, size, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * запуск рассылок в CRON
+     * 
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public void mailingHandlerGet(Long page, Long size) throws ApiException {
+        mailingHandlerGetWithHttpInfo(page, size);
+    }
+
+    /**
+     * запуск рассылок в CRON
+     * 
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> mailingHandlerGetWithHttpInfo(Long page, Long size) throws ApiException {
+        okhttp3.Call localVarCall = mailingHandlerGetValidateBeforeCall(page, size, null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     * запуск рассылок в CRON (asynchronously)
+     * 
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingHandlerGetAsync(Long page, Long size, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = mailingHandlerGetValidateBeforeCall(page, size, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for mailingMailingIdDelete
+     * @param mailingId Parameter description in CommonMark or HTML. (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The specified user ID is invalid (not a number). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingMailingIdDeleteCall(Long mailingId, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/mailing/{mailingId}"
+            .replaceAll("\\{" + "mailingId" + "\\}", localVarApiClient.escapeString(mailingId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call mailingMailingIdDeleteValidateBeforeCall(Long mailingId, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'mailingId' is set
+        if (mailingId == null) {
+            throw new ApiException("Missing the required parameter 'mailingId' when calling mailingMailingIdDelete(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = mailingMailingIdDeleteCall(mailingId, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * удаляем из рассылки по идентификатору
+     * 
+     * @param mailingId Parameter description in CommonMark or HTML. (required)
+     * @return MailingQuery
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The specified user ID is invalid (not a number). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public MailingQuery mailingMailingIdDelete(Long mailingId) throws ApiException {
+        ApiResponse<MailingQuery> localVarResp = mailingMailingIdDeleteWithHttpInfo(mailingId);
+        return localVarResp.getData();
+    }
+
+    /**
+     * удаляем из рассылки по идентификатору
+     * 
+     * @param mailingId Parameter description in CommonMark or HTML. (required)
+     * @return ApiResponse&lt;MailingQuery&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The specified user ID is invalid (not a number). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<MailingQuery> mailingMailingIdDeleteWithHttpInfo(Long mailingId) throws ApiException {
+        okhttp3.Call localVarCall = mailingMailingIdDeleteValidateBeforeCall(mailingId, null);
+        Type localVarReturnType = new TypeToken<MailingQuery>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * удаляем из рассылки по идентификатору (asynchronously)
+     * 
+     * @param mailingId Parameter description in CommonMark or HTML. (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The specified user ID is invalid (not a number). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingMailingIdDeleteAsync(Long mailingId, final ApiCallback<MailingQuery> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = mailingMailingIdDeleteValidateBeforeCall(mailingId, _callback);
+        Type localVarReturnType = new TypeToken<MailingQuery>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for mailingMailingIdGet
+     * @param mailingId Целочисленный идентификатор записи (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор не найден </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingMailingIdGetCall(Long mailingId, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/mailing/{mailingId}"
+            .replaceAll("\\{" + "mailingId" + "\\}", localVarApiClient.escapeString(mailingId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call mailingMailingIdGetValidateBeforeCall(Long mailingId, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'mailingId' is set
+        if (mailingId == null) {
+            throw new ApiException("Missing the required parameter 'mailingId' when calling mailingMailingIdGet(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = mailingMailingIdGetCall(mailingId, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Находим рассылку по идентификатору
+     * 
+     * @param mailingId Целочисленный идентификатор записи (required)
+     * @return MailingQuery
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор не найден </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public MailingQuery mailingMailingIdGet(Long mailingId) throws ApiException {
+        ApiResponse<MailingQuery> localVarResp = mailingMailingIdGetWithHttpInfo(mailingId);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Находим рассылку по идентификатору
+     * 
+     * @param mailingId Целочисленный идентификатор записи (required)
+     * @return ApiResponse&lt;MailingQuery&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор не найден </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<MailingQuery> mailingMailingIdGetWithHttpInfo(Long mailingId) throws ApiException {
+        okhttp3.Call localVarCall = mailingMailingIdGetValidateBeforeCall(mailingId, null);
+        Type localVarReturnType = new TypeToken<MailingQuery>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Находим рассылку по идентификатору (asynchronously)
+     * 
+     * @param mailingId Целочисленный идентификатор записи (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор не найден </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingMailingIdGetAsync(Long mailingId, final ApiCallback<MailingQuery> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = mailingMailingIdGetValidateBeforeCall(mailingId, _callback);
+        Type localVarReturnType = new TypeToken<MailingQuery>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for mailingMailingIdPut
+     * @param mailingId Целочисленный идентификатор (required)
+     * @param mailingQueryForm  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор черновика не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingMailingIdPutCall(Long mailingId, MailingQueryForm mailingQueryForm, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = mailingQueryForm;
+
+        // create path and map variables
+        String localVarPath = "/mailing/{mailingId}"
+            .replaceAll("\\{" + "mailingId" + "\\}", localVarApiClient.escapeString(mailingId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call mailingMailingIdPutValidateBeforeCall(Long mailingId, MailingQueryForm mailingQueryForm, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'mailingId' is set
+        if (mailingId == null) {
+            throw new ApiException("Missing the required parameter 'mailingId' when calling mailingMailingIdPut(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = mailingMailingIdPutCall(mailingId, mailingQueryForm, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Обновляем черновик заявки по идентификатору
+     * 
+     * @param mailingId Целочисленный идентификатор (required)
+     * @param mailingQueryForm  (optional)
+     * @return MailingQuery
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор черновика не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public MailingQuery mailingMailingIdPut(Long mailingId, MailingQueryForm mailingQueryForm) throws ApiException {
+        ApiResponse<MailingQuery> localVarResp = mailingMailingIdPutWithHttpInfo(mailingId, mailingQueryForm);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Обновляем черновик заявки по идентификатору
+     * 
+     * @param mailingId Целочисленный идентификатор (required)
+     * @param mailingQueryForm  (optional)
+     * @return ApiResponse&lt;MailingQuery&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор черновика не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<MailingQuery> mailingMailingIdPutWithHttpInfo(Long mailingId, MailingQueryForm mailingQueryForm) throws ApiException {
+        okhttp3.Call localVarCall = mailingMailingIdPutValidateBeforeCall(mailingId, mailingQueryForm, null);
+        Type localVarReturnType = new TypeToken<MailingQuery>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Обновляем черновик заявки по идентификатору (asynchronously)
+     * 
+     * @param mailingId Целочисленный идентификатор (required)
+     * @param mailingQueryForm  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор черновика не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingMailingIdPutAsync(Long mailingId, MailingQueryForm mailingQueryForm, final ApiCallback<MailingQuery> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = mailingMailingIdPutValidateBeforeCall(mailingId, mailingQueryForm, _callback);
+        Type localVarReturnType = new TypeToken<MailingQuery>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for mailingPost
+     * @param mailingQueryForm  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingPostCall(MailingQueryForm mailingQueryForm, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = mailingQueryForm;
+
+        // create path and map variables
+        String localVarPath = "/mailing";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call mailingPostValidateBeforeCall(MailingQueryForm mailingQueryForm, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = mailingPostCall(mailingQueryForm, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Создаем рассылку
+     * 
+     * @param mailingQueryForm  (optional)
+     * @return MailingQuery
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public MailingQuery mailingPost(MailingQueryForm mailingQueryForm) throws ApiException {
+        ApiResponse<MailingQuery> localVarResp = mailingPostWithHttpInfo(mailingQueryForm);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Создаем рассылку
+     * 
+     * @param mailingQueryForm  (optional)
+     * @return ApiResponse&lt;MailingQuery&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<MailingQuery> mailingPostWithHttpInfo(MailingQueryForm mailingQueryForm) throws ApiException {
+        okhttp3.Call localVarCall = mailingPostValidateBeforeCall(mailingQueryForm, null);
+        Type localVarReturnType = new TypeToken<MailingQuery>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Создаем рассылку (asynchronously)
+     * 
+     * @param mailingQueryForm  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call mailingPostAsync(MailingQueryForm mailingQueryForm, final ApiCallback<MailingQuery> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = mailingPostValidateBeforeCall(mailingQueryForm, _callback);
+        Type localVarReturnType = new TypeToken<MailingQuery>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1111,7 +2745,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -1620,7 +3254,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -1869,7 +3503,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -2002,7 +3636,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -2115,7 +3749,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -2228,7 +3862,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -2352,7 +3986,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -2477,7 +4111,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -2686,7 +4320,7 @@ public class DefaultApi {
     }
     /**
      * Build call for requestsInRangePost
-     * @param inlineObject7  (optional)
+     * @param inlineObject14  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -2697,8 +4331,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call requestsInRangePostCall(InlineObject7 inlineObject7, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = inlineObject7;
+    public okhttp3.Call requestsInRangePostCall(InlineObject14 inlineObject14, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject14;
 
         // create path and map variables
         String localVarPath = "/requests/in-range";
@@ -2728,10 +4362,10 @@ public class DefaultApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call requestsInRangePostValidateBeforeCall(InlineObject7 inlineObject7, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call requestsInRangePostValidateBeforeCall(InlineObject14 inlineObject14, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = requestsInRangePostCall(inlineObject7, _callback);
+        okhttp3.Call localVarCall = requestsInRangePostCall(inlineObject14, _callback);
         return localVarCall;
 
     }
@@ -2739,7 +4373,7 @@ public class DefaultApi {
     /**
      * Подбор заявок в радиусе
      * 
-     * @param inlineObject7  (optional)
+     * @param inlineObject14  (optional)
      * @return List&lt;Request&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -2749,15 +4383,15 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public List<Request> requestsInRangePost(InlineObject7 inlineObject7) throws ApiException {
-        ApiResponse<List<Request>> localVarResp = requestsInRangePostWithHttpInfo(inlineObject7);
+    public List<Request> requestsInRangePost(InlineObject14 inlineObject14) throws ApiException {
+        ApiResponse<List<Request>> localVarResp = requestsInRangePostWithHttpInfo(inlineObject14);
         return localVarResp.getData();
     }
 
     /**
      * Подбор заявок в радиусе
      * 
-     * @param inlineObject7  (optional)
+     * @param inlineObject14  (optional)
      * @return ApiResponse&lt;List&lt;Request&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -2767,8 +4401,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<Request>> requestsInRangePostWithHttpInfo(InlineObject7 inlineObject7) throws ApiException {
-        okhttp3.Call localVarCall = requestsInRangePostValidateBeforeCall(inlineObject7, null);
+    public ApiResponse<List<Request>> requestsInRangePostWithHttpInfo(InlineObject14 inlineObject14) throws ApiException {
+        okhttp3.Call localVarCall = requestsInRangePostValidateBeforeCall(inlineObject14, null);
         Type localVarReturnType = new TypeToken<List<Request>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -2776,7 +4410,7 @@ public class DefaultApi {
     /**
      * Подбор заявок в радиусе (asynchronously)
      * 
-     * @param inlineObject7  (optional)
+     * @param inlineObject14  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -2787,9 +4421,9 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call requestsInRangePostAsync(InlineObject7 inlineObject7, final ApiCallback<List<Request>> _callback) throws ApiException {
+    public okhttp3.Call requestsInRangePostAsync(InlineObject14 inlineObject14, final ApiCallback<List<Request>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = requestsInRangePostValidateBeforeCall(inlineObject7, _callback);
+        okhttp3.Call localVarCall = requestsInRangePostValidateBeforeCall(inlineObject14, _callback);
         Type localVarReturnType = new TypeToken<List<Request>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -2947,7 +4581,7 @@ public class DefaultApi {
 
     /**
      * Создаем заявку
-     * 
+     * При создании заявки регестрируем и авторизируем пользователя
      * @param description  (required)
      * @param problemCategories  (required)
      * @param latitude  (required)
@@ -2980,7 +4614,7 @@ public class DefaultApi {
 
     /**
      * Создаем заявку
-     * 
+     * При создании заявки регестрируем и авторизируем пользователя
      * @param description  (required)
      * @param problemCategories  (required)
      * @param latitude  (required)
@@ -3014,7 +4648,7 @@ public class DefaultApi {
 
     /**
      * Создаем заявку (asynchronously)
-     * 
+     * При создании заявки регестрируем и авторизируем пользователя
      * @param description  (required)
      * @param problemCategories  (required)
      * @param latitude  (required)
@@ -3050,7 +4684,7 @@ public class DefaultApi {
     }
     /**
      * Build call for requestsRatingPost
-     * @param inlineObject8  (optional)
+     * @param inlineObject15  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -3061,8 +4695,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call requestsRatingPostCall(InlineObject8 inlineObject8, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = inlineObject8;
+    public okhttp3.Call requestsRatingPostCall(InlineObject15 inlineObject15, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject15;
 
         // create path and map variables
         String localVarPath = "/requests/rating";
@@ -3087,15 +4721,15 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call requestsRatingPostValidateBeforeCall(InlineObject8 inlineObject8, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call requestsRatingPostValidateBeforeCall(InlineObject15 inlineObject15, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = requestsRatingPostCall(inlineObject8, _callback);
+        okhttp3.Call localVarCall = requestsRatingPostCall(inlineObject15, _callback);
         return localVarCall;
 
     }
@@ -3103,7 +4737,7 @@ public class DefaultApi {
     /**
      * модификация рейтинга заявки (+-)
      * 
-     * @param inlineObject8  (optional)
+     * @param inlineObject15  (optional)
      * @return List&lt;Request&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -3113,15 +4747,15 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public List<Request> requestsRatingPost(InlineObject8 inlineObject8) throws ApiException {
-        ApiResponse<List<Request>> localVarResp = requestsRatingPostWithHttpInfo(inlineObject8);
+    public List<Request> requestsRatingPost(InlineObject15 inlineObject15) throws ApiException {
+        ApiResponse<List<Request>> localVarResp = requestsRatingPostWithHttpInfo(inlineObject15);
         return localVarResp.getData();
     }
 
     /**
      * модификация рейтинга заявки (+-)
      * 
-     * @param inlineObject8  (optional)
+     * @param inlineObject15  (optional)
      * @return ApiResponse&lt;List&lt;Request&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -3131,8 +4765,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<Request>> requestsRatingPostWithHttpInfo(InlineObject8 inlineObject8) throws ApiException {
-        okhttp3.Call localVarCall = requestsRatingPostValidateBeforeCall(inlineObject8, null);
+    public ApiResponse<List<Request>> requestsRatingPostWithHttpInfo(InlineObject15 inlineObject15) throws ApiException {
+        okhttp3.Call localVarCall = requestsRatingPostValidateBeforeCall(inlineObject15, null);
         Type localVarReturnType = new TypeToken<List<Request>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -3140,7 +4774,7 @@ public class DefaultApi {
     /**
      * модификация рейтинга заявки (+-) (asynchronously)
      * 
-     * @param inlineObject8  (optional)
+     * @param inlineObject15  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -3151,9 +4785,9 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call requestsRatingPostAsync(InlineObject8 inlineObject8, final ApiCallback<List<Request>> _callback) throws ApiException {
+    public okhttp3.Call requestsRatingPostAsync(InlineObject15 inlineObject15, final ApiCallback<List<Request>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = requestsRatingPostValidateBeforeCall(inlineObject8, _callback);
+        okhttp3.Call localVarCall = requestsRatingPostValidateBeforeCall(inlineObject15, _callback);
         Type localVarReturnType = new TypeToken<List<Request>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -3200,7 +4834,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -3448,7 +5082,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -3652,7 +5286,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -3850,7 +5484,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -3926,7 +5560,7 @@ public class DefaultApi {
     }
     /**
      * Build call for rolesPost
-     * @param storedRequestForm  (optional)
+     * @param roleForm  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -3937,8 +5571,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call rolesPostCall(StoredRequestForm storedRequestForm, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = storedRequestForm;
+    public okhttp3.Call rolesPostCall(RoleForm roleForm, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = roleForm;
 
         // create path and map variables
         String localVarPath = "/roles";
@@ -3963,24 +5597,24 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call rolesPostValidateBeforeCall(StoredRequestForm storedRequestForm, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call rolesPostValidateBeforeCall(RoleForm roleForm, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = rolesPostCall(storedRequestForm, _callback);
+        okhttp3.Call localVarCall = rolesPostCall(roleForm, _callback);
         return localVarCall;
 
     }
 
     /**
-     * Создаем черновик заявки
+     * Создаем новую роль
      * 
-     * @param storedRequestForm  (optional)
-     * @return StoredRequest
+     * @param roleForm  (optional)
+     * @return Role
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -3989,16 +5623,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public StoredRequest rolesPost(StoredRequestForm storedRequestForm) throws ApiException {
-        ApiResponse<StoredRequest> localVarResp = rolesPostWithHttpInfo(storedRequestForm);
+    public Role rolesPost(RoleForm roleForm) throws ApiException {
+        ApiResponse<Role> localVarResp = rolesPostWithHttpInfo(roleForm);
         return localVarResp.getData();
     }
 
     /**
-     * Создаем черновик заявки
+     * Создаем новую роль
      * 
-     * @param storedRequestForm  (optional)
-     * @return ApiResponse&lt;StoredRequest&gt;
+     * @param roleForm  (optional)
+     * @return ApiResponse&lt;Role&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4007,16 +5641,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<StoredRequest> rolesPostWithHttpInfo(StoredRequestForm storedRequestForm) throws ApiException {
-        okhttp3.Call localVarCall = rolesPostValidateBeforeCall(storedRequestForm, null);
-        Type localVarReturnType = new TypeToken<StoredRequest>(){}.getType();
+    public ApiResponse<Role> rolesPostWithHttpInfo(RoleForm roleForm) throws ApiException {
+        okhttp3.Call localVarCall = rolesPostValidateBeforeCall(roleForm, null);
+        Type localVarReturnType = new TypeToken<Role>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Создаем черновик заявки (asynchronously)
+     * Создаем новую роль (asynchronously)
      * 
-     * @param storedRequestForm  (optional)
+     * @param roleForm  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -4027,10 +5661,10 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call rolesPostAsync(StoredRequestForm storedRequestForm, final ApiCallback<StoredRequest> _callback) throws ApiException {
+    public okhttp3.Call rolesPostAsync(RoleForm roleForm, final ApiCallback<Role> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = rolesPostValidateBeforeCall(storedRequestForm, _callback);
-        Type localVarReturnType = new TypeToken<StoredRequest>(){}.getType();
+        okhttp3.Call localVarCall = rolesPostValidateBeforeCall(roleForm, _callback);
+        Type localVarReturnType = new TypeToken<Role>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -4076,7 +5710,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -4095,10 +5729,10 @@ public class DefaultApi {
     }
 
     /**
-     * Удаляем черновик заявки по идентификатору
+     * Удаляем роль по идентификатору
      * 
      * @param roleId Parameter description in CommonMark or HTML. (required)
-     * @return StoredRequest
+     * @return Role
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4109,16 +5743,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public StoredRequest rolesRoleIdDelete(Long roleId) throws ApiException {
-        ApiResponse<StoredRequest> localVarResp = rolesRoleIdDeleteWithHttpInfo(roleId);
+    public Role rolesRoleIdDelete(Long roleId) throws ApiException {
+        ApiResponse<Role> localVarResp = rolesRoleIdDeleteWithHttpInfo(roleId);
         return localVarResp.getData();
     }
 
     /**
-     * Удаляем черновик заявки по идентификатору
+     * Удаляем роль по идентификатору
      * 
      * @param roleId Parameter description in CommonMark or HTML. (required)
-     * @return ApiResponse&lt;StoredRequest&gt;
+     * @return ApiResponse&lt;Role&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4129,14 +5763,14 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<StoredRequest> rolesRoleIdDeleteWithHttpInfo(Long roleId) throws ApiException {
+    public ApiResponse<Role> rolesRoleIdDeleteWithHttpInfo(Long roleId) throws ApiException {
         okhttp3.Call localVarCall = rolesRoleIdDeleteValidateBeforeCall(roleId, null);
-        Type localVarReturnType = new TypeToken<StoredRequest>(){}.getType();
+        Type localVarReturnType = new TypeToken<Role>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Удаляем черновик заявки по идентификатору (asynchronously)
+     * Удаляем роль по идентификатору (asynchronously)
      * 
      * @param roleId Parameter description in CommonMark or HTML. (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -4151,10 +5785,10 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call rolesRoleIdDeleteAsync(Long roleId, final ApiCallback<StoredRequest> _callback) throws ApiException {
+    public okhttp3.Call rolesRoleIdDeleteAsync(Long roleId, final ApiCallback<Role> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = rolesRoleIdDeleteValidateBeforeCall(roleId, _callback);
-        Type localVarReturnType = new TypeToken<StoredRequest>(){}.getType();
+        Type localVarReturnType = new TypeToken<Role>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -4200,7 +5834,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -4222,7 +5856,7 @@ public class DefaultApi {
      * Находим роль по идентификатору
      * 
      * @param roleId Целочисленный идентификатор заявки (required)
-     * @return StoredRequest
+     * @return Role
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4233,8 +5867,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public StoredRequest rolesRoleIdGet(Long roleId) throws ApiException {
-        ApiResponse<StoredRequest> localVarResp = rolesRoleIdGetWithHttpInfo(roleId);
+    public Role rolesRoleIdGet(Long roleId) throws ApiException {
+        ApiResponse<Role> localVarResp = rolesRoleIdGetWithHttpInfo(roleId);
         return localVarResp.getData();
     }
 
@@ -4242,7 +5876,7 @@ public class DefaultApi {
      * Находим роль по идентификатору
      * 
      * @param roleId Целочисленный идентификатор заявки (required)
-     * @return ApiResponse&lt;StoredRequest&gt;
+     * @return ApiResponse&lt;Role&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4253,9 +5887,9 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<StoredRequest> rolesRoleIdGetWithHttpInfo(Long roleId) throws ApiException {
+    public ApiResponse<Role> rolesRoleIdGetWithHttpInfo(Long roleId) throws ApiException {
         okhttp3.Call localVarCall = rolesRoleIdGetValidateBeforeCall(roleId, null);
-        Type localVarReturnType = new TypeToken<StoredRequest>(){}.getType();
+        Type localVarReturnType = new TypeToken<Role>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -4275,17 +5909,17 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call rolesRoleIdGetAsync(Long roleId, final ApiCallback<StoredRequest> _callback) throws ApiException {
+    public okhttp3.Call rolesRoleIdGetAsync(Long roleId, final ApiCallback<Role> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = rolesRoleIdGetValidateBeforeCall(roleId, _callback);
-        Type localVarReturnType = new TypeToken<StoredRequest>(){}.getType();
+        Type localVarReturnType = new TypeToken<Role>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for rolesRoleIdPut
-     * @param roleId Целочисленный идентификатор черновика заявки (required)
-     * @param storedRequestForm  (optional)
+     * @param roleId Целочисленный идентификатор роли (required)
+     * @param roleForm  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -4298,8 +5932,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call rolesRoleIdPutCall(Long roleId, StoredRequestForm storedRequestForm, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = storedRequestForm;
+    public okhttp3.Call rolesRoleIdPutCall(Long roleId, RoleForm roleForm, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = roleForm;
 
         // create path and map variables
         String localVarPath = "/roles/{roleId}"
@@ -4325,12 +5959,12 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call rolesRoleIdPutValidateBeforeCall(Long roleId, StoredRequestForm storedRequestForm, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call rolesRoleIdPutValidateBeforeCall(Long roleId, RoleForm roleForm, final ApiCallback _callback) throws ApiException {
         
         // verify the required parameter 'roleId' is set
         if (roleId == null) {
@@ -4338,17 +5972,17 @@ public class DefaultApi {
         }
         
 
-        okhttp3.Call localVarCall = rolesRoleIdPutCall(roleId, storedRequestForm, _callback);
+        okhttp3.Call localVarCall = rolesRoleIdPutCall(roleId, roleForm, _callback);
         return localVarCall;
 
     }
 
     /**
-     * Обновляем черновик заявки по идентификатору
+     * Обновляем роль по идентификатору
      * 
-     * @param roleId Целочисленный идентификатор черновика заявки (required)
-     * @param storedRequestForm  (optional)
-     * @return StoredRequest
+     * @param roleId Целочисленный идентификатор роли (required)
+     * @param roleForm  (optional)
+     * @return Role
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4359,17 +5993,17 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public StoredRequest rolesRoleIdPut(Long roleId, StoredRequestForm storedRequestForm) throws ApiException {
-        ApiResponse<StoredRequest> localVarResp = rolesRoleIdPutWithHttpInfo(roleId, storedRequestForm);
+    public Role rolesRoleIdPut(Long roleId, RoleForm roleForm) throws ApiException {
+        ApiResponse<Role> localVarResp = rolesRoleIdPutWithHttpInfo(roleId, roleForm);
         return localVarResp.getData();
     }
 
     /**
-     * Обновляем черновик заявки по идентификатору
+     * Обновляем роль по идентификатору
      * 
-     * @param roleId Целочисленный идентификатор черновика заявки (required)
-     * @param storedRequestForm  (optional)
-     * @return ApiResponse&lt;StoredRequest&gt;
+     * @param roleId Целочисленный идентификатор роли (required)
+     * @param roleForm  (optional)
+     * @return ApiResponse&lt;Role&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4380,17 +6014,17 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<StoredRequest> rolesRoleIdPutWithHttpInfo(Long roleId, StoredRequestForm storedRequestForm) throws ApiException {
-        okhttp3.Call localVarCall = rolesRoleIdPutValidateBeforeCall(roleId, storedRequestForm, null);
-        Type localVarReturnType = new TypeToken<StoredRequest>(){}.getType();
+    public ApiResponse<Role> rolesRoleIdPutWithHttpInfo(Long roleId, RoleForm roleForm) throws ApiException {
+        okhttp3.Call localVarCall = rolesRoleIdPutValidateBeforeCall(roleId, roleForm, null);
+        Type localVarReturnType = new TypeToken<Role>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Обновляем черновик заявки по идентификатору (asynchronously)
+     * Обновляем роль по идентификатору (asynchronously)
      * 
-     * @param roleId Целочисленный идентификатор черновика заявки (required)
-     * @param storedRequestForm  (optional)
+     * @param roleId Целочисленный идентификатор роли (required)
+     * @param roleForm  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -4403,16 +6037,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call rolesRoleIdPutAsync(Long roleId, StoredRequestForm storedRequestForm, final ApiCallback<StoredRequest> _callback) throws ApiException {
+    public okhttp3.Call rolesRoleIdPutAsync(Long roleId, RoleForm roleForm, final ApiCallback<Role> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = rolesRoleIdPutValidateBeforeCall(roleId, storedRequestForm, _callback);
-        Type localVarReturnType = new TypeToken<StoredRequest>(){}.getType();
+        okhttp3.Call localVarCall = rolesRoleIdPutValidateBeforeCall(roleId, roleForm, _callback);
+        Type localVarReturnType = new TypeToken<Role>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for servicesAddressPost
-     * @param inlineObject  (optional)
+     * @param inlineObject6  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -4423,8 +6057,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesAddressPostCall(InlineObject inlineObject, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = inlineObject;
+    public okhttp3.Call servicesAddressPostCall(InlineObject6 inlineObject6, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject6;
 
         // create path and map variables
         String localVarPath = "/services/address";
@@ -4454,10 +6088,10 @@ public class DefaultApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call servicesAddressPostValidateBeforeCall(InlineObject inlineObject, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call servicesAddressPostValidateBeforeCall(InlineObject6 inlineObject6, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = servicesAddressPostCall(inlineObject, _callback);
+        okhttp3.Call localVarCall = servicesAddressPostCall(inlineObject6, _callback);
         return localVarCall;
 
     }
@@ -4465,8 +6099,8 @@ public class DefaultApi {
     /**
      * Получаем адрес по координатам
      * 
-     * @param inlineObject  (optional)
-     * @return InlineResponse200
+     * @param inlineObject6  (optional)
+     * @return InlineResponse2001
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4475,16 +6109,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineResponse200 servicesAddressPost(InlineObject inlineObject) throws ApiException {
-        ApiResponse<InlineResponse200> localVarResp = servicesAddressPostWithHttpInfo(inlineObject);
+    public InlineResponse2001 servicesAddressPost(InlineObject6 inlineObject6) throws ApiException {
+        ApiResponse<InlineResponse2001> localVarResp = servicesAddressPostWithHttpInfo(inlineObject6);
         return localVarResp.getData();
     }
 
     /**
      * Получаем адрес по координатам
      * 
-     * @param inlineObject  (optional)
-     * @return ApiResponse&lt;InlineResponse200&gt;
+     * @param inlineObject6  (optional)
+     * @return ApiResponse&lt;InlineResponse2001&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4493,16 +6127,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineResponse200> servicesAddressPostWithHttpInfo(InlineObject inlineObject) throws ApiException {
-        okhttp3.Call localVarCall = servicesAddressPostValidateBeforeCall(inlineObject, null);
-        Type localVarReturnType = new TypeToken<InlineResponse200>(){}.getType();
+    public ApiResponse<InlineResponse2001> servicesAddressPostWithHttpInfo(InlineObject6 inlineObject6) throws ApiException {
+        okhttp3.Call localVarCall = servicesAddressPostValidateBeforeCall(inlineObject6, null);
+        Type localVarReturnType = new TypeToken<InlineResponse2001>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Получаем адрес по координатам (asynchronously)
      * 
-     * @param inlineObject  (optional)
+     * @param inlineObject6  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -4513,16 +6147,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesAddressPostAsync(InlineObject inlineObject, final ApiCallback<InlineResponse200> _callback) throws ApiException {
+    public okhttp3.Call servicesAddressPostAsync(InlineObject6 inlineObject6, final ApiCallback<InlineResponse2001> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = servicesAddressPostValidateBeforeCall(inlineObject, _callback);
-        Type localVarReturnType = new TypeToken<InlineResponse200>(){}.getType();
+        okhttp3.Call localVarCall = servicesAddressPostValidateBeforeCall(inlineObject6, _callback);
+        Type localVarReturnType = new TypeToken<InlineResponse2001>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for servicesCoordsPost
-     * @param inlineObject1  (optional)
+     * @param inlineObject7  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -4533,8 +6167,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesCoordsPostCall(InlineObject1 inlineObject1, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = inlineObject1;
+    public okhttp3.Call servicesCoordsPostCall(InlineObject7 inlineObject7, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject7;
 
         // create path and map variables
         String localVarPath = "/services/coords";
@@ -4564,10 +6198,10 @@ public class DefaultApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call servicesCoordsPostValidateBeforeCall(InlineObject1 inlineObject1, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call servicesCoordsPostValidateBeforeCall(InlineObject7 inlineObject7, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = servicesCoordsPostCall(inlineObject1, _callback);
+        okhttp3.Call localVarCall = servicesCoordsPostCall(inlineObject7, _callback);
         return localVarCall;
 
     }
@@ -4575,8 +6209,8 @@ public class DefaultApi {
     /**
      * Получаем координаты по адресу
      * 
-     * @param inlineObject1  (optional)
-     * @return InlineObject
+     * @param inlineObject7  (optional)
+     * @return InlineObject6
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4585,16 +6219,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineObject servicesCoordsPost(InlineObject1 inlineObject1) throws ApiException {
-        ApiResponse<InlineObject> localVarResp = servicesCoordsPostWithHttpInfo(inlineObject1);
+    public InlineObject6 servicesCoordsPost(InlineObject7 inlineObject7) throws ApiException {
+        ApiResponse<InlineObject6> localVarResp = servicesCoordsPostWithHttpInfo(inlineObject7);
         return localVarResp.getData();
     }
 
     /**
      * Получаем координаты по адресу
      * 
-     * @param inlineObject1  (optional)
-     * @return ApiResponse&lt;InlineObject&gt;
+     * @param inlineObject7  (optional)
+     * @return ApiResponse&lt;InlineObject6&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4603,16 +6237,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineObject> servicesCoordsPostWithHttpInfo(InlineObject1 inlineObject1) throws ApiException {
-        okhttp3.Call localVarCall = servicesCoordsPostValidateBeforeCall(inlineObject1, null);
-        Type localVarReturnType = new TypeToken<InlineObject>(){}.getType();
+    public ApiResponse<InlineObject6> servicesCoordsPostWithHttpInfo(InlineObject7 inlineObject7) throws ApiException {
+        okhttp3.Call localVarCall = servicesCoordsPostValidateBeforeCall(inlineObject7, null);
+        Type localVarReturnType = new TypeToken<InlineObject6>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Получаем координаты по адресу (asynchronously)
      * 
-     * @param inlineObject1  (optional)
+     * @param inlineObject7  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -4623,16 +6257,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesCoordsPostAsync(InlineObject1 inlineObject1, final ApiCallback<InlineObject> _callback) throws ApiException {
+    public okhttp3.Call servicesCoordsPostAsync(InlineObject7 inlineObject7, final ApiCallback<InlineObject6> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = servicesCoordsPostValidateBeforeCall(inlineObject1, _callback);
-        Type localVarReturnType = new TypeToken<InlineObject>(){}.getType();
+        okhttp3.Call localVarCall = servicesCoordsPostValidateBeforeCall(inlineObject7, _callback);
+        Type localVarReturnType = new TypeToken<InlineObject6>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for servicesHeatmapPost
-     * @param inlineObject4  (optional)
+     * @param inlineObject10  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -4643,8 +6277,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesHeatmapPostCall(InlineObject4 inlineObject4, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = inlineObject4;
+    public okhttp3.Call servicesHeatmapPostCall(InlineObject10 inlineObject10, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject10;
 
         // create path and map variables
         String localVarPath = "/services/heatmap";
@@ -4674,10 +6308,10 @@ public class DefaultApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call servicesHeatmapPostValidateBeforeCall(InlineObject4 inlineObject4, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call servicesHeatmapPostValidateBeforeCall(InlineObject10 inlineObject10, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = servicesHeatmapPostCall(inlineObject4, _callback);
+        okhttp3.Call localVarCall = servicesHeatmapPostCall(inlineObject10, _callback);
         return localVarCall;
 
     }
@@ -4685,8 +6319,8 @@ public class DefaultApi {
     /**
      * тепловая карта проблемных \\ решенных зон за период
      * 
-     * @param inlineObject4  (optional)
-     * @return InlineResponse2001
+     * @param inlineObject10  (optional)
+     * @return InlineResponse2002
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4695,16 +6329,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineResponse2001 servicesHeatmapPost(InlineObject4 inlineObject4) throws ApiException {
-        ApiResponse<InlineResponse2001> localVarResp = servicesHeatmapPostWithHttpInfo(inlineObject4);
+    public InlineResponse2002 servicesHeatmapPost(InlineObject10 inlineObject10) throws ApiException {
+        ApiResponse<InlineResponse2002> localVarResp = servicesHeatmapPostWithHttpInfo(inlineObject10);
         return localVarResp.getData();
     }
 
     /**
      * тепловая карта проблемных \\ решенных зон за период
      * 
-     * @param inlineObject4  (optional)
-     * @return ApiResponse&lt;InlineResponse2001&gt;
+     * @param inlineObject10  (optional)
+     * @return ApiResponse&lt;InlineResponse2002&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -4713,16 +6347,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineResponse2001> servicesHeatmapPostWithHttpInfo(InlineObject4 inlineObject4) throws ApiException {
-        okhttp3.Call localVarCall = servicesHeatmapPostValidateBeforeCall(inlineObject4, null);
-        Type localVarReturnType = new TypeToken<InlineResponse2001>(){}.getType();
+    public ApiResponse<InlineResponse2002> servicesHeatmapPostWithHttpInfo(InlineObject10 inlineObject10) throws ApiException {
+        okhttp3.Call localVarCall = servicesHeatmapPostValidateBeforeCall(inlineObject10, null);
+        Type localVarReturnType = new TypeToken<InlineResponse2002>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * тепловая карта проблемных \\ решенных зон за период (asynchronously)
      * 
-     * @param inlineObject4  (optional)
+     * @param inlineObject10  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -4733,10 +6367,10 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesHeatmapPostAsync(InlineObject4 inlineObject4, final ApiCallback<InlineResponse2001> _callback) throws ApiException {
+    public okhttp3.Call servicesHeatmapPostAsync(InlineObject10 inlineObject10, final ApiCallback<InlineResponse2002> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = servicesHeatmapPostValidateBeforeCall(inlineObject4, _callback);
-        Type localVarReturnType = new TypeToken<InlineResponse2001>(){}.getType();
+        okhttp3.Call localVarCall = servicesHeatmapPostValidateBeforeCall(inlineObject10, _callback);
+        Type localVarReturnType = new TypeToken<InlineResponse2002>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -4908,7 +6542,7 @@ public class DefaultApi {
     }
     /**
      * Build call for servicesRequestExportPost
-     * @param inlineObject6  (optional)
+     * @param inlineObject12  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -4919,8 +6553,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesRequestExportPostCall(InlineObject6 inlineObject6, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = inlineObject6;
+    public okhttp3.Call servicesRequestExportPostCall(InlineObject12 inlineObject12, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject12;
 
         // create path and map variables
         String localVarPath = "/services/request/export";
@@ -4950,10 +6584,10 @@ public class DefaultApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call servicesRequestExportPostValidateBeforeCall(InlineObject6 inlineObject6, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call servicesRequestExportPostValidateBeforeCall(InlineObject12 inlineObject12, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = servicesRequestExportPostCall(inlineObject6, _callback);
+        okhttp3.Call localVarCall = servicesRequestExportPostCall(inlineObject12, _callback);
         return localVarCall;
 
     }
@@ -4961,7 +6595,7 @@ public class DefaultApi {
     /**
      * экспортирование заявок в формате Excel-файла
      * 
-     * @param inlineObject6  (optional)
+     * @param inlineObject12  (optional)
      * @return File
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -4971,15 +6605,15 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public File servicesRequestExportPost(InlineObject6 inlineObject6) throws ApiException {
-        ApiResponse<File> localVarResp = servicesRequestExportPostWithHttpInfo(inlineObject6);
+    public File servicesRequestExportPost(InlineObject12 inlineObject12) throws ApiException {
+        ApiResponse<File> localVarResp = servicesRequestExportPostWithHttpInfo(inlineObject12);
         return localVarResp.getData();
     }
 
     /**
      * экспортирование заявок в формате Excel-файла
      * 
-     * @param inlineObject6  (optional)
+     * @param inlineObject12  (optional)
      * @return ApiResponse&lt;File&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -4989,8 +6623,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<File> servicesRequestExportPostWithHttpInfo(InlineObject6 inlineObject6) throws ApiException {
-        okhttp3.Call localVarCall = servicesRequestExportPostValidateBeforeCall(inlineObject6, null);
+    public ApiResponse<File> servicesRequestExportPostWithHttpInfo(InlineObject12 inlineObject12) throws ApiException {
+        okhttp3.Call localVarCall = servicesRequestExportPostValidateBeforeCall(inlineObject12, null);
         Type localVarReturnType = new TypeToken<File>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -4998,7 +6632,7 @@ public class DefaultApi {
     /**
      * экспортирование заявок в формате Excel-файла (asynchronously)
      * 
-     * @param inlineObject6  (optional)
+     * @param inlineObject12  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -5009,9 +6643,9 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesRequestExportPostAsync(InlineObject6 inlineObject6, final ApiCallback<File> _callback) throws ApiException {
+    public okhttp3.Call servicesRequestExportPostAsync(InlineObject12 inlineObject12, final ApiCallback<File> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = servicesRequestExportPostValidateBeforeCall(inlineObject6, _callback);
+        okhttp3.Call localVarCall = servicesRequestExportPostValidateBeforeCall(inlineObject12, _callback);
         Type localVarReturnType = new TypeToken<File>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -5128,7 +6762,7 @@ public class DefaultApi {
     }
     /**
      * Build call for servicesStatisticPost
-     * @param inlineObject3  (optional)
+     * @param inlineObject9  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -5139,8 +6773,8 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesStatisticPostCall(InlineObject3 inlineObject3, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = inlineObject3;
+    public okhttp3.Call servicesStatisticPostCall(InlineObject9 inlineObject9, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject9;
 
         // create path and map variables
         String localVarPath = "/services/statistic";
@@ -5170,10 +6804,10 @@ public class DefaultApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call servicesStatisticPostValidateBeforeCall(InlineObject3 inlineObject3, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call servicesStatisticPostValidateBeforeCall(InlineObject9 inlineObject9, final ApiCallback _callback) throws ApiException {
         
 
-        okhttp3.Call localVarCall = servicesStatisticPostCall(inlineObject3, _callback);
+        okhttp3.Call localVarCall = servicesStatisticPostCall(inlineObject9, _callback);
         return localVarCall;
 
     }
@@ -5181,8 +6815,8 @@ public class DefaultApi {
     /**
      * статистика по категориям за период
      * 
-     * @param inlineObject3  (optional)
-     * @return InlineObject
+     * @param inlineObject9  (optional)
+     * @return InlineObject6
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -5191,16 +6825,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineObject servicesStatisticPost(InlineObject3 inlineObject3) throws ApiException {
-        ApiResponse<InlineObject> localVarResp = servicesStatisticPostWithHttpInfo(inlineObject3);
+    public InlineObject6 servicesStatisticPost(InlineObject9 inlineObject9) throws ApiException {
+        ApiResponse<InlineObject6> localVarResp = servicesStatisticPostWithHttpInfo(inlineObject9);
         return localVarResp.getData();
     }
 
     /**
      * статистика по категориям за период
      * 
-     * @param inlineObject3  (optional)
-     * @return ApiResponse&lt;InlineObject&gt;
+     * @param inlineObject9  (optional)
+     * @return ApiResponse&lt;InlineObject6&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -5209,16 +6843,16 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineObject> servicesStatisticPostWithHttpInfo(InlineObject3 inlineObject3) throws ApiException {
-        okhttp3.Call localVarCall = servicesStatisticPostValidateBeforeCall(inlineObject3, null);
-        Type localVarReturnType = new TypeToken<InlineObject>(){}.getType();
+    public ApiResponse<InlineObject6> servicesStatisticPostWithHttpInfo(InlineObject9 inlineObject9) throws ApiException {
+        okhttp3.Call localVarCall = servicesStatisticPostValidateBeforeCall(inlineObject9, null);
+        Type localVarReturnType = new TypeToken<InlineObject6>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * статистика по категориям за период (asynchronously)
      * 
-     * @param inlineObject3  (optional)
+     * @param inlineObject9  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -5229,10 +6863,10 @@ public class DefaultApi {
         <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call servicesStatisticPostAsync(InlineObject3 inlineObject3, final ApiCallback<InlineObject> _callback) throws ApiException {
+    public okhttp3.Call servicesStatisticPostAsync(InlineObject9 inlineObject9, final ApiCallback<InlineObject6> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = servicesStatisticPostValidateBeforeCall(inlineObject3, _callback);
-        Type localVarReturnType = new TypeToken<InlineObject>(){}.getType();
+        okhttp3.Call localVarCall = servicesStatisticPostValidateBeforeCall(inlineObject9, _callback);
+        Type localVarReturnType = new TypeToken<InlineObject6>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -5284,7 +6918,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -5411,8 +7045,8 @@ public class DefaultApi {
     }
 
     /**
-     * Создаем черновик заявки
-     * 
+     * Создаем черновик заявки.
+     * Перед выполнением данной команды стоит предложить зарегестрироваться или авторизоваться.
      * @param storedRequestForm  (optional)
      * @return StoredRequest
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -5429,8 +7063,8 @@ public class DefaultApi {
     }
 
     /**
-     * Создаем черновик заявки
-     * 
+     * Создаем черновик заявки.
+     * Перед выполнением данной команды стоит предложить зарегестрироваться или авторизоваться.
      * @param storedRequestForm  (optional)
      * @return ApiResponse&lt;StoredRequest&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -5448,8 +7082,8 @@ public class DefaultApi {
     }
 
     /**
-     * Создаем черновик заявки (asynchronously)
-     * 
+     * Создаем черновик заявки. (asynchronously)
+     * Перед выполнением данной команды стоит предложить зарегестрироваться или авторизоваться.
      * @param storedRequestForm  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -5510,7 +7144,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -5634,7 +7268,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -5759,7 +7393,7 @@ public class DefaultApi {
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
         return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -5841,6 +7475,614 @@ public class DefaultApi {
 
         okhttp3.Call localVarCall = storedRequestsStoredRequestIdPutValidateBeforeCall(storedRequestId, storedRequestForm, _callback);
         Type localVarReturnType = new TypeToken<StoredRequest>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for tasksGet
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksGetCall(Long page, Long size, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/tasks";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (page != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
+        }
+
+        if (size != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("size", size));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call tasksGetValidateBeforeCall(Long page, Long size, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = tasksGetCall(page, size, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Список всех задач
+     * 
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @return PaginateObject
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public PaginateObject tasksGet(Long page, Long size) throws ApiException {
+        ApiResponse<PaginateObject> localVarResp = tasksGetWithHttpInfo(page, size);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Список всех задач
+     * 
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @return ApiResponse&lt;PaginateObject&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<PaginateObject> tasksGetWithHttpInfo(Long page, Long size) throws ApiException {
+        okhttp3.Call localVarCall = tasksGetValidateBeforeCall(page, size, null);
+        Type localVarReturnType = new TypeToken<PaginateObject>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Список всех задач (asynchronously)
+     * 
+     * @param page идентификатор страницы (optional)
+     * @param size размер выдачи на странице (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksGetAsync(Long page, Long size, final ApiCallback<PaginateObject> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = tasksGetValidateBeforeCall(page, size, _callback);
+        Type localVarReturnType = new TypeToken<PaginateObject>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for tasksPost
+     * @param contractorTaskForm  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksPostCall(ContractorTaskForm contractorTaskForm, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = contractorTaskForm;
+
+        // create path and map variables
+        String localVarPath = "/tasks";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call tasksPostValidateBeforeCall(ContractorTaskForm contractorTaskForm, final ApiCallback _callback) throws ApiException {
+        
+
+        okhttp3.Call localVarCall = tasksPostCall(contractorTaskForm, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Создаем новую задачу для исполнительного \\ контролирующего органа
+     * 
+     * @param contractorTaskForm  (optional)
+     * @return ContractorTask
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ContractorTask tasksPost(ContractorTaskForm contractorTaskForm) throws ApiException {
+        ApiResponse<ContractorTask> localVarResp = tasksPostWithHttpInfo(contractorTaskForm);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Создаем новую задачу для исполнительного \\ контролирующего органа
+     * 
+     * @param contractorTaskForm  (optional)
+     * @return ApiResponse&lt;ContractorTask&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ContractorTask> tasksPostWithHttpInfo(ContractorTaskForm contractorTaskForm) throws ApiException {
+        okhttp3.Call localVarCall = tasksPostValidateBeforeCall(contractorTaskForm, null);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Создаем новую задачу для исполнительного \\ контролирующего органа (asynchronously)
+     * 
+     * @param contractorTaskForm  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksPostAsync(ContractorTaskForm contractorTaskForm, final ApiCallback<ContractorTask> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = tasksPostValidateBeforeCall(contractorTaskForm, _callback);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for tasksTaskIdDelete
+     * @param taskId Parameter description in CommonMark or HTML. (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The specified user ID is invalid (not a number). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> задача не найдена по идентификатору </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksTaskIdDeleteCall(Long taskId, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/tasks/{taskId}"
+            .replaceAll("\\{" + "taskId" + "\\}", localVarApiClient.escapeString(taskId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call tasksTaskIdDeleteValidateBeforeCall(Long taskId, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'taskId' is set
+        if (taskId == null) {
+            throw new ApiException("Missing the required parameter 'taskId' when calling tasksTaskIdDelete(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = tasksTaskIdDeleteCall(taskId, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * удаляем задачу по идентификатору
+     * 
+     * @param taskId Parameter description in CommonMark or HTML. (required)
+     * @return ContractorTask
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The specified user ID is invalid (not a number). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> задача не найдена по идентификатору </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ContractorTask tasksTaskIdDelete(Long taskId) throws ApiException {
+        ApiResponse<ContractorTask> localVarResp = tasksTaskIdDeleteWithHttpInfo(taskId);
+        return localVarResp.getData();
+    }
+
+    /**
+     * удаляем задачу по идентификатору
+     * 
+     * @param taskId Parameter description in CommonMark or HTML. (required)
+     * @return ApiResponse&lt;ContractorTask&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The specified user ID is invalid (not a number). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> задача не найдена по идентификатору </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ContractorTask> tasksTaskIdDeleteWithHttpInfo(Long taskId) throws ApiException {
+        okhttp3.Call localVarCall = tasksTaskIdDeleteValidateBeforeCall(taskId, null);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * удаляем задачу по идентификатору (asynchronously)
+     * 
+     * @param taskId Parameter description in CommonMark or HTML. (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> The specified user ID is invalid (not a number). </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> задача не найдена по идентификатору </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksTaskIdDeleteAsync(Long taskId, final ApiCallback<ContractorTask> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = tasksTaskIdDeleteValidateBeforeCall(taskId, _callback);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for tasksTaskIdGet
+     * @param taskId Целочисленный идентификатор записи (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор не найден </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksTaskIdGetCall(Long taskId, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/tasks/{taskId}"
+            .replaceAll("\\{" + "taskId" + "\\}", localVarApiClient.escapeString(taskId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call tasksTaskIdGetValidateBeforeCall(Long taskId, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'taskId' is set
+        if (taskId == null) {
+            throw new ApiException("Missing the required parameter 'taskId' when calling tasksTaskIdGet(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = tasksTaskIdGetCall(taskId, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Находим задачу по по идентификатору
+     * 
+     * @param taskId Целочисленный идентификатор записи (required)
+     * @return ContractorTask
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор не найден </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ContractorTask tasksTaskIdGet(Long taskId) throws ApiException {
+        ApiResponse<ContractorTask> localVarResp = tasksTaskIdGetWithHttpInfo(taskId);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Находим задачу по по идентификатору
+     * 
+     * @param taskId Целочисленный идентификатор записи (required)
+     * @return ApiResponse&lt;ContractorTask&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор не найден </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ContractorTask> tasksTaskIdGetWithHttpInfo(Long taskId) throws ApiException {
+        okhttp3.Call localVarCall = tasksTaskIdGetValidateBeforeCall(taskId, null);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Находим задачу по по идентификатору (asynchronously)
+     * 
+     * @param taskId Целочисленный идентификатор записи (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор не найден </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksTaskIdGetAsync(Long taskId, final ApiCallback<ContractorTask> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = tasksTaskIdGetValidateBeforeCall(taskId, _callback);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for tasksTaskIdPut
+     * @param taskId Целочисленный идентификатор (required)
+     * @param contractorTaskForm  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор черновика не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksTaskIdPutCall(Long taskId, ContractorTaskForm contractorTaskForm, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = contractorTaskForm;
+
+        // create path and map variables
+        String localVarPath = "/tasks/{taskId}"
+            .replaceAll("\\{" + "taskId" + "\\}", localVarApiClient.escapeString(taskId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call tasksTaskIdPutValidateBeforeCall(Long taskId, ContractorTaskForm contractorTaskForm, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'taskId' is set
+        if (taskId == null) {
+            throw new ApiException("Missing the required parameter 'taskId' when calling tasksTaskIdPut(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = tasksTaskIdPutCall(taskId, contractorTaskForm, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Обновляем заявку по идентификатору
+     * 
+     * @param taskId Целочисленный идентификатор (required)
+     * @param contractorTaskForm  (optional)
+     * @return ContractorTask
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор черновика не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ContractorTask tasksTaskIdPut(Long taskId, ContractorTaskForm contractorTaskForm) throws ApiException {
+        ApiResponse<ContractorTask> localVarResp = tasksTaskIdPutWithHttpInfo(taskId, contractorTaskForm);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Обновляем заявку по идентификатору
+     * 
+     * @param taskId Целочисленный идентификатор (required)
+     * @param contractorTaskForm  (optional)
+     * @return ApiResponse&lt;ContractorTask&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор черновика не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ContractorTask> tasksTaskIdPutWithHttpInfo(Long taskId, ContractorTaskForm contractorTaskForm) throws ApiException {
+        okhttp3.Call localVarCall = tasksTaskIdPutValidateBeforeCall(taskId, contractorTaskForm, null);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Обновляем заявку по идентификатору (asynchronously)
+     * 
+     * @param taskId Целочисленный идентификатор (required)
+     * @param contractorTaskForm  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор черновика не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> указанный идентификатор </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call tasksTaskIdPutAsync(Long taskId, ContractorTaskForm contractorTaskForm, final ApiCallback<ContractorTask> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = tasksTaskIdPutValidateBeforeCall(taskId, contractorTaskForm, _callback);
+        Type localVarReturnType = new TypeToken<ContractorTask>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -6178,6 +8420,130 @@ public class DefaultApi {
     public okhttp3.Call usersPostAsync(UserForm userForm, final ApiCallback<User> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = usersPostValidateBeforeCall(userForm, _callback);
+        Type localVarReturnType = new TypeToken<User>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for usersUserIdBlockedGet
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call usersUserIdBlockedGetCall(Long userId, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/users/{userId}/blocked"
+            .replaceAll("\\{" + "userId" + "\\}", localVarApiClient.escapeString(userId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call usersUserIdBlockedGetValidateBeforeCall(Long userId, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'userId' is set
+        if (userId == null) {
+            throw new ApiException("Missing the required parameter 'userId' when calling usersUserIdBlockedGet(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = usersUserIdBlockedGetCall(userId, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * блокируем пользователя по идентификатору
+     * 
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @return User
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public User usersUserIdBlockedGet(Long userId) throws ApiException {
+        ApiResponse<User> localVarResp = usersUserIdBlockedGetWithHttpInfo(userId);
+        return localVarResp.getData();
+    }
+
+    /**
+     * блокируем пользователя по идентификатору
+     * 
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @return ApiResponse&lt;User&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<User> usersUserIdBlockedGetWithHttpInfo(Long userId) throws ApiException {
+        okhttp3.Call localVarCall = usersUserIdBlockedGetValidateBeforeCall(userId, null);
+        Type localVarReturnType = new TypeToken<User>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * блокируем пользователя по идентификатору (asynchronously)
+     * 
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call usersUserIdBlockedGetAsync(Long userId, final ApiCallback<User> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = usersUserIdBlockedGetValidateBeforeCall(userId, _callback);
         Type localVarReturnType = new TypeToken<User>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -6678,6 +9044,258 @@ public class DefaultApi {
     public okhttp3.Call usersUserIdPutAsync(Long userId, UserForm userForm, final ApiCallback<User> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = usersUserIdPutValidateBeforeCall(userId, userForm, _callback);
+        Type localVarReturnType = new TypeToken<User>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for usersUserIdRolesPut
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @param inlineObject13  (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call usersUserIdRolesPutCall(Long userId, InlineObject13 inlineObject13, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = inlineObject13;
+
+        // create path and map variables
+        String localVarPath = "/users/{userId}/roles"
+            .replaceAll("\\{" + "userId" + "\\}", localVarApiClient.escapeString(userId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call usersUserIdRolesPutValidateBeforeCall(Long userId, InlineObject13 inlineObject13, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'userId' is set
+        if (userId == null) {
+            throw new ApiException("Missing the required parameter 'userId' when calling usersUserIdRolesPut(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = usersUserIdRolesPutCall(userId, inlineObject13, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Обновляем роли пользователя
+     * 
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @param inlineObject13  (optional)
+     * @return User
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public User usersUserIdRolesPut(Long userId, InlineObject13 inlineObject13) throws ApiException {
+        ApiResponse<User> localVarResp = usersUserIdRolesPutWithHttpInfo(userId, inlineObject13);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Обновляем роли пользователя
+     * 
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @param inlineObject13  (optional)
+     * @return ApiResponse&lt;User&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<User> usersUserIdRolesPutWithHttpInfo(Long userId, InlineObject13 inlineObject13) throws ApiException {
+        okhttp3.Call localVarCall = usersUserIdRolesPutValidateBeforeCall(userId, inlineObject13, null);
+        Type localVarReturnType = new TypeToken<User>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Обновляем роли пользователя (asynchronously)
+     * 
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @param inlineObject13  (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call usersUserIdRolesPutAsync(Long userId, InlineObject13 inlineObject13, final ApiCallback<User> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = usersUserIdRolesPutValidateBeforeCall(userId, inlineObject13, _callback);
+        Type localVarReturnType = new TypeToken<User>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for usersUserIdUnblockedGet
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call usersUserIdUnblockedGetCall(Long userId, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/users/{userId}/unblocked"
+            .replaceAll("\\{" + "userId" + "\\}", localVarApiClient.escapeString(userId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] { "bearerAuth" };
+        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call usersUserIdUnblockedGetValidateBeforeCall(Long userId, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'userId' is set
+        if (userId == null) {
+            throw new ApiException("Missing the required parameter 'userId' when calling usersUserIdUnblockedGet(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = usersUserIdUnblockedGetCall(userId, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * разблокируем пользователя по идентификатору
+     * 
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @return User
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public User usersUserIdUnblockedGet(Long userId) throws ApiException {
+        ApiResponse<User> localVarResp = usersUserIdUnblockedGetWithHttpInfo(userId);
+        return localVarResp.getData();
+    }
+
+    /**
+     * разблокируем пользователя по идентификатору
+     * 
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @return ApiResponse&lt;User&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<User> usersUserIdUnblockedGetWithHttpInfo(Long userId) throws ApiException {
+        okhttp3.Call localVarCall = usersUserIdUnblockedGetValidateBeforeCall(userId, null);
+        Type localVarReturnType = new TypeToken<User>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * разблокируем пользователя по идентификатору (asynchronously)
+     * 
+     * @param userId Целочисленный идентификатор пользователя (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> OK </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Указанный идентификатор пользователя не является числом </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> A user with the specified ID was not found. </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> Unexpected error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call usersUserIdUnblockedGetAsync(Long userId, final ApiCallback<User> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = usersUserIdUnblockedGetValidateBeforeCall(userId, _callback);
         Type localVarReturnType = new TypeToken<User>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

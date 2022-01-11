@@ -6,7 +6,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**address** | **String** |  |  [optional]
+**accessToken** | **String** |  |  [optional]
+**refreshToken** | **String** |  |  [optional]
+**tokenType** | **String** |  |  [optional]
 
 
 

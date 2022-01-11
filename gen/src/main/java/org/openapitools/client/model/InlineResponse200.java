@@ -27,33 +27,87 @@ import java.io.IOException;
 /**
  * InlineResponse200
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class InlineResponse200 {
-  public static final String SERIALIZED_NAME_ADDRESS = "address";
-  @SerializedName(SERIALIZED_NAME_ADDRESS)
-  private String address;
+  public static final String SERIALIZED_NAME_ACCESS_TOKEN = "accessToken";
+  @SerializedName(SERIALIZED_NAME_ACCESS_TOKEN)
+  private String accessToken;
+
+  public static final String SERIALIZED_NAME_REFRESH_TOKEN = "refreshToken";
+  @SerializedName(SERIALIZED_NAME_REFRESH_TOKEN)
+  private String refreshToken;
+
+  public static final String SERIALIZED_NAME_TOKEN_TYPE = "tokenType";
+  @SerializedName(SERIALIZED_NAME_TOKEN_TYPE)
+  private String tokenType;
 
 
-  public InlineResponse200 address(String address) {
+  public InlineResponse200 accessToken(String accessToken) {
     
-    this.address = address;
+    this.accessToken = accessToken;
     return this;
   }
 
    /**
-   * Get address
-   * @return address
+   * Get accessToken
+   * @return accessToken
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "г. Донецк, пр. Киевский, 28", value = "")
+  @ApiModelProperty(example = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjI4ODAwODkzLCJleHAiOjE2Mjk2NjQ4OTN9.9N-6sQPCfvT4CnCqtlE8BUuhi8QpHr1mogh70_l8B21TX7alQHTX3epRYOCL_ze37ruqYnUkkIa6Hztk9lqnUA", value = "")
 
-  public String getAddress() {
-    return address;
+  public String getAccessToken() {
+    return accessToken;
   }
 
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setAccessToken(String accessToken) {
+    this.accessToken = accessToken;
+  }
+
+
+  public InlineResponse200 refreshToken(String refreshToken) {
+    
+    this.refreshToken = refreshToken;
+    return this;
+  }
+
+   /**
+   * Get refreshToken
+   * @return refreshToken
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "c8af8df1-f627-485e-982c-63536eadf2c9", value = "")
+
+  public String getRefreshToken() {
+    return refreshToken;
+  }
+
+
+  public void setRefreshToken(String refreshToken) {
+    this.refreshToken = refreshToken;
+  }
+
+
+  public InlineResponse200 tokenType(String tokenType) {
+    
+    this.tokenType = tokenType;
+    return this;
+  }
+
+   /**
+   * Get tokenType
+   * @return tokenType
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "Bearer", value = "")
+
+  public String getTokenType() {
+    return tokenType;
+  }
+
+
+  public void setTokenType(String tokenType) {
+    this.tokenType = tokenType;
   }
 
 
@@ -66,12 +120,14 @@ public class InlineResponse200 {
       return false;
     }
     InlineResponse200 inlineResponse200 = (InlineResponse200) o;
-    return Objects.equals(this.address, inlineResponse200.address);
+    return Objects.equals(this.accessToken, inlineResponse200.accessToken) &&
+        Objects.equals(this.refreshToken, inlineResponse200.refreshToken) &&
+        Objects.equals(this.tokenType, inlineResponse200.tokenType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address);
+    return Objects.hash(accessToken, refreshToken, tokenType);
   }
 
 
@@ -79,7 +135,9 @@ public class InlineResponse200 {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InlineResponse200 {\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    accessToken: ").append(toIndentedString(accessToken)).append("\n");
+    sb.append("    refreshToken: ").append(toIndentedString(refreshToken)).append("\n");
+    sb.append("    tokenType: ").append(toIndentedString(tokenType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

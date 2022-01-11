@@ -8,7 +8,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Long** |  |  [optional]
 **username** | **String** |  | 
+**password** | **String** |  | 
 **profile** | [**Profile**](Profile.md) |  |  [optional]
+**roles** | [**List&lt;Role&gt;**](Role.md) |  |  [optional]
 **approveSmsCode** | **String** |  |  [optional]
 **approveEmailCode** | **String** |  |  [optional]
 **smsApprovedAt** | **String** |  |  [optional]

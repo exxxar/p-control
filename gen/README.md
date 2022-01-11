@@ -2,7 +2,7 @@
 
 API системы \&quot;Народный контроль\&quot;
 - API version: 1.0
-  - Build date: 2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]
+  - Build date: 2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]
 
  <h2>Приложение Народный контроль</h2> <p><strong>Основная цель</strong>: контроль за состоянием сфер жизнедеятельности города по отраслям:</p> <ul> <li>общественный транспорт (мин.транс)</li> <li>состояние дорог и прилегающий территорий (мин.транс)</li> <li>состояние благоустройства города (мин. хоз)</li> <li>аварийные участки города, прорывы водо- тепло- коммуникаций, обрывы электро коммуникаций  (жэк)</li> <li>постройки в аварийном состоянии (мин. Хоз)</li> <li>уборка территории и вывоз отходов (мин. Хоз)</li> <li>некачественные товары (потреб контроль)</li> <li>скопление животных (мин. Хоз)</li> <li>последствия стихийных бедствий  (мин. Хоз,  мчс)</li> <li>последствие военных действий (мчс, военные, мин. Транс)</li> <li>проявления вандализмам (в т.ч. размещение рекламы в неположенном месте)</li> <li>состояние фортификационных сооружений (мчс)</li> <li>состояние рабочего места (проф. Комиссии)</li> <li>регулярное скопление криминальных (или асоциальных) элементов общества или проявление аморального поведения в общественных местах (мин. Хоз)</li> <li>нарушение ПДД участниками дорожного движения (мвд)</li> <li>также могут быть заявки без категории</li> <li>инициативы граждан - полезные нововведения от граждан</li> <li>заявки на утерянные или найденные вещи</li> </ul> 
 
@@ -85,12 +85,12 @@ public class Example {
     defaultClient.setBasePath("https://api.domain-name.ru");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    Long contractorId = 56L; // Long | Parameter description in CommonMark or HTML.
+    InlineObject1 inlineObject1 = new InlineObject1(); // InlineObject1 | 
     try {
-      Contractor result = apiInstance.contractorsContractorIdDelete(contractorId);
+      InlineResponse200 result = apiInstance.authLoginPost(inlineObject1);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#contractorsContractorIdDelete");
+      System.err.println("Exception when calling DefaultApi#authLoginPost");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -107,13 +107,27 @@ All URIs are relative to *https://api.domain-name.ru*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**authLoginPost**](docs/DefaultApi.md#authLoginPost) | **POST** /auth/login | авторизация пользователя в системе
+*DefaultApi* | [**authLogoutPost**](docs/DefaultApi.md#authLogoutPost) | **POST** /auth/logout | выход из системы
+*DefaultApi* | [**authRefreshtokenPost**](docs/DefaultApi.md#authRefreshtokenPost) | **POST** /auth/refreshtoken | обновления тоукена доступа
+*DefaultApi* | [**authResetPost**](docs/DefaultApi.md#authResetPost) | **POST** /auth/reset | сброс пароля на почту или на телефон пользователя
+*DefaultApi* | [**authResetSavePost**](docs/DefaultApi.md#authResetSavePost) | **POST** /auth/reset/save | сохранение пароля после сброса
+*DefaultApi* | [**authResetUpdatePost**](docs/DefaultApi.md#authResetUpdatePost) | **POST** /auth/reset/update | сброс пароля
+*DefaultApi* | [**authSignupPost**](docs/DefaultApi.md#authSignupPost) | **POST** /auth/signup | регистрация пользователя в системе
 *DefaultApi* | [**contractorsContractorIdDelete**](docs/DefaultApi.md#contractorsContractorIdDelete) | **DELETE** /contractors/{contractorId} | Удаляем исполнителя по идентификатору
 *DefaultApi* | [**contractorsContractorIdGet**](docs/DefaultApi.md#contractorsContractorIdGet) | **GET** /contractors/{contractorId} | Находим исполнителя по идентификатору
 *DefaultApi* | [**contractorsContractorIdPut**](docs/DefaultApi.md#contractorsContractorIdPut) | **PUT** /contractors/{contractorId} | Обновляем исполнителя по идентификатору
 *DefaultApi* | [**contractorsContractorIdRequestsActiveGet**](docs/DefaultApi.md#contractorsContractorIdRequestsActiveGet) | **GET** /contractors/{contractorId}/requests/active | Список активных заявок по исполнительному органу
 *DefaultApi* | [**contractorsContractorIdRequestsArchiveGet**](docs/DefaultApi.md#contractorsContractorIdRequestsArchiveGet) | **GET** /contractors/{contractorId}/requests/archive | Список архивных заявок по исполнительному органу
+*DefaultApi* | [**contractorsContractorIdTasksGet**](docs/DefaultApi.md#contractorsContractorIdTasksGet) | **GET** /contractors/{contractorId}/tasks | Находим активные задачи для выбранного исполнительного \\ контролирующего органа
 *DefaultApi* | [**contractorsGet**](docs/DefaultApi.md#contractorsGet) | **GET** /contractors | Список профилей исполнительных органов
 *DefaultApi* | [**contractorsPost**](docs/DefaultApi.md#contractorsPost) | **POST** /contractors | Создаем профиль исполнительного органа
+*DefaultApi* | [**mailingGet**](docs/DefaultApi.md#mailingGet) | **GET** /mailing | Список всех рассылок
+*DefaultApi* | [**mailingHandlerGet**](docs/DefaultApi.md#mailingHandlerGet) | **GET** /mailing/handler | запуск рассылок в CRON
+*DefaultApi* | [**mailingMailingIdDelete**](docs/DefaultApi.md#mailingMailingIdDelete) | **DELETE** /mailing/{mailingId} | удаляем из рассылки по идентификатору
+*DefaultApi* | [**mailingMailingIdGet**](docs/DefaultApi.md#mailingMailingIdGet) | **GET** /mailing/{mailingId} | Находим рассылку по идентификатору
+*DefaultApi* | [**mailingMailingIdPut**](docs/DefaultApi.md#mailingMailingIdPut) | **PUT** /mailing/{mailingId} | Обновляем черновик заявки по идентификатору
+*DefaultApi* | [**mailingPost**](docs/DefaultApi.md#mailingPost) | **POST** /mailing | Создаем рассылку
 *DefaultApi* | [**problemCategoriesGet**](docs/DefaultApi.md#problemCategoriesGet) | **GET** /problem-categories | Список категорий проблем
 *DefaultApi* | [**problemCategoriesPost**](docs/DefaultApi.md#problemCategoriesPost) | **POST** /problem-categories | Создаем новую категорию проблем
 *DefaultApi* | [**problemCategoriesProblemCategoryIdActiveRequestsGet**](docs/DefaultApi.md#problemCategoriesProblemCategoryIdActiveRequestsGet) | **GET** /problem-categories/{problemCategoryId}/active-requests | Список активных запросов в категории
@@ -136,10 +150,10 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**requestsRequestIdPdfGet**](docs/DefaultApi.md#requestsRequestIdPdfGet) | **GET** /requests/{requestId}/pdf | формируем заявку в виде pdf
 *DefaultApi* | [**requestsRequestIdPut**](docs/DefaultApi.md#requestsRequestIdPut) | **PUT** /requests/{requestId} | Обновляем заявку по идентификатору
 *DefaultApi* | [**rolesGet**](docs/DefaultApi.md#rolesGet) | **GET** /roles | Список всех ролей
-*DefaultApi* | [**rolesPost**](docs/DefaultApi.md#rolesPost) | **POST** /roles | Создаем черновик заявки
-*DefaultApi* | [**rolesRoleIdDelete**](docs/DefaultApi.md#rolesRoleIdDelete) | **DELETE** /roles/{roleId} | Удаляем черновик заявки по идентификатору
+*DefaultApi* | [**rolesPost**](docs/DefaultApi.md#rolesPost) | **POST** /roles | Создаем новую роль
+*DefaultApi* | [**rolesRoleIdDelete**](docs/DefaultApi.md#rolesRoleIdDelete) | **DELETE** /roles/{roleId} | Удаляем роль по идентификатору
 *DefaultApi* | [**rolesRoleIdGet**](docs/DefaultApi.md#rolesRoleIdGet) | **GET** /roles/{roleId} | Находим роль по идентификатору
-*DefaultApi* | [**rolesRoleIdPut**](docs/DefaultApi.md#rolesRoleIdPut) | **PUT** /roles/{roleId} | Обновляем черновик заявки по идентификатору
+*DefaultApi* | [**rolesRoleIdPut**](docs/DefaultApi.md#rolesRoleIdPut) | **PUT** /roles/{roleId} | Обновляем роль по идентификатору
 *DefaultApi* | [**servicesAddressPost**](docs/DefaultApi.md#servicesAddressPost) | **POST** /services/address | Получаем адрес по координатам
 *DefaultApi* | [**servicesCoordsPost**](docs/DefaultApi.md#servicesCoordsPost) | **POST** /services/coords | Получаем координаты по адресу
 *DefaultApi* | [**servicesHeatmapPost**](docs/DefaultApi.md#servicesHeatmapPost) | **POST** /services/heatmap | тепловая карта проблемных \\ решенных зон за период
@@ -148,17 +162,25 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**servicesRequestImportPost**](docs/DefaultApi.md#servicesRequestImportPost) | **POST** /services/request/import | импортирование заявок в формате Excel-файла(ов)
 *DefaultApi* | [**servicesStatisticPost**](docs/DefaultApi.md#servicesStatisticPost) | **POST** /services/statistic | статистика по категориям за период
 *DefaultApi* | [**storedRequestsGet**](docs/DefaultApi.md#storedRequestsGet) | **GET** /stored-requests | Список черновиков заявок
-*DefaultApi* | [**storedRequestsPost**](docs/DefaultApi.md#storedRequestsPost) | **POST** /stored-requests | Создаем черновик заявки
+*DefaultApi* | [**storedRequestsPost**](docs/DefaultApi.md#storedRequestsPost) | **POST** /stored-requests | Создаем черновик заявки.
 *DefaultApi* | [**storedRequestsStoredRequestIdDelete**](docs/DefaultApi.md#storedRequestsStoredRequestIdDelete) | **DELETE** /stored-requests/{storedRequestId} | Удаляем черновик заявки по идентификатору
 *DefaultApi* | [**storedRequestsStoredRequestIdGet**](docs/DefaultApi.md#storedRequestsStoredRequestIdGet) | **GET** /stored-requests/{storedRequestId} | Находим черновик заявки по идентификатору
 *DefaultApi* | [**storedRequestsStoredRequestIdPut**](docs/DefaultApi.md#storedRequestsStoredRequestIdPut) | **PUT** /stored-requests/{storedRequestId} | Обновляем черновик заявки по идентификатору
+*DefaultApi* | [**tasksGet**](docs/DefaultApi.md#tasksGet) | **GET** /tasks | Список всех задач
+*DefaultApi* | [**tasksPost**](docs/DefaultApi.md#tasksPost) | **POST** /tasks | Создаем новую задачу для исполнительного \\ контролирующего органа
+*DefaultApi* | [**tasksTaskIdDelete**](docs/DefaultApi.md#tasksTaskIdDelete) | **DELETE** /tasks/{taskId} | удаляем задачу по идентификатору
+*DefaultApi* | [**tasksTaskIdGet**](docs/DefaultApi.md#tasksTaskIdGet) | **GET** /tasks/{taskId} | Находим задачу по по идентификатору
+*DefaultApi* | [**tasksTaskIdPut**](docs/DefaultApi.md#tasksTaskIdPut) | **PUT** /tasks/{taskId} | Обновляем заявку по идентификатору
 *DefaultApi* | [**usersGet**](docs/DefaultApi.md#usersGet) | **GET** /users | Список пользователей
 *DefaultApi* | [**usersMeGet**](docs/DefaultApi.md#usersMeGet) | **GET** /users/me | возвращаем текущего пользователя
 *DefaultApi* | [**usersPost**](docs/DefaultApi.md#usersPost) | **POST** /users | Создаем пользователя
+*DefaultApi* | [**usersUserIdBlockedGet**](docs/DefaultApi.md#usersUserIdBlockedGet) | **GET** /users/{userId}/blocked | блокируем пользователя по идентификатору
 *DefaultApi* | [**usersUserIdDelete**](docs/DefaultApi.md#usersUserIdDelete) | **DELETE** /users/{userId} | Удаляем пользователя по идентификатору
 *DefaultApi* | [**usersUserIdGet**](docs/DefaultApi.md#usersUserIdGet) | **GET** /users/{userId} | Находим пользователя по идентификатору
 *DefaultApi* | [**usersUserIdProfileGet**](docs/DefaultApi.md#usersUserIdProfileGet) | **GET** /users/{userId}/profile | Находим профиль пользователя по идентификатору пользователя
 *DefaultApi* | [**usersUserIdPut**](docs/DefaultApi.md#usersUserIdPut) | **PUT** /users/{userId} | Обновляем пользователя по идентификатору
+*DefaultApi* | [**usersUserIdRolesPut**](docs/DefaultApi.md#usersUserIdRolesPut) | **PUT** /users/{userId}/roles | Обновляем роли пользователя
+*DefaultApi* | [**usersUserIdUnblockedGet**](docs/DefaultApi.md#usersUserIdUnblockedGet) | **GET** /users/{userId}/unblocked | разблокируем пользователя по идентификатору
 
 
 ## Documentation for Models
@@ -166,17 +188,27 @@ Class | Method | HTTP request | Description
  - [Contractor](docs/Contractor.md)
  - [ContractorForm](docs/ContractorForm.md)
  - [ContractorSchedule](docs/ContractorSchedule.md)
+ - [ContractorTask](docs/ContractorTask.md)
+ - [ContractorTaskForm](docs/ContractorTaskForm.md)
  - [Error](docs/Error.md)
  - [InlineObject](docs/InlineObject.md)
  - [InlineObject1](docs/InlineObject1.md)
+ - [InlineObject10](docs/InlineObject10.md)
+ - [InlineObject12](docs/InlineObject12.md)
+ - [InlineObject13](docs/InlineObject13.md)
+ - [InlineObject14](docs/InlineObject14.md)
+ - [InlineObject15](docs/InlineObject15.md)
+ - [InlineObject2](docs/InlineObject2.md)
  - [InlineObject3](docs/InlineObject3.md)
  - [InlineObject4](docs/InlineObject4.md)
+ - [InlineObject5](docs/InlineObject5.md)
  - [InlineObject6](docs/InlineObject6.md)
  - [InlineObject7](docs/InlineObject7.md)
- - [InlineObject8](docs/InlineObject8.md)
+ - [InlineObject9](docs/InlineObject9.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
- - [InlineResponse2001HeatMapData](docs/InlineResponse2001HeatMapData.md)
+ - [InlineResponse2002](docs/InlineResponse2002.md)
+ - [InlineResponse2002HeatMapData](docs/InlineResponse2002HeatMapData.md)
  - [MailingQuery](docs/MailingQuery.md)
  - [MailingQueryForm](docs/MailingQueryForm.md)
  - [MailingQueryMessageObject](docs/MailingQueryMessageObject.md)
@@ -190,6 +222,8 @@ Class | Method | HTTP request | Description
  - [Request](docs/Request.md)
  - [RequestByContractor](docs/RequestByContractor.md)
  - [RequestStoredProfileData](docs/RequestStoredProfileData.md)
+ - [Role](docs/Role.md)
+ - [RoleForm](docs/RoleForm.md)
  - [StoredRequest](docs/StoredRequest.md)
  - [StoredRequestForm](docs/StoredRequestForm.md)
  - [User](docs/User.md)

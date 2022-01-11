@@ -4,13 +4,27 @@ All URIs are relative to *https://api.domain-name.ru*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**authLoginPost**](DefaultApi.md#authLoginPost) | **POST** /auth/login | авторизация пользователя в системе
+[**authLogoutPost**](DefaultApi.md#authLogoutPost) | **POST** /auth/logout | выход из системы
+[**authRefreshtokenPost**](DefaultApi.md#authRefreshtokenPost) | **POST** /auth/refreshtoken | обновления тоукена доступа
+[**authResetPost**](DefaultApi.md#authResetPost) | **POST** /auth/reset | сброс пароля на почту или на телефон пользователя
+[**authResetSavePost**](DefaultApi.md#authResetSavePost) | **POST** /auth/reset/save | сохранение пароля после сброса
+[**authResetUpdatePost**](DefaultApi.md#authResetUpdatePost) | **POST** /auth/reset/update | сброс пароля
+[**authSignupPost**](DefaultApi.md#authSignupPost) | **POST** /auth/signup | регистрация пользователя в системе
 [**contractorsContractorIdDelete**](DefaultApi.md#contractorsContractorIdDelete) | **DELETE** /contractors/{contractorId} | Удаляем исполнителя по идентификатору
 [**contractorsContractorIdGet**](DefaultApi.md#contractorsContractorIdGet) | **GET** /contractors/{contractorId} | Находим исполнителя по идентификатору
 [**contractorsContractorIdPut**](DefaultApi.md#contractorsContractorIdPut) | **PUT** /contractors/{contractorId} | Обновляем исполнителя по идентификатору
 [**contractorsContractorIdRequestsActiveGet**](DefaultApi.md#contractorsContractorIdRequestsActiveGet) | **GET** /contractors/{contractorId}/requests/active | Список активных заявок по исполнительному органу
 [**contractorsContractorIdRequestsArchiveGet**](DefaultApi.md#contractorsContractorIdRequestsArchiveGet) | **GET** /contractors/{contractorId}/requests/archive | Список архивных заявок по исполнительному органу
+[**contractorsContractorIdTasksGet**](DefaultApi.md#contractorsContractorIdTasksGet) | **GET** /contractors/{contractorId}/tasks | Находим активные задачи для выбранного исполнительного \\ контролирующего органа
 [**contractorsGet**](DefaultApi.md#contractorsGet) | **GET** /contractors | Список профилей исполнительных органов
 [**contractorsPost**](DefaultApi.md#contractorsPost) | **POST** /contractors | Создаем профиль исполнительного органа
+[**mailingGet**](DefaultApi.md#mailingGet) | **GET** /mailing | Список всех рассылок
+[**mailingHandlerGet**](DefaultApi.md#mailingHandlerGet) | **GET** /mailing/handler | запуск рассылок в CRON
+[**mailingMailingIdDelete**](DefaultApi.md#mailingMailingIdDelete) | **DELETE** /mailing/{mailingId} | удаляем из рассылки по идентификатору
+[**mailingMailingIdGet**](DefaultApi.md#mailingMailingIdGet) | **GET** /mailing/{mailingId} | Находим рассылку по идентификатору
+[**mailingMailingIdPut**](DefaultApi.md#mailingMailingIdPut) | **PUT** /mailing/{mailingId} | Обновляем черновик заявки по идентификатору
+[**mailingPost**](DefaultApi.md#mailingPost) | **POST** /mailing | Создаем рассылку
 [**problemCategoriesGet**](DefaultApi.md#problemCategoriesGet) | **GET** /problem-categories | Список категорий проблем
 [**problemCategoriesPost**](DefaultApi.md#problemCategoriesPost) | **POST** /problem-categories | Создаем новую категорию проблем
 [**problemCategoriesProblemCategoryIdActiveRequestsGet**](DefaultApi.md#problemCategoriesProblemCategoryIdActiveRequestsGet) | **GET** /problem-categories/{problemCategoryId}/active-requests | Список активных запросов в категории
@@ -33,10 +47,10 @@ Method | HTTP request | Description
 [**requestsRequestIdPdfGet**](DefaultApi.md#requestsRequestIdPdfGet) | **GET** /requests/{requestId}/pdf | формируем заявку в виде pdf
 [**requestsRequestIdPut**](DefaultApi.md#requestsRequestIdPut) | **PUT** /requests/{requestId} | Обновляем заявку по идентификатору
 [**rolesGet**](DefaultApi.md#rolesGet) | **GET** /roles | Список всех ролей
-[**rolesPost**](DefaultApi.md#rolesPost) | **POST** /roles | Создаем черновик заявки
-[**rolesRoleIdDelete**](DefaultApi.md#rolesRoleIdDelete) | **DELETE** /roles/{roleId} | Удаляем черновик заявки по идентификатору
+[**rolesPost**](DefaultApi.md#rolesPost) | **POST** /roles | Создаем новую роль
+[**rolesRoleIdDelete**](DefaultApi.md#rolesRoleIdDelete) | **DELETE** /roles/{roleId} | Удаляем роль по идентификатору
 [**rolesRoleIdGet**](DefaultApi.md#rolesRoleIdGet) | **GET** /roles/{roleId} | Находим роль по идентификатору
-[**rolesRoleIdPut**](DefaultApi.md#rolesRoleIdPut) | **PUT** /roles/{roleId} | Обновляем черновик заявки по идентификатору
+[**rolesRoleIdPut**](DefaultApi.md#rolesRoleIdPut) | **PUT** /roles/{roleId} | Обновляем роль по идентификатору
 [**servicesAddressPost**](DefaultApi.md#servicesAddressPost) | **POST** /services/address | Получаем адрес по координатам
 [**servicesCoordsPost**](DefaultApi.md#servicesCoordsPost) | **POST** /services/coords | Получаем координаты по адресу
 [**servicesHeatmapPost**](DefaultApi.md#servicesHeatmapPost) | **POST** /services/heatmap | тепловая карта проблемных \\ решенных зон за период
@@ -45,24 +59,32 @@ Method | HTTP request | Description
 [**servicesRequestImportPost**](DefaultApi.md#servicesRequestImportPost) | **POST** /services/request/import | импортирование заявок в формате Excel-файла(ов)
 [**servicesStatisticPost**](DefaultApi.md#servicesStatisticPost) | **POST** /services/statistic | статистика по категориям за период
 [**storedRequestsGet**](DefaultApi.md#storedRequestsGet) | **GET** /stored-requests | Список черновиков заявок
-[**storedRequestsPost**](DefaultApi.md#storedRequestsPost) | **POST** /stored-requests | Создаем черновик заявки
+[**storedRequestsPost**](DefaultApi.md#storedRequestsPost) | **POST** /stored-requests | Создаем черновик заявки.
 [**storedRequestsStoredRequestIdDelete**](DefaultApi.md#storedRequestsStoredRequestIdDelete) | **DELETE** /stored-requests/{storedRequestId} | Удаляем черновик заявки по идентификатору
 [**storedRequestsStoredRequestIdGet**](DefaultApi.md#storedRequestsStoredRequestIdGet) | **GET** /stored-requests/{storedRequestId} | Находим черновик заявки по идентификатору
 [**storedRequestsStoredRequestIdPut**](DefaultApi.md#storedRequestsStoredRequestIdPut) | **PUT** /stored-requests/{storedRequestId} | Обновляем черновик заявки по идентификатору
+[**tasksGet**](DefaultApi.md#tasksGet) | **GET** /tasks | Список всех задач
+[**tasksPost**](DefaultApi.md#tasksPost) | **POST** /tasks | Создаем новую задачу для исполнительного \\ контролирующего органа
+[**tasksTaskIdDelete**](DefaultApi.md#tasksTaskIdDelete) | **DELETE** /tasks/{taskId} | удаляем задачу по идентификатору
+[**tasksTaskIdGet**](DefaultApi.md#tasksTaskIdGet) | **GET** /tasks/{taskId} | Находим задачу по по идентификатору
+[**tasksTaskIdPut**](DefaultApi.md#tasksTaskIdPut) | **PUT** /tasks/{taskId} | Обновляем заявку по идентификатору
 [**usersGet**](DefaultApi.md#usersGet) | **GET** /users | Список пользователей
 [**usersMeGet**](DefaultApi.md#usersMeGet) | **GET** /users/me | возвращаем текущего пользователя
 [**usersPost**](DefaultApi.md#usersPost) | **POST** /users | Создаем пользователя
+[**usersUserIdBlockedGet**](DefaultApi.md#usersUserIdBlockedGet) | **GET** /users/{userId}/blocked | блокируем пользователя по идентификатору
 [**usersUserIdDelete**](DefaultApi.md#usersUserIdDelete) | **DELETE** /users/{userId} | Удаляем пользователя по идентификатору
 [**usersUserIdGet**](DefaultApi.md#usersUserIdGet) | **GET** /users/{userId} | Находим пользователя по идентификатору
 [**usersUserIdProfileGet**](DefaultApi.md#usersUserIdProfileGet) | **GET** /users/{userId}/profile | Находим профиль пользователя по идентификатору пользователя
 [**usersUserIdPut**](DefaultApi.md#usersUserIdPut) | **PUT** /users/{userId} | Обновляем пользователя по идентификатору
+[**usersUserIdRolesPut**](DefaultApi.md#usersUserIdRolesPut) | **PUT** /users/{userId}/roles | Обновляем роли пользователя
+[**usersUserIdUnblockedGet**](DefaultApi.md#usersUserIdUnblockedGet) | **GET** /users/{userId}/unblocked | разблокируем пользователя по идентификатору
 
 
-<a name="contractorsContractorIdDelete"></a>
-# **contractorsContractorIdDelete**
-> Contractor contractorsContractorIdDelete(contractorId)
+<a name="authLoginPost"></a>
+# **authLoginPost**
+> InlineResponse200 authLoginPost(inlineObject1)
 
-Удаляем исполнителя по идентификатору
+авторизация пользователя в системе
 
 ### Example
 ```java
@@ -77,6 +99,440 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    InlineObject1 inlineObject1 = new InlineObject1(); // InlineObject1 | 
+    try {
+      InlineResponse200 result = apiInstance.authLoginPost(inlineObject1);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#authLoginPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inlineObject1** | [**InlineObject1**](InlineObject1.md)|  | [optional]
+
+### Return type
+
+[**InlineResponse200**](InlineResponse200.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Ошибка регистрации, такой пользователь уже есть |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="authLogoutPost"></a>
+# **authLogoutPost**
+> authLogoutPost()
+
+выход из системы
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      apiInstance.authLogoutPost();
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#authLogoutPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | OK |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="authRefreshtokenPost"></a>
+# **authRefreshtokenPost**
+> InlineResponse200 authRefreshtokenPost(inlineObject2)
+
+обновления тоукена доступа
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    InlineObject2 inlineObject2 = new InlineObject2(); // InlineObject2 | 
+    try {
+      InlineResponse200 result = apiInstance.authRefreshtokenPost(inlineObject2);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#authRefreshtokenPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inlineObject2** | [**InlineObject2**](InlineObject2.md)|  | [optional]
+
+### Return type
+
+[**InlineResponse200**](InlineResponse200.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | неверный Refresh Token |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="authResetPost"></a>
+# **authResetPost**
+> authResetPost(inlineObject3)
+
+сброс пароля на почту или на телефон пользователя
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    InlineObject3 inlineObject3 = new InlineObject3(); // InlineObject3 | 
+    try {
+      apiInstance.authResetPost(inlineObject3);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#authResetPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inlineObject3** | [**InlineObject3**](InlineObject3.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | OK |  -  |
+**400** | Ошибка регистрации, такой пользователь уже есть |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="authResetSavePost"></a>
+# **authResetSavePost**
+> authResetSavePost(inlineObject4)
+
+сохранение пароля после сброса
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    InlineObject4 inlineObject4 = new InlineObject4(); // InlineObject4 | 
+    try {
+      apiInstance.authResetSavePost(inlineObject4);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#authResetSavePost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inlineObject4** | [**InlineObject4**](InlineObject4.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | OK |  -  |
+**400** | Ошибка токена |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="authResetUpdatePost"></a>
+# **authResetUpdatePost**
+> authResetUpdatePost(inlineObject5)
+
+сброс пароля
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    InlineObject5 inlineObject5 = new InlineObject5(); // InlineObject5 | 
+    try {
+      apiInstance.authResetUpdatePost(inlineObject5);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#authResetUpdatePost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inlineObject5** | [**InlineObject5**](InlineObject5.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | OK |  -  |
+**400** | Ошибка ввода старого пароля |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="authSignupPost"></a>
+# **authSignupPost**
+> authSignupPost(inlineObject)
+
+регистрация пользователя в системе
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    InlineObject inlineObject = new InlineObject(); // InlineObject | 
+    try {
+      apiInstance.authSignupPost(inlineObject);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#authSignupPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inlineObject** | [**InlineObject**](InlineObject.md)|  | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | OK |  -  |
+**400** | Ошибка регистрации, такой пользователь уже есть |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="contractorsContractorIdDelete"></a>
+# **contractorsContractorIdDelete**
+> Contractor contractorsContractorIdDelete(contractorId)
+
+Удаляем исполнителя по идентификатору
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long contractorId = 56L; // Long | Parameter description in CommonMark or HTML.
@@ -106,7 +562,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -196,6 +652,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -203,6 +660,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long contractorId = 56L; // Long | Целочисленный идентификатор исполнителя
@@ -234,7 +695,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -379,6 +840,71 @@ No authorization required
 **200** | OK |  -  |
 **0** | Unexpected error |  -  |
 
+<a name="contractorsContractorIdTasksGet"></a>
+# **contractorsContractorIdTasksGet**
+> ContractorTask contractorsContractorIdTasksGet(contractorId)
+
+Находим активные задачи для выбранного исполнительного \\ контролирующего органа
+
+активными считаются те задачи, у которых не проставлено время выполнения \\ контроля
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long contractorId = 56L; // Long | Целочисленный идентификатор
+    try {
+      ContractorTask result = apiInstance.contractorsContractorIdTasksGet(contractorId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#contractorsContractorIdTasksGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contractorId** | **Long**| Целочисленный идентификатор |
+
+### Return type
+
+[**ContractorTask**](ContractorTask.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Указанный идентификатор не является числом |  -  |
+**404** | A user with the specified ID was not found. |  -  |
+**0** | Unexpected error |  -  |
+
 <a name="contractorsGet"></a>
 # **contractorsGet**
 > PaginateObject contractorsGet(page, size)
@@ -454,6 +980,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -461,6 +988,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     ContractorForm contractorForm = new ContractorForm(); // ContractorForm | 
@@ -490,7 +1021,414 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="mailingGet"></a>
+# **mailingGet**
+> PaginateObject mailingGet(page, size)
+
+Список всех рассылок
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long page = 56L; // Long | идентификатор страницы
+    Long size = 56L; // Long | размер выдачи на странице
+    try {
+      PaginateObject result = apiInstance.mailingGet(page, size);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#mailingGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **Long**| идентификатор страницы | [optional]
+ **size** | **Long**| размер выдачи на странице | [optional]
+
+### Return type
+
+[**PaginateObject**](PaginateObject.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="mailingHandlerGet"></a>
+# **mailingHandlerGet**
+> mailingHandlerGet(page, size)
+
+запуск рассылок в CRON
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long page = 56L; // Long | идентификатор страницы
+    Long size = 56L; // Long | размер выдачи на странице
+    try {
+      apiInstance.mailingHandlerGet(page, size);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#mailingHandlerGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **Long**| идентификатор страницы | [optional]
+ **size** | **Long**| размер выдачи на странице | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | OK |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="mailingMailingIdDelete"></a>
+# **mailingMailingIdDelete**
+> MailingQuery mailingMailingIdDelete(mailingId)
+
+удаляем из рассылки по идентификатору
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long mailingId = 56L; // Long | Parameter description in CommonMark or HTML.
+    try {
+      MailingQuery result = apiInstance.mailingMailingIdDelete(mailingId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#mailingMailingIdDelete");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mailingId** | **Long**| Parameter description in CommonMark or HTML. |
+
+### Return type
+
+[**MailingQuery**](MailingQuery.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | The specified user ID is invalid (not a number). |  -  |
+**404** | A user with the specified ID was not found. |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="mailingMailingIdGet"></a>
+# **mailingMailingIdGet**
+> MailingQuery mailingMailingIdGet(mailingId)
+
+Находим рассылку по идентификатору
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long mailingId = 56L; // Long | Целочисленный идентификатор записи
+    try {
+      MailingQuery result = apiInstance.mailingMailingIdGet(mailingId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#mailingMailingIdGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mailingId** | **Long**| Целочисленный идентификатор записи |
+
+### Return type
+
+[**MailingQuery**](MailingQuery.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Указанный идентификатор не является числом |  -  |
+**404** | указанный идентификатор не найден |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="mailingMailingIdPut"></a>
+# **mailingMailingIdPut**
+> MailingQuery mailingMailingIdPut(mailingId, mailingQueryForm)
+
+Обновляем черновик заявки по идентификатору
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long mailingId = 56L; // Long | Целочисленный идентификатор
+    MailingQueryForm mailingQueryForm = new MailingQueryForm(); // MailingQueryForm | 
+    try {
+      MailingQuery result = apiInstance.mailingMailingIdPut(mailingId, mailingQueryForm);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#mailingMailingIdPut");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mailingId** | **Long**| Целочисленный идентификатор |
+ **mailingQueryForm** | [**MailingQueryForm**](MailingQueryForm.md)|  | [optional]
+
+### Return type
+
+[**MailingQuery**](MailingQuery.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Указанный идентификатор черновика не является числом |  -  |
+**404** | указанный идентификатор |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="mailingPost"></a>
+# **mailingPost**
+> MailingQuery mailingPost(mailingQueryForm)
+
+Создаем рассылку
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    MailingQueryForm mailingQueryForm = new MailingQueryForm(); // MailingQueryForm | 
+    try {
+      MailingQuery result = apiInstance.mailingPost(mailingQueryForm);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#mailingPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mailingQueryForm** | [**MailingQueryForm**](MailingQueryForm.md)|  | [optional]
+
+### Return type
+
+[**MailingQuery**](MailingQuery.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -578,6 +1516,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -585,6 +1524,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     ProblemCategoryForm problemCategoryForm = new ProblemCategoryForm(); // ProblemCategoryForm | 
@@ -614,7 +1557,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -834,6 +1777,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -841,6 +1785,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long problemCategoryId = 56L; // Long | Parameter description in CommonMark or HTML.
@@ -870,7 +1818,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -960,6 +1908,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -967,6 +1916,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long problemCategoryId = 56L; // Long | Целочисленный идентификатор категории
@@ -998,7 +1951,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1025,6 +1978,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1032,6 +1986,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long page = 56L; // Long | идентификатор страницы
@@ -1063,7 +2021,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1088,6 +2046,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1095,6 +2054,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     ProfileForm profileForm = new ProfileForm(); // ProfileForm | 
@@ -1124,7 +2087,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1149,6 +2112,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1156,6 +2120,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long profileId = 56L; // Long | Parameter description in CommonMark or HTML.
@@ -1185,7 +2153,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1212,6 +2180,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1219,6 +2188,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long profileId = 56L; // Long | Целочисленный идентификатор профиля пользователя
@@ -1248,7 +2221,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1275,6 +2248,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1282,6 +2256,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long profileId = 56L; // Long | Целочисленный идентификатор профиля пользователя
@@ -1313,7 +2291,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1393,7 +2371,7 @@ No authorization required
 
 <a name="requestsInRangePost"></a>
 # **requestsInRangePost**
-> List&lt;Request&gt; requestsInRangePost(inlineObject7)
+> List&lt;Request&gt; requestsInRangePost(inlineObject14)
 
 Подбор заявок в радиусе
 
@@ -1412,9 +2390,9 @@ public class Example {
     defaultClient.setBasePath("https://api.domain-name.ru");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    InlineObject7 inlineObject7 = new InlineObject7(); // InlineObject7 | 
+    InlineObject14 inlineObject14 = new InlineObject14(); // InlineObject14 | 
     try {
-      List<Request> result = apiInstance.requestsInRangePost(inlineObject7);
+      List<Request> result = apiInstance.requestsInRangePost(inlineObject14);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#requestsInRangePost");
@@ -1431,7 +2409,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject7** | [**InlineObject7**](InlineObject7.md)|  | [optional]
+ **inlineObject14** | [**InlineObject14**](InlineObject14.md)|  | [optional]
 
 ### Return type
 
@@ -1457,6 +2435,8 @@ No authorization required
 > Request requestsPost(description, problemCategories, latitude, longitude, parentRequestId, location, baseRating, status, attachments, requestConsiderationAt, beginRequestExecutionAt, completeRequestExecutionAt, requestStatusCheckedAt, isModerated, moderatorId, filenames)
 
 Создаем заявку
+
+При создании заявки регестрируем и авторизируем пользователя
 
 ### Example
 ```java
@@ -1545,7 +2525,7 @@ No authorization required
 
 <a name="requestsRatingPost"></a>
 # **requestsRatingPost**
-> List&lt;Request&gt; requestsRatingPost(inlineObject8)
+> List&lt;Request&gt; requestsRatingPost(inlineObject15)
 
 модификация рейтинга заявки (+-)
 
@@ -1555,6 +2535,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1562,11 +2543,15 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    InlineObject8 inlineObject8 = new InlineObject8(); // InlineObject8 | 
+    InlineObject15 inlineObject15 = new InlineObject15(); // InlineObject15 | 
     try {
-      List<Request> result = apiInstance.requestsRatingPost(inlineObject8);
+      List<Request> result = apiInstance.requestsRatingPost(inlineObject15);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#requestsRatingPost");
@@ -1583,7 +2568,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject8** | [**InlineObject8**](InlineObject8.md)|  | [optional]
+ **inlineObject15** | [**InlineObject15**](InlineObject15.md)|  | [optional]
 
 ### Return type
 
@@ -1591,7 +2576,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1616,6 +2601,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1623,6 +2609,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long requestId = 56L; // Long | Parameter description in CommonMark or HTML.
@@ -1652,7 +2642,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1742,6 +2732,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1749,6 +2740,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long requestId = 56L; // Long | Целочисленный идентификатор заявки
@@ -1778,7 +2773,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1805,6 +2800,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1812,6 +2808,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long requestId = 56L; // Long | Целочисленный идентификатор заявки
@@ -1873,7 +2873,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1900,6 +2900,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1907,6 +2908,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long page = 56L; // Long | идентификатор страницы
@@ -1938,7 +2943,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -1953,9 +2958,9 @@ No authorization required
 
 <a name="rolesPost"></a>
 # **rolesPost**
-> StoredRequest rolesPost(storedRequestForm)
+> Role rolesPost(roleForm)
 
-Создаем черновик заявки
+Создаем новую роль
 
 ### Example
 ```java
@@ -1963,6 +2968,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -1970,11 +2976,15 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    StoredRequestForm storedRequestForm = new StoredRequestForm(); // StoredRequestForm | 
+    RoleForm roleForm = new RoleForm(); // RoleForm | 
     try {
-      StoredRequest result = apiInstance.rolesPost(storedRequestForm);
+      Role result = apiInstance.rolesPost(roleForm);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#rolesPost");
@@ -1991,15 +3001,15 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **storedRequestForm** | [**StoredRequestForm**](StoredRequestForm.md)|  | [optional]
+ **roleForm** | [**RoleForm**](RoleForm.md)|  | [optional]
 
 ### Return type
 
-[**StoredRequest**](StoredRequest.md)
+[**Role**](Role.md)
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2014,9 +3024,9 @@ No authorization required
 
 <a name="rolesRoleIdDelete"></a>
 # **rolesRoleIdDelete**
-> StoredRequest rolesRoleIdDelete(roleId)
+> Role rolesRoleIdDelete(roleId)
 
-Удаляем черновик заявки по идентификатору
+Удаляем роль по идентификатору
 
 ### Example
 ```java
@@ -2024,6 +3034,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -2031,11 +3042,15 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long roleId = 56L; // Long | Parameter description in CommonMark or HTML.
     try {
-      StoredRequest result = apiInstance.rolesRoleIdDelete(roleId);
+      Role result = apiInstance.rolesRoleIdDelete(roleId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#rolesRoleIdDelete");
@@ -2056,11 +3071,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StoredRequest**](StoredRequest.md)
+[**Role**](Role.md)
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2077,7 +3092,7 @@ No authorization required
 
 <a name="rolesRoleIdGet"></a>
 # **rolesRoleIdGet**
-> StoredRequest rolesRoleIdGet(roleId)
+> Role rolesRoleIdGet(roleId)
 
 Находим роль по идентификатору
 
@@ -2087,6 +3102,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -2094,11 +3110,15 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long roleId = 56L; // Long | Целочисленный идентификатор заявки
     try {
-      StoredRequest result = apiInstance.rolesRoleIdGet(roleId);
+      Role result = apiInstance.rolesRoleIdGet(roleId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#rolesRoleIdGet");
@@ -2119,11 +3139,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StoredRequest**](StoredRequest.md)
+[**Role**](Role.md)
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2140,9 +3160,9 @@ No authorization required
 
 <a name="rolesRoleIdPut"></a>
 # **rolesRoleIdPut**
-> StoredRequest rolesRoleIdPut(roleId, storedRequestForm)
+> Role rolesRoleIdPut(roleId, roleForm)
 
-Обновляем черновик заявки по идентификатору
+Обновляем роль по идентификатору
 
 ### Example
 ```java
@@ -2150,6 +3170,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -2157,12 +3178,16 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    Long roleId = 56L; // Long | Целочисленный идентификатор черновика заявки
-    StoredRequestForm storedRequestForm = new StoredRequestForm(); // StoredRequestForm | 
+    Long roleId = 56L; // Long | Целочисленный идентификатор роли
+    RoleForm roleForm = new RoleForm(); // RoleForm | 
     try {
-      StoredRequest result = apiInstance.rolesRoleIdPut(roleId, storedRequestForm);
+      Role result = apiInstance.rolesRoleIdPut(roleId, roleForm);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#rolesRoleIdPut");
@@ -2179,16 +3204,16 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **roleId** | **Long**| Целочисленный идентификатор черновика заявки |
- **storedRequestForm** | [**StoredRequestForm**](StoredRequestForm.md)|  | [optional]
+ **roleId** | **Long**| Целочисленный идентификатор роли |
+ **roleForm** | [**RoleForm**](RoleForm.md)|  | [optional]
 
 ### Return type
 
-[**StoredRequest**](StoredRequest.md)
+[**Role**](Role.md)
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2205,7 +3230,7 @@ No authorization required
 
 <a name="servicesAddressPost"></a>
 # **servicesAddressPost**
-> InlineResponse200 servicesAddressPost(inlineObject)
+> InlineResponse2001 servicesAddressPost(inlineObject6)
 
 Получаем адрес по координатам
 
@@ -2224,9 +3249,9 @@ public class Example {
     defaultClient.setBasePath("https://api.domain-name.ru");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    InlineObject inlineObject = new InlineObject(); // InlineObject | 
+    InlineObject6 inlineObject6 = new InlineObject6(); // InlineObject6 | 
     try {
-      InlineResponse200 result = apiInstance.servicesAddressPost(inlineObject);
+      InlineResponse2001 result = apiInstance.servicesAddressPost(inlineObject6);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#servicesAddressPost");
@@ -2243,11 +3268,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject** | [**InlineObject**](InlineObject.md)|  | [optional]
+ **inlineObject6** | [**InlineObject6**](InlineObject6.md)|  | [optional]
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -2266,7 +3291,7 @@ No authorization required
 
 <a name="servicesCoordsPost"></a>
 # **servicesCoordsPost**
-> InlineObject servicesCoordsPost(inlineObject1)
+> InlineObject6 servicesCoordsPost(inlineObject7)
 
 Получаем координаты по адресу
 
@@ -2285,9 +3310,9 @@ public class Example {
     defaultClient.setBasePath("https://api.domain-name.ru");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    InlineObject1 inlineObject1 = new InlineObject1(); // InlineObject1 | 
+    InlineObject7 inlineObject7 = new InlineObject7(); // InlineObject7 | 
     try {
-      InlineObject result = apiInstance.servicesCoordsPost(inlineObject1);
+      InlineObject6 result = apiInstance.servicesCoordsPost(inlineObject7);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#servicesCoordsPost");
@@ -2304,11 +3329,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject1** | [**InlineObject1**](InlineObject1.md)|  | [optional]
+ **inlineObject7** | [**InlineObject7**](InlineObject7.md)|  | [optional]
 
 ### Return type
 
-[**InlineObject**](InlineObject.md)
+[**InlineObject6**](InlineObject6.md)
 
 ### Authorization
 
@@ -2327,7 +3352,7 @@ No authorization required
 
 <a name="servicesHeatmapPost"></a>
 # **servicesHeatmapPost**
-> InlineResponse2001 servicesHeatmapPost(inlineObject4)
+> InlineResponse2002 servicesHeatmapPost(inlineObject10)
 
 тепловая карта проблемных \\ решенных зон за период
 
@@ -2351,9 +3376,9 @@ public class Example {
     bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    InlineObject4 inlineObject4 = new InlineObject4(); // InlineObject4 | 
+    InlineObject10 inlineObject10 = new InlineObject10(); // InlineObject10 | 
     try {
-      InlineResponse2001 result = apiInstance.servicesHeatmapPost(inlineObject4);
+      InlineResponse2002 result = apiInstance.servicesHeatmapPost(inlineObject10);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#servicesHeatmapPost");
@@ -2370,11 +3395,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject4** | [**InlineObject4**](InlineObject4.md)|  | [optional]
+ **inlineObject10** | [**InlineObject10**](InlineObject10.md)|  | [optional]
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -2472,7 +3497,7 @@ null (empty response body)
 
 <a name="servicesRequestExportPost"></a>
 # **servicesRequestExportPost**
-> File servicesRequestExportPost(inlineObject6)
+> File servicesRequestExportPost(inlineObject12)
 
 экспортирование заявок в формате Excel-файла
 
@@ -2496,9 +3521,9 @@ public class Example {
     bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    InlineObject6 inlineObject6 = new InlineObject6(); // InlineObject6 | 
+    InlineObject12 inlineObject12 = new InlineObject12(); // InlineObject12 | 
     try {
-      File result = apiInstance.servicesRequestExportPost(inlineObject6);
+      File result = apiInstance.servicesRequestExportPost(inlineObject12);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#servicesRequestExportPost");
@@ -2515,7 +3540,7 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject6** | [**InlineObject6**](InlineObject6.md)|  | [optional]
+ **inlineObject12** | [**InlineObject12**](InlineObject12.md)|  | [optional]
 
 ### Return type
 
@@ -2603,7 +3628,7 @@ null (empty response body)
 
 <a name="servicesStatisticPost"></a>
 # **servicesStatisticPost**
-> InlineObject servicesStatisticPost(inlineObject3)
+> InlineObject6 servicesStatisticPost(inlineObject9)
 
 статистика по категориям за период
 
@@ -2627,9 +3652,9 @@ public class Example {
     bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    InlineObject3 inlineObject3 = new InlineObject3(); // InlineObject3 | 
+    InlineObject9 inlineObject9 = new InlineObject9(); // InlineObject9 | 
     try {
-      InlineObject result = apiInstance.servicesStatisticPost(inlineObject3);
+      InlineObject6 result = apiInstance.servicesStatisticPost(inlineObject9);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DefaultApi#servicesStatisticPost");
@@ -2646,11 +3671,11 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject3** | [**InlineObject3**](InlineObject3.md)|  | [optional]
+ **inlineObject9** | [**InlineObject9**](InlineObject9.md)|  | [optional]
 
 ### Return type
 
-[**InlineObject**](InlineObject.md)
+[**InlineObject6**](InlineObject6.md)
 
 ### Authorization
 
@@ -2679,6 +3704,7 @@ Name | Type | Description  | Notes
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -2686,6 +3712,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long page = 56L; // Long | идентификатор страницы
@@ -2717,7 +3747,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2734,7 +3764,9 @@ No authorization required
 # **storedRequestsPost**
 > StoredRequest storedRequestsPost(storedRequestForm)
 
-Создаем черновик заявки
+Создаем черновик заявки.
+
+Перед выполнением данной команды стоит предложить зарегестрироваться или авторизоваться.
 
 ### Example
 ```java
@@ -2803,6 +3835,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -2810,6 +3843,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long storedRequestId = 56L; // Long | Parameter description in CommonMark or HTML.
@@ -2839,7 +3876,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2866,6 +3903,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -2873,6 +3911,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long storedRequestId = 56L; // Long | Целочисленный идентификатор заявки
@@ -2902,7 +3944,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2929,6 +3971,7 @@ No authorization required
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
 import org.openapitools.client.models.*;
 import org.openapitools.client.api.DefaultApi;
 
@@ -2936,6 +3979,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
     Long storedRequestId = 56L; // Long | Целочисленный идентификатор черновика заявки
@@ -2967,7 +4014,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -2980,6 +4027,346 @@ No authorization required
 **200** | OK |  -  |
 **400** | Указанный идентификатор черновика заявки не является числом |  -  |
 **404** | A user with the specified ID was not found. |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="tasksGet"></a>
+# **tasksGet**
+> PaginateObject tasksGet(page, size)
+
+Список всех задач
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long page = 56L; // Long | идентификатор страницы
+    Long size = 56L; // Long | размер выдачи на странице
+    try {
+      PaginateObject result = apiInstance.tasksGet(page, size);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#tasksGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **Long**| идентификатор страницы | [optional]
+ **size** | **Long**| размер выдачи на странице | [optional]
+
+### Return type
+
+[**PaginateObject**](PaginateObject.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="tasksPost"></a>
+# **tasksPost**
+> ContractorTask tasksPost(contractorTaskForm)
+
+Создаем новую задачу для исполнительного \\ контролирующего органа
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    ContractorTaskForm contractorTaskForm = new ContractorTaskForm(); // ContractorTaskForm | 
+    try {
+      ContractorTask result = apiInstance.tasksPost(contractorTaskForm);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#tasksPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contractorTaskForm** | [**ContractorTaskForm**](ContractorTaskForm.md)|  | [optional]
+
+### Return type
+
+[**ContractorTask**](ContractorTask.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="tasksTaskIdDelete"></a>
+# **tasksTaskIdDelete**
+> ContractorTask tasksTaskIdDelete(taskId)
+
+удаляем задачу по идентификатору
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long taskId = 56L; // Long | Parameter description in CommonMark or HTML.
+    try {
+      ContractorTask result = apiInstance.tasksTaskIdDelete(taskId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#tasksTaskIdDelete");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **taskId** | **Long**| Parameter description in CommonMark or HTML. |
+
+### Return type
+
+[**ContractorTask**](ContractorTask.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | The specified user ID is invalid (not a number). |  -  |
+**404** | задача не найдена по идентификатору |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="tasksTaskIdGet"></a>
+# **tasksTaskIdGet**
+> ContractorTask tasksTaskIdGet(taskId)
+
+Находим задачу по по идентификатору
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long taskId = 56L; // Long | Целочисленный идентификатор записи
+    try {
+      ContractorTask result = apiInstance.tasksTaskIdGet(taskId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#tasksTaskIdGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **taskId** | **Long**| Целочисленный идентификатор записи |
+
+### Return type
+
+[**ContractorTask**](ContractorTask.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Указанный идентификатор не является числом |  -  |
+**404** | указанный идентификатор не найден |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="tasksTaskIdPut"></a>
+# **tasksTaskIdPut**
+> ContractorTask tasksTaskIdPut(taskId, contractorTaskForm)
+
+Обновляем заявку по идентификатору
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long taskId = 56L; // Long | Целочисленный идентификатор
+    ContractorTaskForm contractorTaskForm = new ContractorTaskForm(); // ContractorTaskForm | 
+    try {
+      ContractorTask result = apiInstance.tasksTaskIdPut(taskId, contractorTaskForm);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#tasksTaskIdPut");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **taskId** | **Long**| Целочисленный идентификатор |
+ **contractorTaskForm** | [**ContractorTaskForm**](ContractorTaskForm.md)|  | [optional]
+
+### Return type
+
+[**ContractorTask**](ContractorTask.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Указанный идентификатор черновика не является числом |  -  |
+**404** | указанный идентификатор |  -  |
 **0** | Unexpected error |  -  |
 
 <a name="usersGet"></a>
@@ -3176,6 +4563,74 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="usersUserIdBlockedGet"></a>
+# **usersUserIdBlockedGet**
+> User usersUserIdBlockedGet(userId)
+
+блокируем пользователя по идентификатору
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long userId = 56L; // Long | Целочисленный идентификатор пользователя
+    try {
+      User result = apiInstance.usersUserIdBlockedGet(userId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#usersUserIdBlockedGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **Long**| Целочисленный идентификатор пользователя |
+
+### Return type
+
+[**User**](User.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Указанный идентификатор пользователя не является числом |  -  |
+**404** | A user with the specified ID was not found. |  -  |
 **0** | Unexpected error |  -  |
 
 <a name="usersUserIdDelete"></a>
@@ -3442,6 +4897,144 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Указанный идентификатор пользователя не является числом |  -  |
+**404** | A user with the specified ID was not found. |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="usersUserIdRolesPut"></a>
+# **usersUserIdRolesPut**
+> User usersUserIdRolesPut(userId, inlineObject13)
+
+Обновляем роли пользователя
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long userId = 56L; // Long | Целочисленный идентификатор пользователя
+    InlineObject13 inlineObject13 = new InlineObject13(); // InlineObject13 | 
+    try {
+      User result = apiInstance.usersUserIdRolesPut(userId, inlineObject13);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#usersUserIdRolesPut");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **Long**| Целочисленный идентификатор пользователя |
+ **inlineObject13** | [**InlineObject13**](InlineObject13.md)|  | [optional]
+
+### Return type
+
+[**User**](User.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Указанный идентификатор пользователя не является числом |  -  |
+**404** | A user with the specified ID was not found. |  -  |
+**0** | Unexpected error |  -  |
+
+<a name="usersUserIdUnblockedGet"></a>
+# **usersUserIdUnblockedGet**
+> User usersUserIdUnblockedGet(userId)
+
+разблокируем пользователя по идентификатору
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.domain-name.ru");
+    
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Long userId = 56L; // Long | Целочисленный идентификатор пользователя
+    try {
+      User result = apiInstance.usersUserIdUnblockedGet(userId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#usersUserIdUnblockedGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **Long**| Целочисленный идентификатор пользователя |
+
+### Return type
+
+[**User**](User.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details

@@ -23,179 +23,64 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * InlineObject4
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class InlineObject4 {
-  public static final String SERIALIZED_NAME_START_AT = "start_at";
-  @SerializedName(SERIALIZED_NAME_START_AT)
-  private String startAt;
+  public static final String SERIALIZED_NAME_NEW_PASSWORD = "newPassword";
+  @SerializedName(SERIALIZED_NAME_NEW_PASSWORD)
+  private String newPassword;
 
-  public static final String SERIALIZED_NAME_END_AT = "end_at";
-  @SerializedName(SERIALIZED_NAME_END_AT)
-  private String endAt;
+  public static final String SERIALIZED_NAME_TOKEN = "token";
+  @SerializedName(SERIALIZED_NAME_TOKEN)
+  private String token;
 
-  public static final String SERIALIZED_NAME_CATEGORY_ID = "category_id";
-  @SerializedName(SERIALIZED_NAME_CATEGORY_ID)
-  private List<Integer> categoryId = null;
 
-  /**
-   * Тепловая карта заявок:   * &#x60;ACCEPTED&#x60; - принятые запросы   * &#x60;RESOLVED&#x60; - выполненные запросы   * &#x60;NOT_ACCEPTED&#x60; - не принятые запросы   * &#x60;DECLINED&#x60; - отклоненные запрос 
-   */
-  @JsonAdapter(TypeEnum.Adapter.class)
-  public enum TypeEnum {
-    ACCEPTED("ACCEPTED"),
+  public InlineObject4 newPassword(String newPassword) {
     
-    RESOLVED("RESOLVED"),
-    
-    NOT_ACCEPTED("NOT_ACCEPTED"),
-    
-    DECLINED("DECLINED");
-
-    private String value;
-
-    TypeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<TypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TypeEnum.fromValue(value);
-      }
-    }
-  }
-
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
-  private TypeEnum type;
-
-
-  public InlineObject4 startAt(String startAt) {
-    
-    this.startAt = startAt;
+    this.newPassword = newPassword;
     return this;
   }
 
    /**
-   * Get startAt
-   * @return startAt
+   * Get newPassword
+   * @return newPassword
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2021-01-01 11:00:00", value = "")
+  @ApiModelProperty(example = "12345678", value = "")
 
-  public String getStartAt() {
-    return startAt;
+  public String getNewPassword() {
+    return newPassword;
   }
 
 
-  public void setStartAt(String startAt) {
-    this.startAt = startAt;
+  public void setNewPassword(String newPassword) {
+    this.newPassword = newPassword;
   }
 
 
-  public InlineObject4 endAt(String endAt) {
+  public InlineObject4 token(String token) {
     
-    this.endAt = endAt;
+    this.token = token;
     return this;
   }
 
    /**
-   * Get endAt
-   * @return endAt
+   * Get token
+   * @return token
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2021-01-02 11:00:00", value = "")
+  @ApiModelProperty(example = "6f7d4992-912f-48dd-92f7-0418fa2b2342", value = "")
 
-  public String getEndAt() {
-    return endAt;
+  public String getToken() {
+    return token;
   }
 
 
-  public void setEndAt(String endAt) {
-    this.endAt = endAt;
-  }
-
-
-  public InlineObject4 categoryId(List<Integer> categoryId) {
-    
-    this.categoryId = categoryId;
-    return this;
-  }
-
-  public InlineObject4 addCategoryIdItem(Integer categoryIdItem) {
-    if (this.categoryId == null) {
-      this.categoryId = new ArrayList<Integer>();
-    }
-    this.categoryId.add(categoryIdItem);
-    return this;
-  }
-
-   /**
-   * Get categoryId
-   * @return categoryId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "[1,2,3,4,5]", value = "")
-
-  public List<Integer> getCategoryId() {
-    return categoryId;
-  }
-
-
-  public void setCategoryId(List<Integer> categoryId) {
-    this.categoryId = categoryId;
-  }
-
-
-  public InlineObject4 type(TypeEnum type) {
-    
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Тепловая карта заявок:   * &#x60;ACCEPTED&#x60; - принятые запросы   * &#x60;RESOLVED&#x60; - выполненные запросы   * &#x60;NOT_ACCEPTED&#x60; - не принятые запросы   * &#x60;DECLINED&#x60; - отклоненные запрос 
-   * @return type
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Тепловая карта заявок:   * `ACCEPTED` - принятые запросы   * `RESOLVED` - выполненные запросы   * `NOT_ACCEPTED` - не принятые запросы   * `DECLINED` - отклоненные запрос ")
-
-  public TypeEnum getType() {
-    return type;
-  }
-
-
-  public void setType(TypeEnum type) {
-    this.type = type;
+  public void setToken(String token) {
+    this.token = token;
   }
 
 
@@ -208,15 +93,13 @@ public class InlineObject4 {
       return false;
     }
     InlineObject4 inlineObject4 = (InlineObject4) o;
-    return Objects.equals(this.startAt, inlineObject4.startAt) &&
-        Objects.equals(this.endAt, inlineObject4.endAt) &&
-        Objects.equals(this.categoryId, inlineObject4.categoryId) &&
-        Objects.equals(this.type, inlineObject4.type);
+    return Objects.equals(this.newPassword, inlineObject4.newPassword) &&
+        Objects.equals(this.token, inlineObject4.token);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(startAt, endAt, categoryId, type);
+    return Objects.hash(newPassword, token);
   }
 
 
@@ -224,10 +107,8 @@ public class InlineObject4 {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InlineObject4 {\n");
-    sb.append("    startAt: ").append(toIndentedString(startAt)).append("\n");
-    sb.append("    endAt: ").append(toIndentedString(endAt)).append("\n");
-    sb.append("    categoryId: ").append(toIndentedString(categoryId)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    newPassword: ").append(toIndentedString(newPassword)).append("\n");
+    sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("}");
     return sb.toString();
   }

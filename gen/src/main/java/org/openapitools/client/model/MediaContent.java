@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * MediaContent
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class MediaContent {
   /**
    * Тип медиа данных:  * &#x60;IMAGE&#x60; - изображение  * &#x60;VIDEO&#x60; - видео 

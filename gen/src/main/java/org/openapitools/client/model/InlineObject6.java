@@ -23,179 +23,64 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * InlineObject6
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class InlineObject6 {
-  public static final String SERIALIZED_NAME_START_AT = "start_at";
-  @SerializedName(SERIALIZED_NAME_START_AT)
-  private String startAt;
+  public static final String SERIALIZED_NAME_LATITUDE = "latitude";
+  @SerializedName(SERIALIZED_NAME_LATITUDE)
+  private String latitude;
 
-  public static final String SERIALIZED_NAME_END_AT = "end_at";
-  @SerializedName(SERIALIZED_NAME_END_AT)
-  private String endAt;
+  public static final String SERIALIZED_NAME_LONGITUDE = "longitude";
+  @SerializedName(SERIALIZED_NAME_LONGITUDE)
+  private String longitude;
 
-  public static final String SERIALIZED_NAME_CATEGORY_ID = "category_id";
-  @SerializedName(SERIALIZED_NAME_CATEGORY_ID)
-  private List<Integer> categoryId = null;
 
-  /**
-   * Экспорт заявок по типу:   * &#x60;ACCEPTED&#x60; - принятые запросы   * &#x60;RESOLVED&#x60; - выполненные запросы   * &#x60;NOT_ACCEPTED&#x60; - не принятые запросы   * &#x60;DECLINED&#x60; - отклоненные запрос 
-   */
-  @JsonAdapter(TypeEnum.Adapter.class)
-  public enum TypeEnum {
-    ACCEPTED("ACCEPTED"),
+  public InlineObject6 latitude(String latitude) {
     
-    RESOLVED("RESOLVED"),
-    
-    NOT_ACCEPTED("NOT_ACCEPTED"),
-    
-    DECLINED("DECLINED");
-
-    private String value;
-
-    TypeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<TypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TypeEnum.fromValue(value);
-      }
-    }
-  }
-
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
-  private TypeEnum type;
-
-
-  public InlineObject6 startAt(String startAt) {
-    
-    this.startAt = startAt;
+    this.latitude = latitude;
     return this;
   }
 
    /**
-   * Get startAt
-   * @return startAt
+   * Get latitude
+   * @return latitude
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2021-01-01 11:00:00", value = "")
+  @ApiModelProperty(example = "23.4445555", value = "")
 
-  public String getStartAt() {
-    return startAt;
+  public String getLatitude() {
+    return latitude;
   }
 
 
-  public void setStartAt(String startAt) {
-    this.startAt = startAt;
+  public void setLatitude(String latitude) {
+    this.latitude = latitude;
   }
 
 
-  public InlineObject6 endAt(String endAt) {
+  public InlineObject6 longitude(String longitude) {
     
-    this.endAt = endAt;
+    this.longitude = longitude;
     return this;
   }
 
    /**
-   * Get endAt
-   * @return endAt
+   * Get longitude
+   * @return longitude
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2021-01-02 11:00:00", value = "")
+  @ApiModelProperty(example = "35.2233444", value = "")
 
-  public String getEndAt() {
-    return endAt;
+  public String getLongitude() {
+    return longitude;
   }
 
 
-  public void setEndAt(String endAt) {
-    this.endAt = endAt;
-  }
-
-
-  public InlineObject6 categoryId(List<Integer> categoryId) {
-    
-    this.categoryId = categoryId;
-    return this;
-  }
-
-  public InlineObject6 addCategoryIdItem(Integer categoryIdItem) {
-    if (this.categoryId == null) {
-      this.categoryId = new ArrayList<Integer>();
-    }
-    this.categoryId.add(categoryIdItem);
-    return this;
-  }
-
-   /**
-   * Get categoryId
-   * @return categoryId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "[1,2,3,4,5]", value = "")
-
-  public List<Integer> getCategoryId() {
-    return categoryId;
-  }
-
-
-  public void setCategoryId(List<Integer> categoryId) {
-    this.categoryId = categoryId;
-  }
-
-
-  public InlineObject6 type(TypeEnum type) {
-    
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Экспорт заявок по типу:   * &#x60;ACCEPTED&#x60; - принятые запросы   * &#x60;RESOLVED&#x60; - выполненные запросы   * &#x60;NOT_ACCEPTED&#x60; - не принятые запросы   * &#x60;DECLINED&#x60; - отклоненные запрос 
-   * @return type
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Экспорт заявок по типу:   * `ACCEPTED` - принятые запросы   * `RESOLVED` - выполненные запросы   * `NOT_ACCEPTED` - не принятые запросы   * `DECLINED` - отклоненные запрос ")
-
-  public TypeEnum getType() {
-    return type;
-  }
-
-
-  public void setType(TypeEnum type) {
-    this.type = type;
+  public void setLongitude(String longitude) {
+    this.longitude = longitude;
   }
 
 
@@ -208,15 +93,13 @@ public class InlineObject6 {
       return false;
     }
     InlineObject6 inlineObject6 = (InlineObject6) o;
-    return Objects.equals(this.startAt, inlineObject6.startAt) &&
-        Objects.equals(this.endAt, inlineObject6.endAt) &&
-        Objects.equals(this.categoryId, inlineObject6.categoryId) &&
-        Objects.equals(this.type, inlineObject6.type);
+    return Objects.equals(this.latitude, inlineObject6.latitude) &&
+        Objects.equals(this.longitude, inlineObject6.longitude);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(startAt, endAt, categoryId, type);
+    return Objects.hash(latitude, longitude);
   }
 
 
@@ -224,10 +107,8 @@ public class InlineObject6 {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InlineObject6 {\n");
-    sb.append("    startAt: ").append(toIndentedString(startAt)).append("\n");
-    sb.append("    endAt: ").append(toIndentedString(endAt)).append("\n");
-    sb.append("    categoryId: ").append(toIndentedString(categoryId)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    latitude: ").append(toIndentedString(latitude)).append("\n");
+    sb.append("    longitude: ").append(toIndentedString(longitude)).append("\n");
     sb.append("}");
     return sb.toString();
   }

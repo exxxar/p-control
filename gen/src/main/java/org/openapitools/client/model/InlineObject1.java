@@ -27,33 +27,60 @@ import java.io.IOException;
 /**
  * InlineObject1
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class InlineObject1 {
-  public static final String SERIALIZED_NAME_ADDRESS = "address";
-  @SerializedName(SERIALIZED_NAME_ADDRESS)
-  private String address;
+  public static final String SERIALIZED_NAME_USERNAME = "username";
+  @SerializedName(SERIALIZED_NAME_USERNAME)
+  private String username;
+
+  public static final String SERIALIZED_NAME_PASSWORD = "password";
+  @SerializedName(SERIALIZED_NAME_PASSWORD)
+  private String password;
 
 
-  public InlineObject1 address(String address) {
+  public InlineObject1 username(String username) {
     
-    this.address = address;
+    this.username = username;
     return this;
   }
 
    /**
-   * Get address
-   * @return address
+   * Get username
+   * @return username
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "г. Донецк, пр. Киевский, 28", value = "")
+  @ApiModelProperty(example = "0711234444", value = "")
 
-  public String getAddress() {
-    return address;
+  public String getUsername() {
+    return username;
   }
 
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+
+  public InlineObject1 password(String password) {
+    
+    this.password = password;
+    return this;
+  }
+
+   /**
+   * Get password
+   * @return password
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public String getPassword() {
+    return password;
+  }
+
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 
@@ -66,12 +93,13 @@ public class InlineObject1 {
       return false;
     }
     InlineObject1 inlineObject1 = (InlineObject1) o;
-    return Objects.equals(this.address, inlineObject1.address);
+    return Objects.equals(this.username, inlineObject1.username) &&
+        Objects.equals(this.password, inlineObject1.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address);
+    return Objects.hash(username, password);
   }
 
 
@@ -79,7 +107,8 @@ public class InlineObject1 {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InlineObject1 {\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");
     return sb.toString();
   }

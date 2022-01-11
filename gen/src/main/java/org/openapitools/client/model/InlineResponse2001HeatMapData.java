@@ -28,7 +28,7 @@ import java.math.BigDecimal;
 /**
  * InlineResponse2001HeatMapData
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T15:20:39.270779200+03:00[Europe/Moscow]")
 public class InlineResponse2001HeatMapData {
   public static final String SERIALIZED_NAME_WEIGHT = "weight";
   @SerializedName(SERIALIZED_NAME_WEIGHT)

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **rating** | **Integer** | персональный рейтинг пользователя |  [optional]
 **email** | **String** |  | 
 **requests** | [**List&lt;Request&gt;**](Request.md) |  |  [optional]
+**storedRequests** | [**List&lt;StoredRequest&gt;**](StoredRequest.md) |  |  [optional]
 **isNotificationEmail** | **Boolean** |  |  [optional]
 **isNotificationSms** | **Boolean** |  |  [optional]
 **isAnonymousRequests** | **Boolean** |  |  [optional]

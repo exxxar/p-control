@@ -26,11 +26,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.openapitools.client.model.Request;
+import org.openapitools.client.model.StoredRequest;
 
 /**
  * Profile
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-11T13:03:19.227601400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-01-12T00:27:59.866835800+03:00[Europe/Moscow]")
 public class Profile {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
@@ -63,6 +64,10 @@ public class Profile {
   public static final String SERIALIZED_NAME_REQUESTS = "requests";
   @SerializedName(SERIALIZED_NAME_REQUESTS)
   private List<Request> requests = null;
+
+  public static final String SERIALIZED_NAME_STORED_REQUESTS = "stored_requests";
+  @SerializedName(SERIALIZED_NAME_STORED_REQUESTS)
+  private List<StoredRequest> storedRequests = null;
 
   public static final String SERIALIZED_NAME_IS_NOTIFICATION_EMAIL = "is_notification_email";
   @SerializedName(SERIALIZED_NAME_IS_NOTIFICATION_EMAIL)
@@ -278,6 +283,37 @@ public class Profile {
   }
 
 
+  public Profile storedRequests(List<StoredRequest> storedRequests) {
+    
+    this.storedRequests = storedRequests;
+    return this;
+  }
+
+  public Profile addStoredRequestsItem(StoredRequest storedRequestsItem) {
+    if (this.storedRequests == null) {
+      this.storedRequests = new ArrayList<StoredRequest>();
+    }
+    this.storedRequests.add(storedRequestsItem);
+    return this;
+  }
+
+   /**
+   * Get storedRequests
+   * @return storedRequests
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
+  public List<StoredRequest> getStoredRequests() {
+    return storedRequests;
+  }
+
+
+  public void setStoredRequests(List<StoredRequest> storedRequests) {
+    this.storedRequests = storedRequests;
+  }
+
+
   public Profile isNotificationEmail(Boolean isNotificationEmail) {
     
     this.isNotificationEmail = isNotificationEmail;
@@ -433,6 +469,7 @@ public class Profile {
         Objects.equals(this.rating, profile.rating) &&
         Objects.equals(this.email, profile.email) &&
         Objects.equals(this.requests, profile.requests) &&
+        Objects.equals(this.storedRequests, profile.storedRequests) &&
         Objects.equals(this.isNotificationEmail, profile.isNotificationEmail) &&
         Objects.equals(this.isNotificationSms, profile.isNotificationSms) &&
         Objects.equals(this.isAnonymousRequests, profile.isAnonymousRequests) &&
@@ -443,7 +480,7 @@ public class Profile {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId, fullName, location, phone, rating, email, requests, isNotificationEmail, isNotificationSms, isAnonymousRequests, deletedAt, createdAt, updatedAt);
+    return Objects.hash(id, userId, fullName, location, phone, rating, email, requests, storedRequests, isNotificationEmail, isNotificationSms, isAnonymousRequests, deletedAt, createdAt, updatedAt);
   }
 
 
@@ -459,6 +496,7 @@ public class Profile {
     sb.append("    rating: ").append(toIndentedString(rating)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    requests: ").append(toIndentedString(requests)).append("\n");
+    sb.append("    storedRequests: ").append(toIndentedString(storedRequests)).append("\n");
     sb.append("    isNotificationEmail: ").append(toIndentedString(isNotificationEmail)).append("\n");
     sb.append("    isNotificationSms: ").append(toIndentedString(isNotificationSms)).append("\n");
     sb.append("    isAnonymousRequests: ").append(toIndentedString(isAnonymousRequests)).append("\n");
