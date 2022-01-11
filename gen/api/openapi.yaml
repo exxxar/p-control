@@ -1,0 +1,4045 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: exxxar@gmail.com
+    name: API Support
+  description: ' <h2>Приложение Народный контроль</h2> <p><strong>Основная цель</strong>:
+    контроль за состоянием сфер жизнедеятельности города по отраслям:</p> <ul> <li>общественный
+    транспорт (мин.транс)</li> <li>состояние дорог и прилегающий территорий (мин.транс)</li>
+    <li>состояние благоустройства города (мин. хоз)</li> <li>аварийные участки города,
+    прорывы водо- тепло- коммуникаций, обрывы электро коммуникаций  (жэк)</li> <li>постройки
+    в аварийном состоянии (мин. Хоз)</li> <li>уборка территории и вывоз отходов (мин.
+    Хоз)</li> <li>некачественные товары (потреб контроль)</li> <li>скопление животных
+    (мин. Хоз)</li> <li>последствия стихийных бедствий  (мин. Хоз,  мчс)</li> <li>последствие
+    военных действий (мчс, военные, мин. Транс)</li> <li>проявления вандализмам (в
+    т.ч. размещение рекламы в неположенном месте)</li> <li>состояние фортификационных
+    сооружений (мчс)</li> <li>состояние рабочего места (проф. Комиссии)</li> <li>регулярное
+    скопление криминальных (или асоциальных) элементов общества или проявление аморального
+    поведения в общественных местах (мин. Хоз)</li> <li>нарушение ПДД участниками
+    дорожного движения (мвд)</li> <li>также могут быть заявки без категории</li> <li>инициативы
+    граждан - полезные нововведения от граждан</li> <li>заявки на утерянные или найденные
+    вещи</li> </ul> '
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: API системы "Народный контроль"
+  version: "1.0"
+servers:
+- description: API-сервер системы "Народный контроль"
+  url: '{protocol}://api.domain-name.ru'
+  variables:
+    protocol:
+      default: https
+      enum:
+      - http
+      - https
+paths:
+  /services/address:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/json:
+            schema:
+              example:
+                latitude: "23.4445555"
+                longitude: "35.2233444"
+              properties:
+                latitude:
+                  example: "23.4445555"
+                  type: string
+                longitude:
+                  example: "35.2233444"
+                  type: string
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Получаем адрес по координатам
+      tags:
+      - Сервисные методы
+      x-contentType: application/json
+      x-accepts: application/json
+  /services/coords:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_1'
+        content:
+          application/json:
+            schema:
+              properties:
+                address:
+                  example: г. Донецк, пр. Киевский, 28
+                  type: string
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_object'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Получаем координаты по адресу
+      tags:
+      - Сервисные методы
+      x-contentType: application/json
+      x-accepts: application/json
+  /services/mailing:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_2'
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                title:
+                  example: Заголовок сообщения
+                  type: string
+                message:
+                  example: Сообщение пользователю
+                  type: string
+                level:
+                  description: |
+                    Уровень сообщения:
+                      * `INFO` - оповещение
+                      * `DANGER` - критически важное
+                      * `WARNING` - предупреждение
+                  enum:
+                  - INFO
+                  - DANGER
+                  - WARNING
+                  type: string
+                type:
+                  description: |
+                    Тип сообщения:
+                      * `COORDS_ALERT` - отметка на карте (на случай проишествия)
+                      * `TEXT` - текстовое сообщение с вложениями
+                  enum:
+                  - COORDS_ALERT
+                  - TEXT
+                  type: string
+                send_as:
+                  default: AS_EMAIL
+                  description: |
+                    Способ отправки оповещения (по умолчанию отправка на почту):
+                      * `AS_NOTIFICATION` - всплывающее сообщение
+                      * `AS_EMAIL` - почтовое сообщение
+                      * `AS_EMAIL_AND_NOTIFICATION` - всплывающее сообщение + почта
+                      * `AS_SMS` - по СМС
+                      * `ALL` - одновременно через все каналы оповещений
+                  enum:
+                  - AS_NOTIFICATION
+                  - AS_EMAIL
+                  - AS_EMAIL_AND_NOTIFICATION
+                  - AS_SMS
+                  - ALL
+                  type: string
+                user_ids:
+                  default: []
+                  description: приоритетный фильтр для рассылки
+                  example:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  - 5
+                  items:
+                    type: integer
+                  type: array
+                category:
+                  description: |
+                    Категория отправки:
+                      * `SELECTED_USERS` - только указанным пользователям
+                      * `ONLY_USERS` - только пользователям
+                      * `ALL` - всем
+                      * `ONLY_ACTIVE_REQUEST` - только пользователям, у которых активные заявки
+                      * `ONLY_ARCHIVE_REQUEST` - только пользователям с архивными заявками
+                      * `ONLY_CONTRACTORS` - только исполнительным \ контролирующим органам
+                      * `ONLY_CONTRACTORS_EXECUTIVE` - только исполнительным органам
+                      * `ONLY_CONTRACTORS_SUPERVISING` - только контролирующим органам
+                  enum:
+                  - SELECTED_USERS
+                  - ONLY_USERS
+                  - ALL
+                  - ONLY_ACTIVE_REQUEST
+                  - ONLY_ARCHIVE_REQUEST
+                  - ONLY_CONTRACTORS
+                  - ONLY_CONTRACTORS_EXECUTIVE
+                  - ONLY_CONTRACTORS_SUPERVISING
+                  type: string
+                filenames:
+                  default: []
+                  items:
+                    format: binary
+                    type: string
+                  type: array
+              type: object
+      responses:
+        "204":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: оповещение пользователей
+      tags:
+      - Сервисные методы
+      x-contentType: multipart/form-data
+      x-accepts: application/json
+  /services/statistic:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_3'
+        content:
+          application/json:
+            schema:
+              properties:
+                start_at:
+                  example: 2021-01-01 11:00:00
+                  type: string
+                end_at:
+                  example: 2021-01-02 11:00:00
+                  type: string
+                object_id:
+                  default: []
+                  example:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  - 5
+                  items:
+                    type: integer
+                  type: array
+                object_type:
+                  description: |
+                    Статистика по:
+                      * `REQUEST_BY_CATEGORIES` - запросы по категориям
+                      * `REQUEST_BY_CONTRACTORS` - запросы по исполнительным \ контролирующим органам
+                      * `REQUEST_BY_CONTRACTORS_EXECUTIVE` - запросы по исполнительным  органам
+                      * `REQUEST_BY_CONTRACTORS_SUPERVISING` - запросы по контролирующим органам
+                      * `CONTRACTORS` - добавленные исполнительные \ контролирующие органы
+                      * `ACCEPTED_REQUESTS` - принятые в работу заявки
+                      * `DECLINE_REQUESTS` - отклоненные заявки
+                      * `SUMMARY_ALL` - суммарная сводка по заявкам
+                      * `NEW_USERS` - новые пользователи
+                      * `ACTIVE_USERS` - активные пользователи
+                  enum:
+                  - REQUEST_BY_CATEGORIES
+                  - REQUEST_BY_CONTRACTORS
+                  - REQUEST_BY_CONTRACTORS_EXECUTIVE
+                  - REQUEST_BY_CONTRACTORS_SUPERVISING
+                  - CONTRACTORS
+                  - ACCEPTED_REQUESTS
+                  - DECLINE_REQUESTS
+                  - SUMMARY_ALL
+                  - NEW_USERS
+                  - ACTIVE_USERS
+                  type: string
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_object'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: статистика по категориям за период
+      tags:
+      - Сервисные методы
+      x-contentType: application/json
+      x-accepts: application/json
+  /services/heatmap:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_4'
+        content:
+          application/json:
+            schema:
+              properties:
+                start_at:
+                  example: 2021-01-01 11:00:00
+                  type: string
+                end_at:
+                  example: 2021-01-02 11:00:00
+                  type: string
+                category_id:
+                  default: []
+                  example:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  - 5
+                  items:
+                    type: integer
+                  type: array
+                type:
+                  description: |
+                    Тепловая карта заявок:
+                      * `ACCEPTED` - принятые запросы
+                      * `RESOLVED` - выполненные запросы
+                      * `NOT_ACCEPTED` - не принятые запросы
+                      * `DECLINED` - отклоненные запрос
+                  enum:
+                  - ACCEPTED
+                  - RESOLVED
+                  - NOT_ACCEPTED
+                  - DECLINED
+                  type: string
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: тепловая карта проблемных \ решенных зон за период
+      tags:
+      - Сервисные методы
+      x-contentType: application/json
+      x-accepts: application/json
+  /services/request/import:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_5'
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                filenames:
+                  default: []
+                  items:
+                    format: binary
+                    type: string
+                  type: array
+              type: object
+      responses:
+        "204":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: импортирование заявок в формате Excel-файла(ов)
+      tags:
+      - Сервисные методы
+      x-contentType: multipart/form-data
+      x-accepts: application/json
+  /services/request/export:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_6'
+        content:
+          application/json:
+            schema:
+              properties:
+                start_at:
+                  example: 2021-01-01 11:00:00
+                  type: string
+                end_at:
+                  example: 2021-01-02 11:00:00
+                  type: string
+                category_id:
+                  default: []
+                  example:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  - 5
+                  items:
+                    type: integer
+                  type: array
+                type:
+                  description: |
+                    Экспорт заявок по типу:
+                      * `ACCEPTED` - принятые запросы
+                      * `RESOLVED` - выполненные запросы
+                      * `NOT_ACCEPTED` - не принятые запросы
+                      * `DECLINED` - отклоненные запрос
+                  enum:
+                  - ACCEPTED
+                  - RESOLVED
+                  - NOT_ACCEPTED
+                  - DECLINED
+                  type: string
+              type: object
+      responses:
+        "200":
+          content:
+            application/binary:
+              schema:
+                format: binary
+                type: string
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: экспортирование заявок в формате Excel-файла
+      tags:
+      - Сервисные методы
+      x-contentType: application/json
+      x-accepts: application/json
+  /users/{userId}:
+    delete:
+      parameters:
+      - description: Parameter description in CommonMark or HTML.
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        "400":
+          description: The specified user ID is invalid (not a number).
+        "404":
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: Удаляем пользователя по идентификатору
+      tags:
+      - Пользователи
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Целочисленный идентификатор пользователя
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор пользователя не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: Находим пользователя по идентификатору
+      tags:
+      - Пользователи
+      x-accepts: application/json
+    put:
+      parameters:
+      - description: Целочисленный идентификатор пользователя
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор пользователя не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: Обновляем пользователя по идентификатору
+      tags:
+      - Пользователи
+      x-contentType: application/json
+      x-accepts: application/json
+  /users/me:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: возвращаем текущего пользователя
+      tags:
+      - Пользователи
+      x-accepts: application/json
+  /users/{userId}/profile:
+    get:
+      parameters:
+      - description: Целочисленный идентификатор пользователя
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор пользователя не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: Находим профиль пользователя по идентификатору пользователя
+      tags:
+      - Пользователи
+      x-accepts: application/json
+  /users:
+    get:
+      parameters:
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/User'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: Список пользователей
+      tags:
+      - Пользователи
+      x-accepts: application/json
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      security:
+      - bearerAuth: []
+      summary: Создаем пользователя
+      tags:
+      - Пользователи
+      x-contentType: application/json
+      x-accepts: application/json
+  /profiles/{profileId}:
+    delete:
+      parameters:
+      - description: Parameter description in CommonMark or HTML.
+        explode: false
+        in: path
+        name: profileId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: OK
+        "400":
+          description: The specified user ID is invalid (not a number).
+        "404":
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+      summary: Удаляем пользователя по идентификатору
+      tags:
+      - Профиль пользователя
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Целочисленный идентификатор профиля пользователя
+        explode: false
+        in: path
+        name: profileId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор профиля пользователя не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Находим профиль пользователя по идентификатору
+      tags:
+      - Профиль пользователя
+      x-accepts: application/json
+    put:
+      parameters:
+      - description: Целочисленный идентификатор профиля пользователя
+        explode: false
+        in: path
+        name: profileId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор пользователя не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Обновляем профиль пользователя по идентификатору
+      tags:
+      - Профиль пользователя
+      x-contentType: application/json
+      x-accepts: application/json
+  /profiles:
+    get:
+      parameters:
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Profile'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список профилей пользователя
+      tags:
+      - Профиль пользователя
+      x-accepts: application/json
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Создаем профиль
+      tags:
+      - Профиль пользователя
+      x-contentType: application/json
+      x-accepts: application/json
+  /problem-categories/{problemCategoryId}:
+    delete:
+      parameters:
+      - description: Parameter description in CommonMark or HTML.
+        explode: false
+        in: path
+        name: problemCategoryId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemCategory'
+          description: OK
+        "400":
+          description: The specified user ID is invalid (not a number).
+        "404":
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+      summary: Удаляем категорию по идентификатору
+      tags:
+      - Категории проблемных ситуаций
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Целочисленный идентификатор категории
+        explode: false
+        in: path
+        name: problemCategoryId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор пользователя не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Находим категорию по идентификатору
+      tags:
+      - Категории проблемных ситуаций
+      x-accepts: application/json
+    put:
+      parameters:
+      - description: Целочисленный идентификатор категории
+        explode: false
+        in: path
+        name: problemCategoryId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProblemCategoryForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemCategory'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Обновляем категорию по идентификатору
+      tags:
+      - Категории проблемных ситуаций
+      x-contentType: application/json
+      x-accepts: application/json
+  /problem-categories:
+    get:
+      parameters:
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/ProblemCategory'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список категорий проблем
+      tags:
+      - Категории проблемных ситуаций
+      x-accepts: application/json
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProblemCategoryForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemCategory'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Создаем новую категорию проблем
+      tags:
+      - Категории проблемных ситуаций
+      x-contentType: application/json
+      x-accepts: application/json
+  /problem-categories/{problemCategoryId}/active-requests:
+    get:
+      parameters:
+      - description: Целочисленный идентификатор категории
+        explode: false
+        in: path
+        name: problemCategoryId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Request'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список активных запросов в категории
+      tags:
+      - Категории проблемных ситуаций
+      x-accepts: application/json
+  /problem-categories/{problemCategoryId}/completed-requests:
+    get:
+      parameters:
+      - description: Целочисленный идентификатор категории
+        explode: false
+        in: path
+        name: problemCategoryId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Request'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список выполненных запросов в категории
+      tags:
+      - Категории проблемных ситуаций
+      x-accepts: application/json
+  /problem-categories/{problemCategoryId}/archive-requests:
+    get:
+      parameters:
+      - description: Целочисленный идентификатор категории
+        explode: false
+        in: path
+        name: problemCategoryId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Request'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список архивных запросов в категории
+      tags:
+      - Категории проблемных ситуаций
+      x-accepts: application/json
+  /requests/{requestId}:
+    delete:
+      parameters:
+      - description: Parameter description in CommonMark or HTML.
+        explode: false
+        in: path
+        name: requestId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Request'
+          description: OK
+        "400":
+          description: The specified user ID is invalid (not a number).
+        "404":
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+      summary: Удаляем заявку по идентификатору
+      tags:
+      - Заявки
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Целочисленный идентификатор заявки
+        explode: false
+        in: path
+        name: requestId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Request'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор заявки не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Находим заявку по идентификатору
+      tags:
+      - Заявки
+      x-accepts: application/json
+    put:
+      parameters:
+      - description: Целочисленный идентификатор заявки
+        explode: false
+        in: path
+        name: requestId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RequestForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Request'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор пользователя не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Обновляем заявку по идентификатору
+      tags:
+      - Заявки
+      x-contentType: multipart/form-data
+      x-accepts: application/json
+  /requests:
+    get:
+      parameters:
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Request'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список заявок
+      tags:
+      - Заявки
+      x-accepts: application/json
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RequestForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Request'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Создаем заявку
+      tags:
+      - Заявки
+      x-contentType: multipart/form-data
+      x-accepts: application/json
+  /requests/in-range:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_7'
+        content:
+          application/json:
+            schema:
+              properties:
+                distance:
+                  default: 50
+                  description: радиус охвата заявок
+                  example: 300
+                  type: number
+                longitude:
+                  example: 23.332322
+                  type: number
+                latitude:
+                  example: 34.5242444
+                  type: number
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Request'
+                type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Подбор заявок в радиусе
+      tags:
+      - Заявки
+      x-contentType: application/json
+      x-accepts: application/json
+  /requests/rating:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_8'
+        content:
+          application/json:
+            schema:
+              properties:
+                rating:
+                  default: 50
+                  description: рейтинг заявки (может быть в плюс и в минус)
+                  example: 300
+                  type: integer
+                request_id:
+                  default: 1
+                  example: 1
+                  type: integer
+              type: object
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Request'
+                type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: модификация рейтинга заявки (+-)
+      tags:
+      - Заявки
+      x-contentType: application/json
+      x-accepts: application/json
+  /requests/{requestId}/pdf:
+    get:
+      parameters:
+      - description: Целочисленный идентификатор заявки
+        explode: false
+        in: path
+        name: requestId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/pdf:
+              schema:
+                format: binary
+                type: string
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор заявки не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: формируем заявку в виде pdf
+      tags:
+      - Заявки
+      x-accepts: application/json
+  /contractors/{contractorId}:
+    delete:
+      parameters:
+      - description: Parameter description in CommonMark or HTML.
+        explode: false
+        in: path
+        name: contractorId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contractor'
+          description: OK
+        "400":
+          description: The specified user ID is invalid (not a number).
+        "404":
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+      summary: Удаляем исполнителя по идентификатору
+      tags:
+      - Исполнительные \ контролирующие органы
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Целочисленный идентификатор
+        explode: false
+        in: path
+        name: contractorId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contractor'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Находим исполнителя по идентификатору
+      tags:
+      - Исполнительные \ контролирующие органы
+      x-accepts: application/json
+    put:
+      parameters:
+      - description: Целочисленный идентификатор исполнителя
+        explode: false
+        in: path
+        name: contractorId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractorForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contractor'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор исполнителя не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Обновляем исполнителя по идентификатору
+      tags:
+      - Исполнительные \ контролирующие органы
+      x-contentType: application/json
+      x-accepts: application/json
+  /contractors/{contractorId}/requests/archive:
+    get:
+      parameters:
+      - description: Целочисленный идентификатор
+        explode: false
+        in: path
+        name: contractorId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Request'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список архивных заявок по исполнительному органу
+      tags:
+      - Исполнительные \ контролирующие органы
+      x-accepts: application/json
+  /contractors/{contractorId}/requests/active:
+    get:
+      parameters:
+      - description: Целочисленный идентификатор
+        explode: false
+        in: path
+        name: contractorId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Request'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список активных заявок по исполнительному органу
+      tags:
+      - Исполнительные \ контролирующие органы
+      x-accepts: application/json
+  /contractors:
+    get:
+      parameters:
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/Contractor'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список профилей исполнительных органов
+      tags:
+      - Исполнительные \ контролирующие органы
+      x-accepts: application/json
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractorForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contractor'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Создаем профиль исполнительного органа
+      tags:
+      - Исполнительные \ контролирующие органы
+      x-contentType: application/json
+      x-accepts: application/json
+  /stored-requests/{storedRequestId}:
+    delete:
+      parameters:
+      - description: Parameter description in CommonMark or HTML.
+        explode: false
+        in: path
+        name: storedRequestId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoredRequest'
+          description: OK
+        "400":
+          description: The specified user ID is invalid (not a number).
+        "404":
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+      summary: Удаляем черновик заявки по идентификатору
+      tags:
+      - Черновики заявок
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Целочисленный идентификатор заявки
+        explode: false
+        in: path
+        name: storedRequestId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoredRequest'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор черновика заявки не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Находим черновик заявки по идентификатору
+      tags:
+      - Черновики заявок
+      x-accepts: application/json
+    put:
+      parameters:
+      - description: Целочисленный идентификатор черновика заявки
+        explode: false
+        in: path
+        name: storedRequestId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoredRequestForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoredRequest'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор черновика заявки не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Обновляем черновик заявки по идентификатору
+      tags:
+      - Черновики заявок
+      x-contentType: application/json
+      x-accepts: application/json
+  /stored-requests:
+    get:
+      parameters:
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/StoredRequest'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список черновиков заявок
+      tags:
+      - Черновики заявок
+      x-accepts: application/json
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoredRequestForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoredRequest'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Создаем черновик заявки
+      tags:
+      - Черновики заявок
+      x-contentType: application/json
+      x-accepts: application/json
+  /roles/{roleId}:
+    delete:
+      parameters:
+      - description: Parameter description in CommonMark or HTML.
+        explode: false
+        in: path
+        name: roleId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoredRequest'
+          description: OK
+        "400":
+          description: The specified user ID is invalid (not a number).
+        "404":
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+      summary: Удаляем черновик заявки по идентификатору
+      tags:
+      - Роли
+      x-accepts: application/json
+    get:
+      parameters:
+      - description: Целочисленный идентификатор заявки
+        explode: false
+        in: path
+        name: roleId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoredRequest'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор черновика заявки не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Находим роль по идентификатору
+      tags:
+      - Роли
+      x-accepts: application/json
+    put:
+      parameters:
+      - description: Целочисленный идентификатор черновика заявки
+        explode: false
+        in: path
+        name: roleId
+        required: true
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoredRequestForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoredRequest'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Указанный идентификатор черновика заявки не является числом
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A user with the specified ID was not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Обновляем черновик заявки по идентификатору
+      tags:
+      - Роли
+      x-contentType: application/json
+      x-accepts: application/json
+  /roles:
+    get:
+      parameters:
+      - description: идентификатор страницы
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      - description: размер выдачи на странице
+        explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          format: int64
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginateObject'
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/StoredRequest'
+                    type: array
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Список всех ролей
+      tags:
+      - Роли
+      x-accepts: application/json
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoredRequestForm'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoredRequest'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Создаем черновик заявки
+      tags:
+      - Роли
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  requestBodies:
+    inline_object_1:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object_1'
+    inline_object:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+    inline_object_8:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object_8'
+    inline_object_7:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object_7'
+    inline_object_6:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object_6'
+    inline_object_5:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/inline_object_5'
+    inline_object_4:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object_4'
+    inline_object_3:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object_3'
+    inline_object_2:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/inline_object_2'
+  schemas:
+    Error:
+      properties:
+        title:
+          default: Error
+          example: Ошибка API
+          type: string
+        message:
+          default: Error
+          example: Требуется идентикатор
+          type: string
+        code:
+          default: 404
+          example: 400
+          maximum: 600
+          minimum: 100
+          type: integer
+      required:
+      - code
+      - message
+      - title
+      type: object
+    User:
+      example:
+        sms_approved_at: 2022-01-01 12:00:00
+        email_approved_at: 2022-01-01 12:00:00
+        updated_at: 2022-01-01 12:00:00
+        approve_email_code: "999999"
+        profile:
+          rating: 1023
+          is_notification_email: true
+          created_at: 2022-01-01 12:00:00
+          requests:
+          - attachments:
+            - type: IMAGE
+              url: https://vk.com/1.jpg
+            - type: IMAGE
+              url: https://vk.com/1.jpg
+            stored_profile_data:
+              full_name: Алексей Алексеевич Алексеев
+              phone: "07143200000"
+              rating: 1023
+              location: Донецк, Куйбышевский район
+              email: test@test.com
+            latitude: 23.2334444
+            rating: 613
+            description: Бродячие собаки
+            created_at: 2022-01-01 12:00:00
+            parent_request_id: 1
+            complete_request_execution_at: 2022-02-03 13:00:00
+            request_status_checked_at: 2022-02-03 13:00:00
+            deleted_at: 2022-01-01 12:00:00
+            is_moderated: true
+            base_rating: 613
+            begin_request_execution_at: 2022-02-03 13:00:00
+            request_consideration_at: 2022-02-03 13:00:00
+            updated_at: 2022-01-01 12:00:00
+            moderator_id: 1
+            location: г. Донецк, пр. Труда, 23
+            id: 1
+            problem_categories:
+            - mnemonic_name: yama_na_doroge
+              hash_tag: '#дорожное_движение'
+              is_active: true
+              is_visible: true
+              updated_at: 2022-01-01 12:00:00
+              icon: https://test.com/123.jpg
+              rating: 10
+              created_at: 2022-01-01 12:00:00
+              id: 1
+              title: Яма на дороге
+              deleted_at: 2022-01-01 12:00:00
+            - mnemonic_name: yama_na_doroge
+              hash_tag: '#дорожное_движение'
+              is_active: true
+              is_visible: true
+              updated_at: 2022-01-01 12:00:00
+              icon: https://test.com/123.jpg
+              rating: 10
+              created_at: 2022-01-01 12:00:00
+              id: 1
+              title: Яма на дороге
+              deleted_at: 2022-01-01 12:00:00
+            longitude: 45.7889111
+            status: IN PROCESSING
+          - attachments:
+            - type: IMAGE
+              url: https://vk.com/1.jpg
+            - type: IMAGE
+              url: https://vk.com/1.jpg
+            stored_profile_data:
+              full_name: Алексей Алексеевич Алексеев
+              phone: "07143200000"
+              rating: 1023
+              location: Донецк, Куйбышевский район
+              email: test@test.com
+            latitude: 23.2334444
+            rating: 613
+            description: Бродячие собаки
+            created_at: 2022-01-01 12:00:00
+            parent_request_id: 1
+            complete_request_execution_at: 2022-02-03 13:00:00
+            request_status_checked_at: 2022-02-03 13:00:00
+            deleted_at: 2022-01-01 12:00:00
+            is_moderated: true
+            base_rating: 613
+            begin_request_execution_at: 2022-02-03 13:00:00
+            request_consideration_at: 2022-02-03 13:00:00
+            updated_at: 2022-01-01 12:00:00
+            moderator_id: 1
+            location: г. Донецк, пр. Труда, 23
+            id: 1
+            problem_categories:
+            - mnemonic_name: yama_na_doroge
+              hash_tag: '#дорожное_движение'
+              is_active: true
+              is_visible: true
+              updated_at: 2022-01-01 12:00:00
+              icon: https://test.com/123.jpg
+              rating: 10
+              created_at: 2022-01-01 12:00:00
+              id: 1
+              title: Яма на дороге
+              deleted_at: 2022-01-01 12:00:00
+            - mnemonic_name: yama_na_doroge
+              hash_tag: '#дорожное_движение'
+              is_active: true
+              is_visible: true
+              updated_at: 2022-01-01 12:00:00
+              icon: https://test.com/123.jpg
+              rating: 10
+              created_at: 2022-01-01 12:00:00
+              id: 1
+              title: Яма на дороге
+              deleted_at: 2022-01-01 12:00:00
+            longitude: 45.7889111
+            status: IN PROCESSING
+          deleted_at: 2022-01-01 12:00:00
+          full_name: Алексей Алексеевич Алексеев
+          updated_at: 2022-01-01 12:00:00
+          user_id: 1
+          phone: "07143200000"
+          is_anonymous_requests: false
+          location: Донецк, Куйбышевский район
+          id: 1
+          is_notification_sms: true
+          email: test@test.com
+        created_at: 2022-01-01 12:00:00
+        blocked_at: 2022-01-01 12:00:00
+        id: 1
+        approve_sms_code: "999999"
+        deleted_at: 2022-01-01 12:00:00
+        username: admin
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        username:
+          example: admin
+          type: string
+        profile:
+          $ref: '#/components/schemas/Profile'
+        approve_sms_code:
+          default: "null"
+          example: "999999"
+          type: string
+        approve_email_code:
+          default: "null"
+          example: "999999"
+          type: string
+        sms_approved_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        email_approved_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        blocked_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        deleted_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        created_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        updated_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+      required:
+      - username
+      type: object
+    UserForm:
+      example:
+        password: password
+        username: admin
+      properties:
+        username:
+          example: admin
+          type: string
+        password:
+          example: password
+          type: string
+      required:
+      - username
+      type: object
+    Profile:
+      example:
+        rating: 1023
+        is_notification_email: true
+        created_at: 2022-01-01 12:00:00
+        requests:
+        - attachments:
+          - type: IMAGE
+            url: https://vk.com/1.jpg
+          - type: IMAGE
+            url: https://vk.com/1.jpg
+          stored_profile_data:
+            full_name: Алексей Алексеевич Алексеев
+            phone: "07143200000"
+            rating: 1023
+            location: Донецк, Куйбышевский район
+            email: test@test.com
+          latitude: 23.2334444
+          rating: 613
+          description: Бродячие собаки
+          created_at: 2022-01-01 12:00:00
+          parent_request_id: 1
+          complete_request_execution_at: 2022-02-03 13:00:00
+          request_status_checked_at: 2022-02-03 13:00:00
+          deleted_at: 2022-01-01 12:00:00
+          is_moderated: true
+          base_rating: 613
+          begin_request_execution_at: 2022-02-03 13:00:00
+          request_consideration_at: 2022-02-03 13:00:00
+          updated_at: 2022-01-01 12:00:00
+          moderator_id: 1
+          location: г. Донецк, пр. Труда, 23
+          id: 1
+          problem_categories:
+          - mnemonic_name: yama_na_doroge
+            hash_tag: '#дорожное_движение'
+            is_active: true
+            is_visible: true
+            updated_at: 2022-01-01 12:00:00
+            icon: https://test.com/123.jpg
+            rating: 10
+            created_at: 2022-01-01 12:00:00
+            id: 1
+            title: Яма на дороге
+            deleted_at: 2022-01-01 12:00:00
+          - mnemonic_name: yama_na_doroge
+            hash_tag: '#дорожное_движение'
+            is_active: true
+            is_visible: true
+            updated_at: 2022-01-01 12:00:00
+            icon: https://test.com/123.jpg
+            rating: 10
+            created_at: 2022-01-01 12:00:00
+            id: 1
+            title: Яма на дороге
+            deleted_at: 2022-01-01 12:00:00
+          longitude: 45.7889111
+          status: IN PROCESSING
+        - attachments:
+          - type: IMAGE
+            url: https://vk.com/1.jpg
+          - type: IMAGE
+            url: https://vk.com/1.jpg
+          stored_profile_data:
+            full_name: Алексей Алексеевич Алексеев
+            phone: "07143200000"
+            rating: 1023
+            location: Донецк, Куйбышевский район
+            email: test@test.com
+          latitude: 23.2334444
+          rating: 613
+          description: Бродячие собаки
+          created_at: 2022-01-01 12:00:00
+          parent_request_id: 1
+          complete_request_execution_at: 2022-02-03 13:00:00
+          request_status_checked_at: 2022-02-03 13:00:00
+          deleted_at: 2022-01-01 12:00:00
+          is_moderated: true
+          base_rating: 613
+          begin_request_execution_at: 2022-02-03 13:00:00
+          request_consideration_at: 2022-02-03 13:00:00
+          updated_at: 2022-01-01 12:00:00
+          moderator_id: 1
+          location: г. Донецк, пр. Труда, 23
+          id: 1
+          problem_categories:
+          - mnemonic_name: yama_na_doroge
+            hash_tag: '#дорожное_движение'
+            is_active: true
+            is_visible: true
+            updated_at: 2022-01-01 12:00:00
+            icon: https://test.com/123.jpg
+            rating: 10
+            created_at: 2022-01-01 12:00:00
+            id: 1
+            title: Яма на дороге
+            deleted_at: 2022-01-01 12:00:00
+          - mnemonic_name: yama_na_doroge
+            hash_tag: '#дорожное_движение'
+            is_active: true
+            is_visible: true
+            updated_at: 2022-01-01 12:00:00
+            icon: https://test.com/123.jpg
+            rating: 10
+            created_at: 2022-01-01 12:00:00
+            id: 1
+            title: Яма на дороге
+            deleted_at: 2022-01-01 12:00:00
+          longitude: 45.7889111
+          status: IN PROCESSING
+        deleted_at: 2022-01-01 12:00:00
+        full_name: Алексей Алексеевич Алексеев
+        updated_at: 2022-01-01 12:00:00
+        user_id: 1
+        phone: "07143200000"
+        is_anonymous_requests: false
+        location: Донецк, Куйбышевский район
+        id: 1
+        is_notification_sms: true
+        email: test@test.com
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        user_id:
+          example: 1
+          format: int64
+          type: integer
+        full_name:
+          example: Алексей Алексеевич Алексеев
+          type: string
+        location:
+          example: Донецк, Куйбышевский район
+          type: string
+        phone:
+          default: "null"
+          example: "07143200000"
+          type: string
+        rating:
+          description: персональный рейтинг пользователя
+          example: 1023
+          type: integer
+        email:
+          default: "null"
+          example: test@test.com
+          type: string
+        requests:
+          items:
+            $ref: '#/components/schemas/Request'
+          type: array
+        is_notification_email:
+          default: false
+          example: true
+          type: boolean
+        is_notification_sms:
+          default: false
+          example: true
+          type: boolean
+        is_anonymous_requests:
+          default: false
+          example: false
+          type: boolean
+        deleted_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        created_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        updated_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+      required:
+      - email
+      - phone
+      - user_id
+      type: object
+    ProfileForm:
+      example:
+        full_name: Алексей Алексеевич Алексеев
+        user_id: 1
+        phone: "07143200000"
+        is_notification_email: true
+        is_anonymous_requests: false
+        location: Донецк, Куйбышевский район
+        is_notification_sms: true
+        email: test@test.com
+      properties:
+        user_id:
+          example: 1
+          format: int64
+          type: integer
+        full_name:
+          example: Алексей Алексеевич Алексеев
+          type: string
+        location:
+          example: Донецк, Куйбышевский район
+          type: string
+        phone:
+          default: "null"
+          example: "07143200000"
+          type: string
+        email:
+          default: "null"
+          example: test@test.com
+          type: string
+        is_notification_email:
+          default: false
+          example: true
+          type: boolean
+        is_notification_sms:
+          default: false
+          example: true
+          type: boolean
+        is_anonymous_requests:
+          default: false
+          example: false
+          type: boolean
+      required:
+      - email
+      - full_name
+      - user_id
+      type: object
+    Request:
+      example:
+        attachments:
+        - type: IMAGE
+          url: https://vk.com/1.jpg
+        - type: IMAGE
+          url: https://vk.com/1.jpg
+        stored_profile_data:
+          full_name: Алексей Алексеевич Алексеев
+          phone: "07143200000"
+          rating: 1023
+          location: Донецк, Куйбышевский район
+          email: test@test.com
+        latitude: 23.2334444
+        rating: 613
+        description: Бродячие собаки
+        created_at: 2022-01-01 12:00:00
+        parent_request_id: 1
+        complete_request_execution_at: 2022-02-03 13:00:00
+        request_status_checked_at: 2022-02-03 13:00:00
+        deleted_at: 2022-01-01 12:00:00
+        is_moderated: true
+        base_rating: 613
+        begin_request_execution_at: 2022-02-03 13:00:00
+        request_consideration_at: 2022-02-03 13:00:00
+        updated_at: 2022-01-01 12:00:00
+        moderator_id: 1
+        location: г. Донецк, пр. Труда, 23
+        id: 1
+        problem_categories:
+        - mnemonic_name: yama_na_doroge
+          hash_tag: '#дорожное_движение'
+          is_active: true
+          is_visible: true
+          updated_at: 2022-01-01 12:00:00
+          icon: https://test.com/123.jpg
+          rating: 10
+          created_at: 2022-01-01 12:00:00
+          id: 1
+          title: Яма на дороге
+          deleted_at: 2022-01-01 12:00:00
+        - mnemonic_name: yama_na_doroge
+          hash_tag: '#дорожное_движение'
+          is_active: true
+          is_visible: true
+          updated_at: 2022-01-01 12:00:00
+          icon: https://test.com/123.jpg
+          rating: 10
+          created_at: 2022-01-01 12:00:00
+          id: 1
+          title: Яма на дороге
+          deleted_at: 2022-01-01 12:00:00
+        longitude: 45.7889111
+        status: IN PROCESSING
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        parent_request_id:
+          description: идентификатор более ранней заявки по схожей проблеме
+          example: 1
+          format: int64
+          type: integer
+        description:
+          example: Бродячие собаки
+          type: string
+        problem_categories:
+          items:
+            $ref: '#/components/schemas/ProblemCategory'
+          type: array
+        location:
+          default: "null"
+          example: г. Донецк, пр. Труда, 23
+          type: string
+        latitude:
+          example: 23.2334444
+          type: number
+        longitude:
+          example: 45.7889111
+          type: number
+        base_rating:
+          default: 0
+          description: фиксированный рейтинг заявки, указывается администратором для
+            принудительного повышения
+          example: 613
+          type: integer
+        rating:
+          description: суммарный рейтинг заявки и всех смежных с ней заявок
+          example: 613
+          type: integer
+        status:
+          default: IN PROCESSING
+          description: |
+            Тип заявки:
+             * `IN PROCESSING` - новая заявка
+             * `IN CONSIDERATION` - заявка на рассмотрении
+             * `IN EXECUTION` - заявка выполняется
+             * `IN EXECUTION CHECK` - проверка выполнения заявки
+             * `COMPLETED` - выполненная заявка
+             * `ARCHIVED` - заявка находится в архиве
+          enum:
+          - IN PROCESSING
+          - IN CONSIDERATION
+          - IN EXECUTION
+          - IN EXECUTION CHECK
+          - COMPLETED
+          - ARCHIVED
+          type: string
+        attachments:
+          default: []
+          items:
+            $ref: '#/components/schemas/MediaContent'
+          type: array
+        stored_profile_data:
+          $ref: '#/components/schemas/Request_stored_profile_data'
+        request_consideration_at:
+          description: дата начала рассмотрения заявки
+          example: 2022-02-03 13:00:00
+          type: string
+        begin_request_execution_at:
+          description: дата начала выполнения работ по заявке
+          example: 2022-02-03 13:00:00
+          type: string
+        complete_request_execution_at:
+          description: дата завершения выполнения работ по заявке
+          example: 2022-02-03 13:00:00
+          type: string
+        request_status_checked_at:
+          description: дата финальной проверки выполнения
+          example: 2022-02-03 13:00:00
+          type: string
+        is_moderated:
+          default: true
+          example: true
+          type: boolean
+        moderator_id:
+          example: 1
+          format: int64
+          type: integer
+        deleted_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        created_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        updated_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+      type: object
+    RequestForm:
+      properties:
+        parent_request_id:
+          description: идентификатор более ранней заявки по схожей проблеме
+          example: 1
+          format: int64
+          type: integer
+        description:
+          example: Бродячие собаки
+          type: string
+        problem_categories:
+          example:
+          - 1
+          - 2
+          - 3
+          - 4
+          items:
+            type: integer
+          type: array
+        location:
+          default: "null"
+          example: г. Донецк, пр. Труда, 23
+          type: string
+        latitude:
+          example: 23.2334444
+          type: number
+        longitude:
+          example: 45.7889111
+          type: number
+        base_rating:
+          default: 0
+          description: фиксированный рейтинг заявки, указывается администратором для
+            принудительного повышения
+          example: 613
+          type: integer
+        status:
+          default: IN PROCESSING
+          description: |
+            Тип заявки:
+             * `IN PROCESSING` - новая заявка
+             * `IN CONSIDERATION` - заявка на рассмотрении
+             * `IN EXECUTION` - заявка выполняется
+             * `IN EXECUTION CHECK` - проверка выполнения заявки
+             * `COMPLETED` - выполненная заявка
+             * `ARCHIVED` - заявка находится в архиве
+          enum:
+          - IN PROCESSING
+          - IN CONSIDERATION
+          - IN EXECUTION
+          - IN EXECUTION CHECK
+          - COMPLETED
+          type: string
+        attachments:
+          default: []
+          items:
+            $ref: '#/components/schemas/MediaContent'
+          type: array
+        request_consideration_at:
+          description: дата начала рассмотрения заявки
+          example: 2022-02-03 13:00:00
+          type: string
+        begin_request_execution_at:
+          description: дата начала выполнения работ по заявке
+          example: 2022-02-03 13:00:00
+          type: string
+        complete_request_execution_at:
+          description: дата завершения выполнения работ по заявке
+          example: 2022-02-03 13:00:00
+          type: string
+        request_status_checked_at:
+          description: дата финальной проверки выполнения
+          example: 2022-02-03 13:00:00
+          type: string
+        is_moderated:
+          default: true
+          example: true
+          type: boolean
+        moderator_id:
+          example: 1
+          format: int64
+          type: integer
+        filenames:
+          default: []
+          items:
+            format: binary
+            type: string
+          type: array
+      required:
+      - description
+      - latitude
+      - longitude
+      - problem_categories
+      type: object
+    ProblemCategory:
+      example:
+        mnemonic_name: yama_na_doroge
+        hash_tag: '#дорожное_движение'
+        is_active: true
+        is_visible: true
+        updated_at: 2022-01-01 12:00:00
+        icon: https://test.com/123.jpg
+        rating: 10
+        created_at: 2022-01-01 12:00:00
+        id: 1
+        title: Яма на дороге
+        deleted_at: 2022-01-01 12:00:00
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        title:
+          example: Яма на дороге
+          type: string
+        mnemonic_name:
+          example: yama_na_doroge
+          type: string
+        hash_tag:
+          example: '#дорожное_движение'
+          type: string
+        icon:
+          example: https://test.com/123.jpg
+          type: string
+        rating:
+          description: Приоритетный рейтинг категории
+          example: 10
+          type: integer
+        is_active:
+          description: Доступность раздела
+          example: true
+          type: boolean
+        is_visible:
+          description: Видимость раздела в общей выдаче
+          example: true
+          type: boolean
+        deleted_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        created_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        updated_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+      type: object
+    ProblemCategoryForm:
+      example:
+        mnemonic_name: yama_na_doroge
+        hash_tag: '#дорожное_движение'
+        is_active: true
+        is_visible: true
+        icon: https://test.com/123.jpg
+        rating: 10
+        title: Яма на дороге
+      properties:
+        title:
+          example: Яма на дороге
+          type: string
+        mnemonic_name:
+          example: yama_na_doroge
+          type: string
+        hash_tag:
+          example: '#дорожное_движение'
+          type: string
+        icon:
+          example: https://test.com/123.jpg
+          type: string
+        rating:
+          description: Приоритетный рейтинг категории
+          example: 10
+          type: integer
+        is_active:
+          description: Доступность раздела
+          example: true
+          type: boolean
+        is_visible:
+          description: Видимость раздела в общей выдаче
+          example: true
+          type: boolean
+      required:
+      - hash_tag
+      - icon
+      - mnemonic_name
+      - title
+      type: object
+    MediaContent:
+      example:
+        type: IMAGE
+        url: https://vk.com/1.jpg
+      properties:
+        type:
+          default: IMAGE
+          description: |
+            Тип медиа данных:
+             * `IMAGE` - изображение
+             * `VIDEO` - видео
+          enum:
+          - IMAGE
+          - VIDEO
+          type: string
+        url:
+          example: https://vk.com/1.jpg
+          type: string
+      required:
+      - type
+      - url
+      type: object
+    PaginateObject:
+      properties:
+        links:
+          $ref: '#/components/schemas/PaginateObject_links'
+        current_page:
+          example: 1
+          type: integer
+        from:
+          example: 1
+          type: integer
+        last_page:
+          example: 1
+          type: integer
+        path:
+          example: http://localhost:8000/api/{method_name}
+          type: string
+        per_page:
+          example: 30
+          type: integer
+        to:
+          example: 1
+          type: integer
+        total:
+          example: 10
+          type: integer
+      type: object
+    Contractor:
+      example:
+        image: avatar.jpg
+        pre_controller_email: mvd@mvd.com
+        public_website: https://mvd.com
+        is_active: true
+        contact_phone: "0713333333"
+        responsible_person: Петров В.В., старший лейтинант
+        description: Министерство внутренних дел - контролирующий орган
+        more_info: На службе добра
+        created_at: 2022-01-01 12:00:00
+        title: Министерство внутренних дел
+        type: EXECUTIVE
+        deleted_at: 2022-01-01 12:00:00
+        contact_email: mvd@mvd.com
+        mnemonic_name: mvd
+        schedule:
+        - end_at: 18:00
+          is_day_of: false
+          day_index: "1"
+          description: Только прием документов
+          title: Понедельник
+          start_at: 09:00
+        - end_at: 18:00
+          is_day_of: false
+          day_index: "1"
+          description: Только прием документов
+          title: Понедельник
+          start_at: 09:00
+        hash_tag: '#мвд'
+        updated_at: 2022-01-01 12:00:00
+        telegram_chat_id: -10000000001
+        need_inform_by_sms: true
+        generate_daily_report: true
+        need_inform_by_email: true
+        id: 1
+        problem_categories:
+        - mnemonic_name: yama_na_doroge
+          hash_tag: '#дорожное_движение'
+          is_active: true
+          is_visible: true
+          updated_at: 2022-01-01 12:00:00
+          icon: https://test.com/123.jpg
+          rating: 10
+          created_at: 2022-01-01 12:00:00
+          id: 1
+          title: Яма на дороге
+          deleted_at: 2022-01-01 12:00:00
+        - mnemonic_name: yama_na_doroge
+          hash_tag: '#дорожное_движение'
+          is_active: true
+          is_visible: true
+          updated_at: 2022-01-01 12:00:00
+          icon: https://test.com/123.jpg
+          rating: 10
+          created_at: 2022-01-01 12:00:00
+          id: 1
+          title: Яма на дороге
+          deleted_at: 2022-01-01 12:00:00
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        mnemonic_name:
+          description: Мнемоническое имя
+          example: mvd
+          type: string
+        title:
+          description: Название исполнительного органа
+          example: Министерство внутренних дел
+          type: string
+        description:
+          description: Описание исполнительного органа
+          example: Министерство внутренних дел - контролирующий орган
+          type: string
+        responsible_person:
+          description: Ответственное лицо от органа исполнения  проверки
+          example: Петров В.В., старший лейтинант
+          type: string
+        image:
+          description: Изображение (аватар исполнительного органа)
+          example: avatar.jpg
+          type: string
+        hash_tag:
+          example: '#мвд'
+          type: string
+        contact_phone:
+          example: "0713333333"
+          type: string
+        contact_email:
+          example: mvd@mvd.com
+          type: string
+        pre_controller_email:
+          description: электронная почта отвественного министерства
+          example: mvd@mvd.com
+          type: string
+        telegram_chat_id:
+          description: идентификатор телеграм канала исполнительного органа
+          example: -10000000001
+          type: string
+        public_website:
+          description: Ссылка на веб-ресурс службы
+          example: https://mvd.com
+          type: string
+        more_info:
+          description: дополнительная информация о контролирующем \ исполнительном
+            органе
+          example: На службе добра
+          type: string
+        type:
+          default: EXECUTIVE
+          description: |
+            Выбор типа организации:
+             * `EXECUTIVE` - исполнительные органы
+             * `SUPERVISING` - контролирующие органы
+          enum:
+          - EXECUTIVE
+          - SUPERVISING
+          type: string
+        schedule:
+          items:
+            $ref: '#/components/schemas/Contractor_schedule'
+          type: array
+        problem_categories:
+          items:
+            $ref: '#/components/schemas/ProblemCategory'
+          type: array
+        is_active:
+          default: false
+          description: Статус видимости организации в общем списке
+          example: true
+          type: boolean
+        generate_daily_report:
+          default: false
+          description: Генерировать дневные отчеты
+          example: true
+          type: boolean
+        need_inform_by_email:
+          default: false
+          description: информировать по электронной почте
+          example: true
+          type: boolean
+        need_inform_by_sms:
+          default: false
+          description: информировать по sms
+          example: true
+          type: boolean
+        deleted_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        created_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        updated_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+      type: object
+    ContractorForm:
+      example:
+        image: avatar.jpg
+        pre_controller_email: mvd@mvd.com
+        public_website: https://mvd.com
+        is_active: true
+        contact_phone: "0713333333"
+        responsible_person: Петров В.В., старший лейтинант
+        description: Министерство внутренних дел - контролирующий орган
+        more_info: На службе добра
+        title: Министерство внутренних дел
+        type: EXECUTIVE
+        contact_email: mvd@mvd.com
+        mnemonic_name: mvd
+        schedule:
+        - end_at: 18:00
+          is_day_of: false
+          day_index: "1"
+          description: Только прием документов
+          title: Понедельник
+          start_at: 09:00
+        - end_at: 18:00
+          is_day_of: false
+          day_index: "1"
+          description: Только прием документов
+          title: Понедельник
+          start_at: 09:00
+        hash_tag: '#мвд'
+        telegram_chat_id: -10000000001
+        need_inform_by_sms: true
+        generate_daily_report: true
+        need_inform_by_email: true
+        problem_categories:
+        - 1
+        - 2
+        - 3
+        - 4
+      properties:
+        mnemonic_name:
+          description: Мнемоническое имя
+          example: mvd
+          type: string
+        title:
+          description: Название исполнительного органа
+          example: Министерство внутренних дел
+          type: string
+        description:
+          description: Описание исполнительного органа
+          example: Министерство внутренних дел - контролирующий орган
+          type: string
+        responsible_person:
+          description: Ответственное лицо от органа исполнения  проверки
+          example: Петров В.В., старший лейтинант
+          type: string
+        image:
+          description: Изображение (аватар исполнительного органа)
+          example: avatar.jpg
+          type: string
+        hash_tag:
+          example: '#мвд'
+          type: string
+        contact_phone:
+          example: "0713333333"
+          type: string
+        contact_email:
+          example: mvd@mvd.com
+          type: string
+        pre_controller_email:
+          description: электронная почта отвественного министерства
+          example: mvd@mvd.com
+          type: string
+        telegram_chat_id:
+          description: идентификатор телеграм канала исполнительного органа
+          example: -10000000001
+          type: string
+        public_website:
+          description: Ссылка на веб-ресурс службы
+          example: https://mvd.com
+          type: string
+        more_info:
+          description: дополнительная информация о контролирующем \ исполнительном
+            органе
+          example: На службе добра
+          type: string
+        type:
+          default: EXECUTIVE
+          description: |
+            Выбор типа организации:
+             * `EXECUTIVE` - исполнительные органы
+             * `SUPERVISING` - контролирующие органы
+          enum:
+          - EXECUTIVE
+          - SUPERVISING
+          type: string
+        schedule:
+          default: []
+          items:
+            $ref: '#/components/schemas/Contractor_schedule'
+          type: array
+        problem_categories:
+          example:
+          - 1
+          - 2
+          - 3
+          - 4
+          items:
+            type: integer
+          type: array
+        is_active:
+          default: false
+          description: Статус видимости организации в общем списке
+          example: true
+          type: boolean
+        generate_daily_report:
+          default: false
+          description: Генерировать дневные отчеты
+          example: true
+          type: boolean
+        need_inform_by_email:
+          default: false
+          description: информировать по электронной почте
+          example: true
+          type: boolean
+        need_inform_by_sms:
+          default: false
+          description: информировать по sms
+          example: true
+          type: boolean
+      required:
+      - contact_email
+      - contact_phone
+      - description
+      - hash_tag
+      - mnemonic_name
+      - problem_categories
+      - responsible_person
+      - schedule
+      - telegram_chat_id
+      - title
+      - type
+      type: object
+    RequestByContractor:
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        contractor_id:
+          example: 1
+          format: int64
+          type: integer
+        request_id:
+          example: 1
+          format: int64
+          type: integer
+        type:
+          default: EXECUTION
+          description: |
+            Выбор типа задачи для органа - контроль, исполнение:
+             * `EXECUTIVE` - исполнение
+             * `SUPERVISING` - контроль
+          enum:
+          - VERIFICATION
+          - EXECUTION
+          type: string
+        description:
+          description: краткое пояснение исполнительного \ контролирующего органа
+          example: Работы выполнены успешно
+          type: string
+        attachments:
+          default: []
+          description: медиа данные по исполнению \ контролю
+          items:
+            $ref: '#/components/schemas/MediaContent'
+          type: array
+        worked_at:
+          default: "null"
+          description: время проведения работ \ контроля
+          example: 2022-01-01 12:00:00
+          type: string
+        created_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        updated_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+      type: object
+    MailingQuery:
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        address_to:
+          example: 0710000000 or test@test.com
+          type: string
+        type:
+          description: |
+            Тип рассылки:
+              * `PHONE` - при помощи смс
+              * `MAIL` - при помощи почты
+          enum:
+          - PHONE
+          - MAIL
+          type: string
+        status:
+          description: |
+            Статус отправки:
+              * `SUCCESS` - успешная отправка
+              * `FAILURE` - ошибка при попытке отправки
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        template_name:
+          default: "null"
+          description: Название шаблона для рассылки (для email)
+          example: invoice.html
+          type: string
+        message_object:
+          $ref: '#/components/schemas/MailingQuery_message_object'
+        request_id:
+          example: 1
+          format: int64
+          type: integer
+        deleted_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        created_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        updated_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+      type: object
+    MailingQueryForm:
+      properties:
+        address_to:
+          example: 0710000000 or test@test.com
+          type: string
+        type:
+          description: |
+            Тип рассылки:
+              * `PHONE` - при помощи смс
+              * `MAIL` - при помощи почты
+          enum:
+          - PHONE
+          - MAIL
+          type: string
+        status:
+          description: |
+            Статус отправки:
+              * `SUCCESS` - успешная отправка
+              * `FAILURE` - ошибка при попытке отправки
+          enum:
+          - SUCCESS
+          - FAILURE
+          type: string
+        template_name:
+          default: "null"
+          description: Название шаблона для рассылки (для email)
+          example: invoice.html
+          type: string
+        message_object:
+          $ref: '#/components/schemas/MailingQuery_message_object'
+        request_id:
+          example: 1
+          format: int64
+          type: integer
+      type: object
+    StoredRequest:
+      example:
+        attachments:
+        - type: IMAGE
+          url: https://vk.com/1.jpg
+        - type: IMAGE
+          url: https://vk.com/1.jpg
+        updated_at: 2022-01-01 12:00:00
+        user_id: 1
+        latitude: 23.2334444
+        description: Описание заявки
+        created_at: 2022-01-01 12:00:00
+        id: 1
+        problem_categories:
+        - mnemonic_name: yama_na_doroge
+          hash_tag: '#дорожное_движение'
+          is_active: true
+          is_visible: true
+          updated_at: 2022-01-01 12:00:00
+          icon: https://test.com/123.jpg
+          rating: 10
+          created_at: 2022-01-01 12:00:00
+          id: 1
+          title: Яма на дороге
+          deleted_at: 2022-01-01 12:00:00
+        - mnemonic_name: yama_na_doroge
+          hash_tag: '#дорожное_движение'
+          is_active: true
+          is_visible: true
+          updated_at: 2022-01-01 12:00:00
+          icon: https://test.com/123.jpg
+          rating: 10
+          created_at: 2022-01-01 12:00:00
+          id: 1
+          title: Яма на дороге
+          deleted_at: 2022-01-01 12:00:00
+        deleted_at: 2022-01-01 12:00:00
+        longitude: 45.7889111
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        user_id:
+          description: идентификатор пользователя, который сохраняет заявку
+          example: 1
+          format: int64
+          type: integer
+        description:
+          example: Описание заявки
+          type: string
+        problem_categories:
+          items:
+            $ref: '#/components/schemas/ProblemCategory'
+          type: array
+        latitude:
+          example: 23.2334444
+          type: number
+        longitude:
+          example: 45.7889111
+          type: number
+        attachments:
+          default: []
+          items:
+            $ref: '#/components/schemas/MediaContent'
+          type: array
+        deleted_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        created_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+        updated_at:
+          default: "null"
+          example: 2022-01-01 12:00:00
+          type: string
+      type: object
+    StoredRequestForm:
+      example:
+        attachments:
+        - type: IMAGE
+          url: https://vk.com/1.jpg
+        - type: IMAGE
+          url: https://vk.com/1.jpg
+        user_id: 1
+        latitude: 23.2334444
+        description: Описание заявки
+        problem_categories:
+        - mnemonic_name: yama_na_doroge
+          hash_tag: '#дорожное_движение'
+          is_active: true
+          is_visible: true
+          updated_at: 2022-01-01 12:00:00
+          icon: https://test.com/123.jpg
+          rating: 10
+          created_at: 2022-01-01 12:00:00
+          id: 1
+          title: Яма на дороге
+          deleted_at: 2022-01-01 12:00:00
+        - mnemonic_name: yama_na_doroge
+          hash_tag: '#дорожное_движение'
+          is_active: true
+          is_visible: true
+          updated_at: 2022-01-01 12:00:00
+          icon: https://test.com/123.jpg
+          rating: 10
+          created_at: 2022-01-01 12:00:00
+          id: 1
+          title: Яма на дороге
+          deleted_at: 2022-01-01 12:00:00
+        longitude: 45.7889111
+      properties:
+        user_id:
+          description: идентификатор пользователя, который сохраняет заявку
+          example: 1
+          format: int64
+          type: integer
+        description:
+          example: Описание заявки
+          type: string
+        problem_categories:
+          items:
+            $ref: '#/components/schemas/ProblemCategory'
+          type: array
+        latitude:
+          example: 23.2334444
+          type: number
+        longitude:
+          example: 45.7889111
+          type: number
+        attachments:
+          default: []
+          items:
+            $ref: '#/components/schemas/MediaContent'
+          type: array
+      type: object
+    inline_object:
+      example:
+        latitude: "23.4445555"
+        longitude: "35.2233444"
+      properties:
+        latitude:
+          example: "23.4445555"
+          type: string
+        longitude:
+          example: "35.2233444"
+          type: string
+      type: object
+    inline_response_200:
+      example:
+        address: г. Донецк, пр. Киевский, 28
+      properties:
+        address:
+          example: г. Донецк, пр. Киевский, 28
+          type: string
+      type: object
+    inline_object_1:
+      properties:
+        address:
+          example: г. Донецк, пр. Киевский, 28
+          type: string
+      type: object
+    inline_object_2:
+      properties:
+        title:
+          example: Заголовок сообщения
+          type: string
+        message:
+          example: Сообщение пользователю
+          type: string
+        level:
+          description: |
+            Уровень сообщения:
+              * `INFO` - оповещение
+              * `DANGER` - критически важное
+              * `WARNING` - предупреждение
+          enum:
+          - INFO
+          - DANGER
+          - WARNING
+          type: string
+        type:
+          description: |
+            Тип сообщения:
+              * `COORDS_ALERT` - отметка на карте (на случай проишествия)
+              * `TEXT` - текстовое сообщение с вложениями
+          enum:
+          - COORDS_ALERT
+          - TEXT
+          type: string
+        send_as:
+          default: AS_EMAIL
+          description: |
+            Способ отправки оповещения (по умолчанию отправка на почту):
+              * `AS_NOTIFICATION` - всплывающее сообщение
+              * `AS_EMAIL` - почтовое сообщение
+              * `AS_EMAIL_AND_NOTIFICATION` - всплывающее сообщение + почта
+              * `AS_SMS` - по СМС
+              * `ALL` - одновременно через все каналы оповещений
+          enum:
+          - AS_NOTIFICATION
+          - AS_EMAIL
+          - AS_EMAIL_AND_NOTIFICATION
+          - AS_SMS
+          - ALL
+          type: string
+        user_ids:
+          default: []
+          description: приоритетный фильтр для рассылки
+          example:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          items:
+            type: integer
+          type: array
+        category:
+          description: |
+            Категория отправки:
+              * `SELECTED_USERS` - только указанным пользователям
+              * `ONLY_USERS` - только пользователям
+              * `ALL` - всем
+              * `ONLY_ACTIVE_REQUEST` - только пользователям, у которых активные заявки
+              * `ONLY_ARCHIVE_REQUEST` - только пользователям с архивными заявками
+              * `ONLY_CONTRACTORS` - только исполнительным \ контролирующим органам
+              * `ONLY_CONTRACTORS_EXECUTIVE` - только исполнительным органам
+              * `ONLY_CONTRACTORS_SUPERVISING` - только контролирующим органам
+          enum:
+          - SELECTED_USERS
+          - ONLY_USERS
+          - ALL
+          - ONLY_ACTIVE_REQUEST
+          - ONLY_ARCHIVE_REQUEST
+          - ONLY_CONTRACTORS
+          - ONLY_CONTRACTORS_EXECUTIVE
+          - ONLY_CONTRACTORS_SUPERVISING
+          type: string
+        filenames:
+          default: []
+          items:
+            format: binary
+            type: string
+          type: array
+      type: object
+    inline_object_3:
+      properties:
+        start_at:
+          example: 2021-01-01 11:00:00
+          type: string
+        end_at:
+          example: 2021-01-02 11:00:00
+          type: string
+        object_id:
+          default: []
+          example:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          items:
+            type: integer
+          type: array
+        object_type:
+          description: |
+            Статистика по:
+              * `REQUEST_BY_CATEGORIES` - запросы по категориям
+              * `REQUEST_BY_CONTRACTORS` - запросы по исполнительным \ контролирующим органам
+              * `REQUEST_BY_CONTRACTORS_EXECUTIVE` - запросы по исполнительным  органам
+              * `REQUEST_BY_CONTRACTORS_SUPERVISING` - запросы по контролирующим органам
+              * `CONTRACTORS` - добавленные исполнительные \ контролирующие органы
+              * `ACCEPTED_REQUESTS` - принятые в работу заявки
+              * `DECLINE_REQUESTS` - отклоненные заявки
+              * `SUMMARY_ALL` - суммарная сводка по заявкам
+              * `NEW_USERS` - новые пользователи
+              * `ACTIVE_USERS` - активные пользователи
+          enum:
+          - REQUEST_BY_CATEGORIES
+          - REQUEST_BY_CONTRACTORS
+          - REQUEST_BY_CONTRACTORS_EXECUTIVE
+          - REQUEST_BY_CONTRACTORS_SUPERVISING
+          - CONTRACTORS
+          - ACCEPTED_REQUESTS
+          - DECLINE_REQUESTS
+          - SUMMARY_ALL
+          - NEW_USERS
+          - ACTIVE_USERS
+          type: string
+      type: object
+    inline_object_4:
+      properties:
+        start_at:
+          example: 2021-01-01 11:00:00
+          type: string
+        end_at:
+          example: 2021-01-02 11:00:00
+          type: string
+        category_id:
+          default: []
+          example:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          items:
+            type: integer
+          type: array
+        type:
+          description: |
+            Тепловая карта заявок:
+              * `ACCEPTED` - принятые запросы
+              * `RESOLVED` - выполненные запросы
+              * `NOT_ACCEPTED` - не принятые запросы
+              * `DECLINED` - отклоненные запрос
+          enum:
+          - ACCEPTED
+          - RESOLVED
+          - NOT_ACCEPTED
+          - DECLINED
+          type: string
+      type: object
+    inline_response_200_1_heat_map_data:
+      example:
+        latitude: 33.2344552
+        weight: 0.5
+        longitude: 22.2344552
+      properties:
+        weight:
+          example: 0.5
+          type: number
+        latitude:
+          example: 33.2344552
+          type: number
+        longitude:
+          example: 22.2344552
+          type: number
+      type: object
+    inline_response_200_1:
+      example:
+        heat_map_data:
+        - latitude: 33.2344552
+          weight: 0.5
+          longitude: 22.2344552
+        - latitude: 33.2344552
+          weight: 0.5
+          longitude: 22.2344552
+      properties:
+        heat_map_data:
+          items:
+            $ref: '#/components/schemas/inline_response_200_1_heat_map_data'
+          type: array
+      type: object
+    inline_object_5:
+      properties:
+        filenames:
+          default: []
+          items:
+            format: binary
+            type: string
+          type: array
+      type: object
+    inline_object_6:
+      properties:
+        start_at:
+          example: 2021-01-01 11:00:00
+          type: string
+        end_at:
+          example: 2021-01-02 11:00:00
+          type: string
+        category_id:
+          default: []
+          example:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          items:
+            type: integer
+          type: array
+        type:
+          description: |
+            Экспорт заявок по типу:
+              * `ACCEPTED` - принятые запросы
+              * `RESOLVED` - выполненные запросы
+              * `NOT_ACCEPTED` - не принятые запросы
+              * `DECLINED` - отклоненные запрос
+          enum:
+          - ACCEPTED
+          - RESOLVED
+          - NOT_ACCEPTED
+          - DECLINED
+          type: string
+      type: object
+    inline_object_7:
+      properties:
+        distance:
+          default: 50
+          description: радиус охвата заявок
+          example: 300
+          type: number
+        longitude:
+          example: 23.332322
+          type: number
+        latitude:
+          example: 34.5242444
+          type: number
+      type: object
+    inline_object_8:
+      properties:
+        rating:
+          default: 50
+          description: рейтинг заявки (может быть в плюс и в минус)
+          example: 300
+          type: integer
+        request_id:
+          default: 1
+          example: 1
+          type: integer
+      type: object
+    Request_stored_profile_data:
+      description: сохранение данных профиля на момент формирования заявки
+      example:
+        full_name: Алексей Алексеевич Алексеев
+        phone: "07143200000"
+        rating: 1023
+        location: Донецк, Куйбышевский район
+        email: test@test.com
+      properties:
+        full_name:
+          example: Алексей Алексеевич Алексеев
+          type: string
+        location:
+          example: Донецк, Куйбышевский район
+          type: string
+        phone:
+          default: "null"
+          example: "07143200000"
+          type: string
+        rating:
+          description: персональный рейтинг пользователя на момент обращения
+          example: 1023
+          type: integer
+        email:
+          default: "null"
+          example: test@test.com
+          type: string
+      type: object
+    PaginateObject_links:
+      properties:
+        first:
+          example: http://localhost:8000/api/{method_name}?page=1
+          type: string
+        last:
+          example: http://localhost:8000/api/{method_name}?page=1
+          type: string
+        prev:
+          default: "null"
+          example: http://localhost:8000/api/{method_name}?page=1
+          type: string
+        next:
+          default: "null"
+          example: http://localhost:8000/api/{method_name}?page=1
+          type: string
+      type: object
+    Contractor_schedule:
+      example:
+        end_at: 18:00
+        is_day_of: false
+        day_index: "1"
+        description: Только прием документов
+        title: Понедельник
+        start_at: 09:00
+      properties:
+        title:
+          example: Понедельник
+          type: string
+        day_index:
+          example: "1"
+          type: string
+        start_at:
+          example: 09:00
+          type: string
+        end_at:
+          example: 18:00
+          type: string
+        is_day_of:
+          default: false
+          example: false
+          type: boolean
+        description:
+          example: Только прием документов
+          type: string
+      type: object
+    MailingQuery_message_object:
+      properties:
+        title:
+          type: string
+        message:
+          type: string
+        author:
+          type: string
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+

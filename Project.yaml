@@ -1,0 +1,3131 @@
+openapi: "3.0.2"
+info:
+    title: API системы "Народный контроль"
+    version: "1.0"
+
+    contact:
+        name: API Support
+        email: exxxar@gmail.com
+
+    # Name of the license and a URL to the license description.
+    license:
+        name: Apache 2.0
+        url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+    description: "
+        <h2>Приложение Народный контроль</h2>
+        <p><strong>Основная цель</strong>: контроль за состоянием сфер жизнедеятельности города по отраслям:</p>
+        <ul>
+            <li>общественный транспорт (мин.транс)</li>
+            <li>состояние дорог и прилегающий территорий (мин.транс)</li>
+            <li>состояние благоустройства города (мин. хоз)</li>
+            <li>аварийные участки города, прорывы водо- тепло- коммуникаций, обрывы электро коммуникаций  (жэк)</li>
+            <li>постройки в аварийном состоянии (мин. Хоз)</li>
+            <li>уборка территории и вывоз отходов (мин. Хоз)</li>
+            <li>некачественные товары (потреб контроль)</li>
+            <li>скопление животных (мин. Хоз)</li>
+            <li>последствия стихийных бедствий  (мин. Хоз,  мчс)</li>
+            <li>последствие военных действий (мчс, военные, мин. Транс)</li>
+            <li>проявления вандализмам (в т.ч. размещение рекламы в неположенном месте)</li>
+            <li>состояние фортификационных сооружений (мчс)</li>
+            <li>состояние рабочего места (проф. Комиссии)</li>
+            <li>регулярное скопление криминальных (или асоциальных) элементов общества или проявление аморального поведения в общественных местах (мин. Хоз)</li>
+            <li>нарушение ПДД участниками дорожного движения (мвд)</li>
+            <li>также могут быть заявки без категории</li>
+            <li>инициативы граждан - полезные нововведения от граждан</li>
+            <li>заявки на утерянные или найденные вещи</li>
+        </ul>
+        "
+servers:
+    - url: '{protocol}://api.domain-name.ru'
+      description: API-сервер системы "Народный контроль"
+      variables:
+          protocol:
+              enum:
+                  - http
+                  - https
+              default: https
+
+components:
+    securitySchemes:
+        bearerAuth: # arbitrary name for the security scheme
+            type: http
+            scheme: bearer
+            bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+
+    schemas:
+        Error:
+            type: object
+            required:
+                - title
+                - message
+                - code
+            properties:
+                title:
+                    type: string
+                    default: Error
+                    example: Ошибка API
+                message:
+                    type: string
+                    default: Error
+                    example: Требуется идентикатор
+                code:
+                    type: integer
+                    default: 404
+                    example: 400
+                    minimum: 100
+                    maximum: 600
+        User:
+            type: object
+            required:
+                - username
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                username:
+                    type: string
+                    example: admin
+                profile:
+                    $ref: '#/components/schemas/Profile'
+                approve_sms_code:
+                    type: string
+                    default: null
+                    example: 999999
+                approve_email_code:
+                    type: string
+                    default: null
+                    example: 999999
+                sms_approved_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                email_approved_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                blocked_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        UserForm:
+            type: object
+            required:
+                - username
+            properties:
+                username:
+                    type: string
+                    example: admin
+                password:
+                    type: string
+                    example: password
+        Profile:
+            type: object
+            required:
+                - user_id
+                - phone
+                - email
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                user_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                full_name:
+                    type: string
+                    example: "Алексей Алексеевич Алексеев"
+                location:
+                    type: string
+                    example: "Донецк, Куйбышевский район"
+                phone:
+                    type: string
+                    default: null
+                    example: "07143200000"
+                rating:
+                    type: integer
+                    default: null
+                    example: 1023
+                    description: персональный рейтинг пользователя
+                email:
+                    type: string
+                    default: null
+                    example: "test@test.com"
+                requests:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Request'
+
+                is_notification_email:
+                    type: boolean
+                    default: false
+                    example: true
+                is_notification_sms:
+                    type: boolean
+                    default: false
+                    example: true
+                is_anonymous_requests:
+                    type: boolean
+                    default: false
+                    example: false
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        ProfileForm:
+            required:
+                - user_id
+                - email
+                - full_name
+            type: object
+            properties:
+                user_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                full_name:
+                    type: string
+                    example: "Алексей Алексеевич Алексеев"
+                location:
+                    type: string
+                    example: "Донецк, Куйбышевский район"
+                phone:
+                    type: string
+                    default: null
+                    example: "07143200000"
+                email:
+                    type: string
+                    default: null
+                    example: "test@test.com"
+                is_notification_email:
+                    type: boolean
+                    default: false
+                    example: true
+                is_notification_sms:
+                    type: boolean
+                    default: false
+                    example: true
+                is_anonymous_requests:
+                    type: boolean
+                    default: false
+                    example: false
+        Request:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                parent_request_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                    default: null
+                    description: идентификатор более ранней заявки по схожей проблеме
+                description:
+                    type: string
+                    example: "Бродячие собаки"
+                problem_categories:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ProblemCategory'
+
+                location:
+                    type: string
+                    default: null
+                    example: "г. Донецк, пр. Труда, 23"
+                latitude:
+                    type: number
+                    default: null
+                    example: 23.2334444
+                longitude:
+                    type: number
+                    default: null
+                    example: 45.7889111
+                base_rating:
+                    type: integer
+                    example: 613
+                    default: 0
+                    description: фиксированный рейтинг заявки, указывается администратором для принудительного повышения
+                rating:
+                    type: integer
+                    example: 613
+                    description: суммарный рейтинг заявки и всех смежных с ней заявок
+                status:
+                    type: string
+                    enum:
+                        - "IN PROCESSING"
+                        - "IN CONSIDERATION"
+                        - "IN EXECUTION"
+                        - "IN EXECUTION CHECK"
+                        - "COMPLETED"
+                        - "ARCHIVED"
+                    default: "IN PROCESSING"
+                    description: >
+                        Тип заявки:
+                         * `IN PROCESSING` - новая заявка
+                         * `IN CONSIDERATION` - заявка на рассмотрении
+                         * `IN EXECUTION` - заявка выполняется
+                         * `IN EXECUTION CHECK` - проверка выполнения заявки
+                         * `COMPLETED` - выполненная заявка
+                         * `ARCHIVED` - заявка находится в архиве
+                attachments:
+                    type: array
+                    default: []
+                    items:
+                       $ref: '#/components/schemas/MediaContent'
+
+                stored_profile_data:
+                    type: object
+                    description: сохранение данных профиля на момент формирования заявки
+                    properties:
+                        full_name:
+                            type: string
+                            example: "Алексей Алексеевич Алексеев"
+                        location:
+                            type: string
+                            example: "Донецк, Куйбышевский район"
+                        phone:
+                            type: string
+                            default: null
+                            example: "07143200000"
+                        rating:
+                            type: integer
+                            default: null
+                            example: 1023
+                            description: персональный рейтинг пользователя на момент обращения
+                        email:
+                            type: string
+                            default: null
+                            example: "test@test.com"
+                request_consideration_at:
+                    type: string
+                    example: "2022-02-03 13:00:00"
+                    description: дата начала рассмотрения заявки
+                begin_request_execution_at:
+                    type: string
+                    example: "2022-02-03 13:00:00"
+                    description: дата начала выполнения работ по заявке
+                complete_request_execution_at:
+                    type: string
+                    example: "2022-02-03 13:00:00"
+                    description: дата завершения выполнения работ по заявке
+                request_status_checked_at:
+                    type: string
+                    description: дата финальной проверки выполнения
+                    example: "2022-02-03 13:00:00"
+                is_moderated:
+                    type: boolean
+                    default: true
+                    example: true
+                moderator_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        RequestForm:
+            required:
+                - description
+                - problem_categories
+                - latitude
+                - longitude
+            type: object
+            properties:
+                parent_request_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                    default: null
+                    description: идентификатор более ранней заявки по схожей проблеме
+                description:
+                    type: string
+                    example: "Бродячие собаки"
+                problem_categories:
+                    type: array
+                    items:
+                        type: integer
+                    example: [ 1, 2, 3, 4 ]
+                location:
+                    type: string
+                    default: null
+                    example: "г. Донецк, пр. Труда, 23"
+                latitude:
+                    type: number
+                    default: null
+                    example: 23.2334444
+                longitude:
+                    type: number
+                    default: null
+                    example: 45.7889111
+                base_rating:
+                    type: integer
+                    example: 613
+                    default: 0
+                    description: фиксированный рейтинг заявки, указывается администратором для принудительного повышения
+                status:
+                    type: string
+                    enum:
+                        - "IN PROCESSING"
+                        - "IN CONSIDERATION"
+                        - "IN EXECUTION"
+                        - "IN EXECUTION CHECK"
+                        - "COMPLETED"
+                    default: "IN PROCESSING"
+                    description: >
+                        Тип заявки:
+                         * `IN PROCESSING` - новая заявка
+                         * `IN CONSIDERATION` - заявка на рассмотрении
+                         * `IN EXECUTION` - заявка выполняется
+                         * `IN EXECUTION CHECK` - проверка выполнения заявки
+                         * `COMPLETED` - выполненная заявка
+                         * `ARCHIVED` - заявка находится в архиве
+                attachments:
+                    type: array
+                    default: [ ]
+                    items:
+                        $ref: '#/components/schemas/MediaContent'
+                request_consideration_at:
+                    type: string
+                    example: "2022-02-03 13:00:00"
+                    description: дата начала рассмотрения заявки
+                begin_request_execution_at:
+                    type: string
+                    example: "2022-02-03 13:00:00"
+                    description: дата начала выполнения работ по заявке
+                complete_request_execution_at:
+                    type: string
+                    example: "2022-02-03 13:00:00"
+                    description: дата завершения выполнения работ по заявке
+                request_status_checked_at:
+                    type: string
+                    description: дата финальной проверки выполнения
+                    example: "2022-02-03 13:00:00"
+                is_moderated:
+                    type: boolean
+                    default: true
+                    example: true
+                moderator_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                filenames:
+                    type: array
+                    default: [ ]
+                    items:
+                        type: string
+                        format: binary
+        ProblemCategory:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                title:
+                    type: string
+                    example: "Яма на дороге"
+                mnemonic_name:
+                    type: string
+                    example: "yama_na_doroge"
+                hash_tag:
+                    type: string
+                    example: "#дорожное_движение"
+                icon:
+                    type: string
+                    example: "https://test.com/123.jpg"
+                rating:
+                    type: integer
+                    example: 10
+                    description: Приоритетный рейтинг категории
+                is_active:
+                    type: boolean
+                    example: true
+                    description: Доступность раздела
+                is_visible:
+                    type: boolean
+                    example: true
+                    description: Видимость раздела в общей выдаче
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        ProblemCategoryForm:
+                required:
+                    - title
+                    - mnemonic_name
+                    - hash_tag
+                    - icon
+                type: object
+                properties:
+                    title:
+                        type: string
+                        example: "Яма на дороге"
+                    mnemonic_name:
+                        type: string
+                        example: "yama_na_doroge"
+                    hash_tag:
+                        type: string
+                        example: "#дорожное_движение"
+                    icon:
+                        type: string
+                        example: "https://test.com/123.jpg"
+                    rating:
+                        type: integer
+                        example: 10
+                        description: Приоритетный рейтинг категории
+                    is_active:
+                        type: boolean
+                        example: true
+                        description: Доступность раздела
+                    is_visible:
+                        type: boolean
+                        example: true
+                        description: Видимость раздела в общей выдаче
+        MediaContent:
+            required:
+                - type
+                - url
+            type: object
+            properties:
+                type:
+                    type: string
+                    enum:
+                        - "IMAGE"
+                        - "VIDEO"
+                    default: "IMAGE"
+                    description: >
+                        Тип медиа данных:
+                         * `IMAGE` - изображение
+                         * `VIDEO` - видео
+
+                url:
+                    type: string
+                    example: "https://vk.com/1.jpg"
+        PaginateObject:
+            type: object
+            properties:
+                links:
+                    type: object
+                    properties:
+                        first:
+                            type: string
+                            example: "http://localhost:8000/api/{method_name}?page=1"
+                        last:
+                            type: string
+                            example: "http://localhost:8000/api/{method_name}?page=1"
+                        prev:
+                            type: string
+                            default: null
+                            example: "http://localhost:8000/api/{method_name}?page=1"
+                        next:
+                            type: string
+                            default: null
+                            example: "http://localhost:8000/api/{method_name}?page=1"
+                current_page:
+                    type: integer
+                    example: 1
+                from:
+                    type: integer
+                    example: 1
+                last_page:
+                    type: integer
+                    example: 1
+                path:
+                    type: string
+                    example: "http://localhost:8000/api/{method_name}"
+                per_page:
+                    type: integer
+                    example: 30
+                to:
+                    type: integer
+                    example: 1
+                total:
+                    type: integer
+                    example: 10
+        Contractor:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                mnemonic_name:
+                    type: string
+                    description: "Мнемоническое имя"
+                    example: "mvd"
+                title:
+                    type: string
+                    description: "Название исполнительного органа"
+                    example: "Министерство внутренних дел"
+                description:
+                    type: string
+                    description: "Описание исполнительного органа"
+                    example: "Министерство внутренних дел - контролирующий орган"
+                responsible_person:
+                    type: string
+                    description: "Ответственное лицо от органа исполнения \ проверки"
+                    example: "Петров В.В., старший лейтинант"
+                image:
+                    type: string
+                    description: "Изображение (аватар исполнительного органа)"
+                    example: "avatar.jpg"
+                hash_tag:
+                    type: string
+                    example: "#мвд"
+                contact_phone:
+                    type: string
+                    example: "0713333333"
+                contact_email:
+                    type: string
+                    example: "mvd@mvd.com"
+                pre_controller_email:
+                    type: string
+                    description: электронная почта отвественного министерства
+                    example: "mvd@mvd.com"
+                telegram_chat_id:
+                    type: string
+                    description: идентификатор телеграм канала исполнительного органа
+                    example: "-10000000001"
+                public_website:
+                    type: string
+                    description: Ссылка на веб-ресурс службы
+                    example: "https://mvd.com"
+                more_info:
+                    type: string
+                    description: дополнительная информация о контролирующем \ исполнительном органе
+                    example: "На службе добра"
+                type:
+                    type: string
+                    enum:
+                        - "EXECUTIVE"
+                        - "SUPERVISING"
+                    default: "EXECUTIVE"
+                    description: >
+                        Выбор типа организации:
+                         * `EXECUTIVE` - исполнительные органы
+                         * `SUPERVISING` - контролирующие органы
+                schedule:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            title:
+                                type: string
+                                example: "Понедельник"
+                            day_index:
+                                type: string
+                                example: 1
+                            start_at:
+                                type: string
+                                example: "09:00"
+                            end_at:
+                                type: string
+                                example: "18:00"
+                            is_day_of:
+                                type: boolean
+                                default: false
+                                example: Флаг выходного дня
+                            description:
+                                type: string
+                                example: "Только прием документов"
+                problem_categories:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ProblemCategory'
+                is_active:
+                    type: boolean
+                    default: false
+                    example: true
+                    description: Статус видимости организации в общем списке
+                generate_daily_report:
+                    type: boolean
+                    default: false
+                    example: true
+                    description: Генерировать дневные отчеты
+                need_inform_by_email:
+                    type: boolean
+                    default: false
+                    example: true
+                    description: информировать по электронной почте
+                need_inform_by_sms:
+                    type: boolean
+                    default: false
+                    example: true
+                    description: информировать по sms
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        ContractorForm:
+            required:
+                - title
+                - mnemonic_name
+                - description
+                - hash_tag
+                - problem_categories
+                - type
+                - contact_email
+                - contact_phone
+                - schedule
+                - telegram_chat_id
+                - responsible_person
+            type: object
+            properties:
+                mnemonic_name:
+                    type: string
+                    description: "Мнемоническое имя"
+                    example: "mvd"
+                title:
+                    type: string
+                    description: "Название исполнительного органа"
+                    example: "Министерство внутренних дел"
+                description:
+                    type: string
+                    description: "Описание исполнительного органа"
+                    example: "Министерство внутренних дел - контролирующий орган"
+                responsible_person:
+                    type: string
+                    description: "Ответственное лицо от органа исполнения \ проверки"
+                    example: "Петров В.В., старший лейтинант"
+                image:
+                    type: string
+                    description: "Изображение (аватар исполнительного органа)"
+                    example: "avatar.jpg"
+                hash_tag:
+                    type: string
+                    example: "#мвд"
+                contact_phone:
+                    type: string
+                    example: "0713333333"
+                contact_email:
+                    type: string
+                    example: "mvd@mvd.com"
+                pre_controller_email:
+                    type: string
+                    description: электронная почта отвественного министерства
+                    example: "mvd@mvd.com"
+                telegram_chat_id:
+                    type: string
+                    description: идентификатор телеграм канала исполнительного органа
+                    example: "-10000000001"
+                public_website:
+                    type: string
+                    description: Ссылка на веб-ресурс службы
+                    example: "https://mvd.com"
+                more_info:
+                    type: string
+                    description: дополнительная информация о контролирующем \ исполнительном органе
+                    example: "На службе добра"
+                type:
+                    type: string
+                    enum:
+                        - "EXECUTIVE"
+                        - "SUPERVISING"
+                    default: "EXECUTIVE"
+                    description: >
+                        Выбор типа организации:
+                         * `EXECUTIVE` - исполнительные органы
+                         * `SUPERVISING` - контролирующие органы
+                schedule:
+                    type: array
+                    default: []
+                    items:
+                        type: object
+                        properties:
+                            title:
+                                type: string
+                                example: "Понедельник"
+                            day_index:
+                                type: string
+                                example: 1
+                            start_at:
+                                type: string
+                                example: "09:00"
+                            end_at:
+                                type: string
+                                example: "18:00"
+                            is_day_of:
+                                type: boolean
+                                default: false
+                                example: Флаг выходного дня
+                            description:
+                                type: string
+                                example: "Только прием документов"
+                problem_categories:
+                    type: array
+                    items:
+                        type: integer
+                    example: [ 1, 2, 3, 4 ]
+                is_active:
+                    type: boolean
+                    default: false
+                    example: true
+                    description: Статус видимости организации в общем списке
+                generate_daily_report:
+                    type: boolean
+                    default: false
+                    example: true
+                    description: Генерировать дневные отчеты
+                need_inform_by_email:
+                    type: boolean
+                    default: false
+                    example: true
+                    description: информировать по электронной почте
+                need_inform_by_sms:
+                    type: boolean
+                    default: false
+                    example: true
+                    description: информировать по sms
+        RequestByContractor:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                contractor_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                request_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                type:
+                    type: string
+                    enum:
+                        - "VERIFICATION"
+                        - "EXECUTION"
+                    default: "EXECUTION"
+                    description: >
+                        Выбор типа задачи для органа - контроль, исполнение:
+                         * `EXECUTIVE` - исполнение
+                         * `SUPERVISING` - контроль
+                description:
+                    type: string
+                    description: краткое пояснение исполнительного \ контролирующего органа
+                    example: "Работы выполнены успешно"
+                attachments:
+                    type: array
+                    default: []
+                    description: медиа данные по исполнению \ контролю
+                    items:
+                        $ref: '#/components/schemas/MediaContent'
+                worked_at:
+                    type: string
+                    description: время проведения работ \ контроля
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        MailingQuery:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                address_to:
+                    type: string
+                    example: "0710000000 or test@test.com"
+                type:
+                    type: string
+                    enum:
+                        - "PHONE"
+                        - "MAIL"
+                    description: >
+                       Тип рассылки:
+                         * `PHONE` - при помощи смс
+                         * `MAIL` - при помощи почты
+                status:
+                    type: string
+                    enum:
+                        - "SUCCESS"
+                        - "FAILURE"
+                    description: >
+                        Статус отправки:
+                          * `SUCCESS` - успешная отправка
+                          * `FAILURE` - ошибка при попытке отправки
+                template_name:
+                    type: string
+                    default: null
+                    description: Название шаблона для рассылки (для email)
+                    example: "invoice.html"
+                message_object:
+                    type: object
+                    properties:
+                        title:
+                            type: string
+                        message:
+                            type: string
+                        author:
+                            type: string
+                request_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        MailingQueryForm:
+            type: object
+            properties:
+                address_to:
+                    type: string
+                    example: "0710000000 or test@test.com"
+                type:
+                    type: string
+                    enum:
+                        - "PHONE"
+                        - "MAIL"
+                    description: >
+                        Тип рассылки:
+                          * `PHONE` - при помощи смс
+                          * `MAIL` - при помощи почты
+                status:
+                    type: string
+                    enum:
+                        - "SUCCESS"
+                        - "FAILURE"
+                    description: >
+                        Статус отправки:
+                          * `SUCCESS` - успешная отправка
+                          * `FAILURE` - ошибка при попытке отправки
+                template_name:
+                    type: string
+                    default: null
+                    description: Название шаблона для рассылки (для email)
+                    example: "invoice.html"
+                message_object:
+                    type: object
+                    properties:
+                        title:
+                            type: string
+                        message:
+                            type: string
+                        author:
+                            type: string
+                request_id:
+                    type: integer
+                    format: int64
+                    example: 1
+        StoredRequest:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                user_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                    description: идентификатор пользователя, который сохраняет заявку
+                description:
+                    type: string
+                    example: "Описание заявки"
+                problem_categories:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ProblemCategory'
+                latitude:
+                    type: number
+                    default: null
+                    example: 23.2334444
+                longitude:
+                    type: number
+                    default: null
+                    example: 45.7889111
+                attachments:
+                    type: array
+                    default: [ ]
+                    items:
+                        $ref: '#/components/schemas/MediaContent'
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        StoredRequestForm:
+            type: object
+            properties:
+                user_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                    description: идентификатор пользователя, который сохраняет заявку
+                description:
+                    type: string
+                    example: "Описание заявки"
+                problem_categories:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/ProblemCategory'
+                latitude:
+                    type: number
+                    default: null
+                    example: 23.2334444
+                longitude:
+                    type: number
+                    default: null
+                    example: 45.7889111
+                attachments:
+                    type: array
+                    default: [ ]
+                    items:
+                        $ref: '#/components/schemas/MediaContent'
+
+paths:
+    #сервисные методы
+    /services/address:
+        post:
+            summary: Получаем адрес по координатам
+            tags:
+                - Сервисные методы
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                latitude:
+                                    type: string
+                                    example: "23.4445555"
+                                longitude:
+                                    type: string
+                                    example: "35.2233444"
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    address:
+                                        type: string
+                                        example: "г. Донецк, пр. Киевский, 28"
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /services/coords:
+        post:
+            summary: Получаем координаты по адресу
+            tags:
+                - Сервисные методы
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                address:
+                                    type: string
+                                    example: "г. Донецк, пр. Киевский, 28"
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    latitude:
+                                        type: string
+                                        example: "23.4445555"
+                                    longitude:
+                                        type: string
+                                        example: "35.2233444"
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /services/mailing:
+        post:
+            summary: оповещение пользователей
+            security:
+                -   bearerAuth: [ ]
+            tags:
+                - Сервисные методы
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    example: "Заголовок сообщения"
+                                message:
+                                    type: string
+                                    example: "Сообщение пользователю"
+                                level:
+                                    type: string
+                                    enum:
+                                        - "INFO"
+                                        - "DANGER"
+                                        - "WARNING"
+                                    description: >
+                                        Уровень сообщения:
+                                          * `INFO` - оповещение
+                                          * `DANGER` - критически важное
+                                          * `WARNING` - предупреждение
+                                type:
+                                    type: string
+                                    enum:
+                                        - "COORDS_ALERT"
+                                        - "TEXT"
+                                    description: >
+                                        Тип сообщения:
+                                          * `COORDS_ALERT` - отметка на карте (на случай проишествия)
+                                          * `TEXT` - текстовое сообщение с вложениями
+
+                                send_as:
+                                    type: string
+                                    default: "AS_EMAIL"
+                                    enum:
+                                        - "AS_NOTIFICATION"
+                                        - "AS_EMAIL"
+                                        - "AS_EMAIL_AND_NOTIFICATION"
+                                        - "AS_SMS"
+                                        - "ALL"
+                                    description: >
+                                        Способ отправки оповещения (по умолчанию отправка на почту):
+                                          * `AS_NOTIFICATION` - всплывающее сообщение
+                                          * `AS_EMAIL` - почтовое сообщение
+                                          * `AS_EMAIL_AND_NOTIFICATION` - всплывающее сообщение + почта
+                                          * `AS_SMS` - по СМС
+                                          * `ALL` - одновременно через все каналы оповещений
+                                user_ids:
+                                    type: array
+                                    default: []
+                                    description: приоритетный фильтр для рассылки
+                                    items:
+                                        type: integer
+                                    example: [1,2,3,4,5]
+                                category:
+                                    type: string
+                                    enum:
+                                        - "SELECTED_USERS"
+                                        - "ONLY_USERS"
+                                        - "ALL"
+                                        - "ONLY_ACTIVE_REQUEST"
+                                        - "ONLY_ARCHIVE_REQUEST"
+                                        - "ONLY_CONTRACTORS"
+                                        - "ONLY_CONTRACTORS_EXECUTIVE"
+                                        - "ONLY_CONTRACTORS_SUPERVISING"
+                                    description: >
+                                        Категория отправки:
+                                          * `SELECTED_USERS` - только указанным пользователям
+                                          * `ONLY_USERS` - только пользователям
+                                          * `ALL` - всем
+                                          * `ONLY_ACTIVE_REQUEST` - только пользователям, у которых активные заявки
+                                          * `ONLY_ARCHIVE_REQUEST` - только пользователям с архивными заявками
+                                          * `ONLY_CONTRACTORS` - только исполнительным \ контролирующим органам
+                                          * `ONLY_CONTRACTORS_EXECUTIVE` - только исполнительным органам
+                                          * `ONLY_CONTRACTORS_SUPERVISING` - только контролирующим органам
+                                filenames:
+                                    type: array
+                                    default: []
+                                    items:
+                                        type: string
+                                        format: binary
+
+            responses:
+                '204':
+                    description: OK
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /services/statistic:
+        post:
+            summary: статистика по категориям за период
+            tags:
+                - Сервисные методы
+            security:
+                -   bearerAuth: [ ]
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                start_at:
+                                    type: string
+                                    example: "2021-01-01 11:00:00"
+                                end_at:
+                                    type: string
+                                    example: "2021-01-02 11:00:00"
+                                object_id:
+                                    type: array
+                                    default: []
+                                    items:
+                                        type: integer
+                                    example: [1,2,3,4,5]
+                                object_type:
+                                    type: string
+                                    enum:
+                                        - "REQUEST_BY_CATEGORIES"
+                                        - "REQUEST_BY_CONTRACTORS"
+                                        - "REQUEST_BY_CONTRACTORS_EXECUTIVE"
+                                        - "REQUEST_BY_CONTRACTORS_SUPERVISING"
+                                        - "CONTRACTORS"
+                                        - "ACCEPTED_REQUESTS"
+                                        - "DECLINE_REQUESTS"
+                                        - "SUMMARY_ALL"
+                                        - "NEW_USERS"
+                                        - "ACTIVE_USERS"
+                                    description: >
+                                        Статистика по:
+                                          * `REQUEST_BY_CATEGORIES` - запросы по категориям
+                                          * `REQUEST_BY_CONTRACTORS` - запросы по исполнительным \ контролирующим органам
+                                          * `REQUEST_BY_CONTRACTORS_EXECUTIVE` - запросы по исполнительным  органам
+                                          * `REQUEST_BY_CONTRACTORS_SUPERVISING` - запросы по контролирующим органам
+                                          * `CONTRACTORS` - добавленные исполнительные \ контролирующие органы
+                                          * `ACCEPTED_REQUESTS` - принятые в работу заявки
+                                          * `DECLINE_REQUESTS` - отклоненные заявки
+                                          * `SUMMARY_ALL` - суммарная сводка по заявкам
+                                          * `NEW_USERS` - новые пользователи
+                                          * `ACTIVE_USERS` - активные пользователи
+
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    latitude:
+                                        type: string
+                                        example: "23.4445555"
+                                    longitude:
+                                        type: string
+                                        example: "35.2233444"
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /services/heatmap:
+        post:
+            summary: тепловая карта проблемных \ решенных зон за период
+            tags:
+                - Сервисные методы
+            security:
+                -   bearerAuth: [ ]
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                start_at:
+                                    type: string
+                                    example: "2021-01-01 11:00:00"
+                                end_at:
+                                    type: string
+                                    example: "2021-01-02 11:00:00"
+                                category_id:
+                                    type: array
+                                    default: []
+                                    items:
+                                        type: integer
+                                    example: [1,2,3,4,5]
+                                type:
+                                    type: string
+                                    enum:
+                                        - "ACCEPTED"
+                                        - "RESOLVED"
+                                        - "NOT_ACCEPTED"
+                                        - "DECLINED"
+                                    description: >
+                                        Тепловая карта заявок:
+                                          * `ACCEPTED` - принятые запросы
+                                          * `RESOLVED` - выполненные запросы
+                                          * `NOT_ACCEPTED` - не принятые запросы
+                                          * `DECLINED` - отклоненные запрос
+
+
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    heat_map_data :
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                weight:
+                                                    type: number
+                                                    example: 0.5
+                                                latitude:
+                                                    type: number
+                                                    example: 33.2344552
+                                                longitude:
+                                                    type: number
+                                                    example: 22.2344552
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /services/request/import:
+        post:
+            summary: импортирование заявок в формате Excel-файла(ов)
+            tags:
+                - Сервисные методы
+            security:
+                -   bearerAuth: [ ]
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                filenames:
+                                    type: array
+                                    default: []
+                                    items:
+                                        type: string
+                                        format: binary
+
+
+            responses:
+                '204':
+                    description: OK
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /services/request/export:
+        post:
+            summary: экспортирование заявок в формате Excel-файла
+            tags:
+                - Сервисные методы
+            security:
+                -   bearerAuth: [ ]
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                start_at:
+                                    type: string
+                                    example: "2021-01-01 11:00:00"
+                                end_at:
+                                    type: string
+                                    example: "2021-01-02 11:00:00"
+                                category_id:
+                                    type: array
+                                    default: [ ]
+                                    items:
+                                        type: integer
+                                    example: [ 1,2,3,4,5 ]
+                                type:
+                                    type: string
+                                    enum:
+                                        - "ACCEPTED"
+                                        - "RESOLVED"
+                                        - "NOT_ACCEPTED"
+                                        - "DECLINED"
+                                    description: >
+                                        Экспорт заявок по типу:
+                                          * `ACCEPTED` - принятые запросы
+                                          * `RESOLVED` - выполненные запросы
+                                          * `NOT_ACCEPTED` - не принятые запросы
+                                          * `DECLINED` - отклоненные запрос
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/binary:
+                            schema:
+                                type: string
+                                format: binary
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    #работа с пользователями
+    /users/{userId}:
+        get:
+            summary: Находим пользователя по идентификатору
+            tags:
+                - Пользователи
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+            -   name: userId
+                in: path
+                required: true
+                description: Целочисленный идентификатор пользователя
+                schema:
+                    type: integer
+                    format: int64
+                    minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                '400':
+                    description: Указанный идентификатор пользователя не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+        put:
+            summary: Обновляем пользователя по идентификатору
+            security:
+                -   bearerAuth: [ ]
+            tags:
+                - Пользователи
+            parameters:
+                -   name: userId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор пользователя
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UserForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                '400':
+                    description: Указанный идентификатор пользователя не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            summary: Удаляем пользователя по идентификатору
+            security:
+                -   bearerAuth: [ ]
+            tags:
+                - Пользователи
+            parameters:
+                -   name: userId
+                    in: path
+                    required: true
+                    description: Parameter description in CommonMark or HTML.
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                               $ref: '#/components/schemas/User'
+                '400':
+                    description: The specified user ID is invalid (not a number).
+                '404':
+                    description: A user with the specified ID was not found.
+                default:
+                    description: Unexpected error
+    /users/me:
+        get:
+            summary: возвращаем текущего пользователя
+            tags:
+                - Пользователи
+            security:
+                -   bearerAuth: [ ]
+
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /users/{userId}/profile:
+        get:
+            summary: Находим профиль пользователя по идентификатору пользователя
+            tags:
+                - Пользователи
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+                -   name: userId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор пользователя
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Profile'
+                '400':
+                    description: Указанный идентификатор пользователя не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /users:
+        get:
+            summary: Список пользователей
+            security:
+                - bearerAuth: []
+            tags:
+                - Пользователи
+            parameters:
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/User'
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            summary: Создаем пользователя
+            tags:
+                - Пользователи
+            security:
+                -   bearerAuth: [ ]
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UserForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    #работа с профилями пользователей
+    /profiles/{profileId}:
+        get:
+            summary: Находим профиль пользователя по идентификатору
+            tags:
+                - Профиль пользователя
+            parameters:
+                -   name: profileId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор профиля пользователя
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Profile'
+                '400':
+                    description: Указанный идентификатор профиля пользователя не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        put:
+            summary: Обновляем профиль пользователя по идентификатору
+            tags:
+                - Профиль пользователя
+            parameters:
+                -   name: profileId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор профиля пользователя
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ProfileForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Profile'
+                '400':
+                    description: Указанный идентификатор пользователя не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            summary: Удаляем пользователя по идентификатору
+            tags:
+                - Профиль пользователя
+            parameters:
+                -   name: profileId
+                    in: path
+                    required: true
+                    description: Parameter description in CommonMark or HTML.
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Profile'
+                '400':
+                    description: The specified user ID is invalid (not a number).
+                '404':
+                    description: A user with the specified ID was not found.
+                default:
+                    description: Unexpected error
+    /profiles:
+        get:
+            summary: Список профилей пользователя
+            tags:
+                - Профиль пользователя
+            parameters:
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Profile'
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            summary: Создаем профиль
+            tags:
+                - Профиль пользователя
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ProfileForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Profile'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    #работа с категориями проблем
+    /problem-categories/{problemCategoryId}:
+        get:
+            summary: Находим категорию по идентификатору
+            tags:
+                - Категории проблемных ситуаций
+            parameters:
+                -   name: problemCategoryId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор категории
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                '400':
+                    description: Указанный идентификатор пользователя не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+        put:
+            summary: Обновляем категорию по идентификатору
+            tags:
+                - Категории проблемных ситуаций
+            parameters:
+                -   name: problemCategoryId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор категории
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ProblemCategoryForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ProblemCategory'
+                '400':
+                    description: Указанный идентификатор не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            summary: Удаляем категорию по идентификатору
+            tags:
+                - Категории проблемных ситуаций
+            parameters:
+                -   name: problemCategoryId
+                    in: path
+                    required: true
+                    description: Parameter description in CommonMark or HTML.
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ProblemCategory'
+                '400':
+                    description: The specified user ID is invalid (not a number).
+                '404':
+                    description: A user with the specified ID was not found.
+                default:
+                    description: Unexpected error
+    /problem-categories:
+        get:
+            summary: Список категорий проблем
+            tags:
+                - Категории проблемных ситуаций
+            parameters:
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/ProblemCategory'
+
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            summary: Создаем новую категорию проблем
+            tags:
+                - Категории проблемных ситуаций
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ProblemCategoryForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ProblemCategory'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /problem-categories/{problemCategoryId}/active-requests:
+        get:
+            summary: Список активных запросов в категории
+            tags:
+                - Категории проблемных ситуаций
+            parameters:
+                -   name: problemCategoryId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор категории
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Request'
+
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /problem-categories/{problemCategoryId}/completed-requests:
+        get:
+            summary: Список выполненных запросов в категории
+            tags:
+                - Категории проблемных ситуаций
+            parameters:
+                -   name: problemCategoryId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор категории
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Request'
+
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /problem-categories/{problemCategoryId}/archive-requests:
+        get:
+            summary: Список архивных запросов в категории
+            tags:
+                - Категории проблемных ситуаций
+            parameters:
+                -   name: problemCategoryId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор категории
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Request'
+
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    #работа с заявками
+    /requests/{requestId}:
+        get:
+            summary: Находим заявку по идентификатору
+            tags:
+                - Заявки
+            parameters:
+                -   name: requestId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор заявки
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Request'
+                '400':
+                    description: Указанный идентификатор заявки не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+        put:
+            summary: Обновляем заявку по идентификатору
+            tags:
+                - Заявки
+            parameters:
+                -   name: requestId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор заявки
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            requestBody:
+                content:
+                    multipart/form-data:
+                        schema:
+                            $ref: '#/components/schemas/RequestForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Request'
+                '400':
+                    description: Указанный идентификатор пользователя не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            summary: Удаляем заявку по идентификатору
+            tags:
+                - Заявки
+            parameters:
+                -   name: requestId
+                    in: path
+                    required: true
+                    description: Parameter description in CommonMark or HTML.
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Request'
+                '400':
+                    description: The specified user ID is invalid (not a number).
+                '404':
+                    description: A user with the specified ID was not found.
+                default:
+                    description: Unexpected error
+    /requests:
+            get:
+                summary: Список заявок
+                tags:
+                    - Заявки
+                parameters:
+                    -   name: page
+                        in: query
+                        required: false
+                        description: идентификатор страницы
+                        schema:
+                            type: integer
+                            format: int64
+                            minimum: 1
+                    -   name: size
+                        in: query
+                        required: false
+                        description: размер выдачи на странице
+                        schema:
+                            type: integer
+                            format: int64
+                            minimum: 1
+                responses:
+                    '200':
+                        description: OK
+                        content:
+                            application/json:
+                                schema:
+                                    properties:
+                                        data:
+                                            type: array
+                                            items:
+                                                $ref: '#/components/schemas/Request'
+                                    allOf:
+                                        -   $ref: '#/components/schemas/PaginateObject'
+
+
+                    default:
+                        description: Unexpected error
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/Error'
+            post:
+                summary: Создаем заявку
+                tags:
+                    - Заявки
+                requestBody:
+                    content:
+                        multipart/form-data:
+                            schema:
+                                $ref: '#/components/schemas/RequestForm'
+
+
+
+                responses:
+                    '200':
+                        description: OK
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/Request'
+
+                    default:
+                        description: Unexpected error
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/Error'
+    /requests/in-range:
+        post:
+            summary: Подбор заявок в радиусе
+            tags:
+                - Заявки
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                distance:
+                                    type: number
+                                    example: 300
+                                    default: 50
+                                    description: радиус охвата заявок
+                                longitude:
+                                    type: number
+                                    example: 23.332322
+                                latitude:
+                                    type: number
+                                    example: 34.5242444
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Request'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /requests/rating:
+        post:
+            summary: модификация рейтинга заявки (+-)
+            tags:
+                - Заявки
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                rating:
+                                    type: integer
+                                    example: 300
+                                    default: 50
+                                    description: рейтинг заявки (может быть в плюс и в минус)
+                                request_id:
+                                    type: integer
+                                    example: 1
+                                    default: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Request'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /requests/{requestId}/pdf:
+        get:
+            summary: формируем заявку в виде pdf
+            tags:
+                - Заявки
+            parameters:
+                -   name: requestId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор заявки
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/pdf:
+                            schema:
+                                type: string
+                                format: binary
+
+                '400':
+                    description: Указанный идентификатор заявки не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    #исполнительные и контролирующие органы
+    /contractors/{contractorId}:
+        get:
+            summary: Находим исполнителя по идентификатору
+            tags:
+                - Исполнительные \ контролирующие органы
+            parameters:
+                -   name: contractorId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Contractor'
+                '400':
+                    description: Указанный идентификатор не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+        put:
+            summary: Обновляем исполнителя по идентификатору
+            tags:
+                - Исполнительные \ контролирующие органы
+            parameters:
+                -   name: contractorId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор исполнителя
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ContractorForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Contractor'
+                '400':
+                    description: Указанный идентификатор исполнителя не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            summary: Удаляем исполнителя по идентификатору
+            tags:
+                - Исполнительные \ контролирующие органы
+            parameters:
+                -   name: contractorId
+                    in: path
+                    required: true
+                    description: Parameter description in CommonMark or HTML.
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Contractor'
+                '400':
+                    description: The specified user ID is invalid (not a number).
+                '404':
+                    description: A user with the specified ID was not found.
+                default:
+                    description: Unexpected error
+    /contractors/{contractorId}/requests/archive:
+        get:
+            summary: Список архивных заявок по исполнительному органу
+            tags:
+                - Исполнительные \ контролирующие органы
+            parameters:
+                -   name: contractorId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Request'
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /contractors/{contractorId}/requests/active:
+        get:
+            summary: Список активных заявок по исполнительному органу
+            tags:
+                - Исполнительные \ контролирующие органы
+            parameters:
+                -   name: contractorId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Request'
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /contractors:
+        get:
+            summary: Список профилей исполнительных органов
+            tags:
+                - Исполнительные \ контролирующие органы
+            parameters:
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Contractor'
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            summary: Создаем профиль исполнительного органа
+            tags:
+                - Исполнительные \ контролирующие органы
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ContractorForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Contractor'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    #сохраненные черновики заявок (координаты и базовое описание)
+    /stored-requests/{storedRequestId}:
+        get:
+            summary: Находим черновик заявки по идентификатору
+            tags:
+                - Черновики заявок
+            parameters:
+                -   name: storedRequestId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор заявки
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/StoredRequest'
+                '400':
+                    description: Указанный идентификатор черновика заявки не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+
+        put:
+            summary: Обновляем черновик заявки по идентификатору
+            tags:
+                - Черновики заявок
+            parameters:
+                -   name: storedRequestId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор черновика заявки
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/StoredRequestForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/StoredRequest'
+                '400':
+                    description: Указанный идентификатор черновика заявки не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            summary: Удаляем черновик заявки по идентификатору
+            tags:
+                - Черновики заявок
+            parameters:
+                -   name: storedRequestId
+                    in: path
+                    required: true
+                    description: Parameter description in CommonMark or HTML.
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/StoredRequest'
+                '400':
+                    description: The specified user ID is invalid (not a number).
+                '404':
+                    description: A user with the specified ID was not found.
+                default:
+                    description: Unexpected error
+    /stored-requests:
+            get:
+                summary: Список черновиков заявок
+                tags:
+                    - Черновики заявок
+                parameters:
+                    -   name: page
+                        in: query
+                        required: false
+                        description: идентификатор страницы
+                        schema:
+                            type: integer
+                            format: int64
+                            minimum: 1
+                    -   name: size
+                        in: query
+                        required: false
+                        description: размер выдачи на странице
+                        schema:
+                            type: integer
+                            format: int64
+                            minimum: 1
+                responses:
+                    '200':
+                        description: OK
+                        content:
+                            application/json:
+                                schema:
+                                    properties:
+                                        data:
+                                            type: array
+                                            items:
+                                                $ref: '#/components/schemas/StoredRequest'
+                                    allOf:
+                                        -   $ref: '#/components/schemas/PaginateObject'
+
+
+                    default:
+                        description: Unexpected error
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/Error'
+            post:
+                summary: Создаем черновик заявки
+                tags:
+                    - Черновики заявок
+                requestBody:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/StoredRequestForm'
+                responses:
+                    '200':
+                        description: OK
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/StoredRequest'
+
+                    default:
+                        description: Unexpected error
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/Error'
+    #работа с роля пользователей
+    /roles/{roleId}:
+        get:
+            summary: Находим роль по идентификатору
+            tags:
+                - Роли
+            parameters:
+                -   name: roleId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор заявки
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/StoredRequest'
+                '400':
+                    description: Указанный идентификатор черновика заявки не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        put:
+            summary: Обновляем черновик заявки по идентификатору
+            tags:
+                - Роли
+            parameters:
+                -   name: roleId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор черновика заявки
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/StoredRequestForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/StoredRequest'
+                '400':
+                    description: Указанный идентификатор черновика заявки не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: A user with the specified ID was not found.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            summary: Удаляем черновик заявки по идентификатору
+            tags:
+                - Роли
+            parameters:
+                -   name: roleId
+                    in: path
+                    required: true
+                    description: Parameter description in CommonMark or HTML.
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/StoredRequest'
+                '400':
+                    description: The specified user ID is invalid (not a number).
+                '404':
+                    description: A user with the specified ID was not found.
+                default:
+                    description: Unexpected error
+    /roles:
+        get:
+            summary: Список всех ролей
+            tags:
+                - Роли
+            parameters:
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/StoredRequest'
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            summary: Создаем черновик заявки
+            tags:
+                - Роли
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/StoredRequestForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/StoredRequest'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    #работа с рассылками
