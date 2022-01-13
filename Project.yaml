@@ -16,21 +16,21 @@ info:
         <h2>Приложение Народный контроль</h2>
         <p><strong>Основная цель</strong>: контроль за состоянием сфер жизнедеятельности города по отраслям:</p>
         <ul>
-            <li>общественный транспорт (мин.транс)</li>
-            <li>состояние дорог и прилегающий территорий (мин.транс)</li>
-            <li>состояние благоустройства города (мин. хоз)</li>
-            <li>аварийные участки города, прорывы водо- тепло- коммуникаций, обрывы электро коммуникаций  (жэк)</li>
-            <li>постройки в аварийном состоянии (мин. Хоз)</li>
-            <li>уборка территории и вывоз отходов (мин. Хоз)</li>
-            <li>некачественные товары (потреб контроль)</li>
-            <li>скопление животных (мин. Хоз)</li>
-            <li>последствия стихийных бедствий  (мин. Хоз,  мчс)</li>
-            <li>последствие военных действий (мчс, военные, мин. Транс)</li>
+            <li>общественный транспорт</li>
+            <li>состояние дорог и прилегающий территорий</li>
+            <li>состояние благоустройства города</li>
+            <li>аварийные участки города, прорывы водо- тепло- коммуникаций, обрывы электро коммуникаций</li>
+            <li>постройки в аварийном состоянии</li>
+            <li>уборка территории и вывоз отходов</li>
+            <li>некачественные товары</li>
+            <li>скопление животных</li>
+            <li>последствия стихийных бедствий</li>
+            <li>последствие военных действий</li>
             <li>проявления вандализмам (в т.ч. размещение рекламы в неположенном месте)</li>
-            <li>состояние фортификационных сооружений (мчс)</li>
-            <li>состояние рабочего места (проф. Комиссии)</li>
-            <li>регулярное скопление криминальных (или асоциальных) элементов общества или проявление аморального поведения в общественных местах (мин. Хоз)</li>
-            <li>нарушение ПДД участниками дорожного движения (мвд)</li>
+            <li>состояние фортификационных сооружений</li>
+            <li>состояние рабочего места</li>
+            <li>регулярное скопление криминальных (или асоциальных) элементов общества или проявление аморального поведения в общественных местах</li>
+            <li>нарушение ПДД участниками дорожного движения</li>
             <li>также могут быть заявки без категории</li>
             <li>инициативы граждан - полезные нововведения от граждан</li>
             <li>заявки на утерянные или найденные вещи</li>
@@ -48,13 +48,13 @@ servers:
 
 components:
     securitySchemes:
-        bearerAuth: # arbitrary name for the security scheme
+        bearerAuth:
             type: http
             scheme: bearer
-            bearerFormat: JWT    # optional, arbitrary value for documentation purposes
-
+            bearerFormat: JWT
 
     schemas:
+        #основная функциональность
         Error:
             type: object
             required:
@@ -338,6 +338,30 @@ components:
                 description:
                     type: string
                     example: "Бродячие собаки"
+                source:
+                    type: string
+
+                    enum:
+                        - "LANDING"
+                        - "VK"
+                        - "OPERATOR"
+                        - "EXCEL"
+                        - "TELEGRAM"
+                        - "ANDROID"
+                        - "IOS"
+                        - "OTHER"
+                    example: "ANDROID"
+                    description: >
+                        Источник заявки:
+                          * `LANDING` - с рекламной страницы
+                          * `VK` - с вк бота
+                          * `OPERATOR` - добавлено оператором из административной панели
+                          * `EXCEL` - массовое добавление из эксель файла
+                          * `TELEGRAM` - с телеграм бота
+                          * `ANDROID` - с андройд приложения
+                          * `IOS` - а ios приложения
+                          * `OTHER` - с других источников
+
                 problem_categories:
                     type: array
                     items:
@@ -364,6 +388,10 @@ components:
                     type: integer
                     example: 613
                     description: суммарный рейтинг заявки и всех смежных с ней заявок
+                watch_count:
+                    type: integer
+                    example: 613
+                    description: число просмотров заявки (расчетный параметр)
                 status:
                     type: string
                     enum:
@@ -453,6 +481,7 @@ components:
                 - problem_categories
                 - latitude
                 - longitude
+                - source
             type: object
             properties:
                 parent_request_id:
@@ -464,6 +493,28 @@ components:
                 description:
                     type: string
                     example: "Бродячие собаки"
+                source:
+                    type: string
+                    enum:
+                        - "LANDING"
+                        - "VK"
+                        - "OPERATOR"
+                        - "EXCEL"
+                        - "TELEGRAM"
+                        - "ANDROID"
+                        - "IOS"
+                        - "OTHER"
+                    example: "ANDROID"
+                    description: >
+                        Источник заявки:
+                          * `LANDING` - с рекламной страницы
+                          * `VK` - с вк бота
+                          * `OPERATOR` - добавлено оператором из административной панели
+                          * `EXCEL` - массовое добавление из эксель файла
+                          * `TELEGRAM` - с телеграм бота
+                          * `ANDROID` - с андройд приложения
+                          * `IOS` - а ios приложения
+                          * `OTHER` - с других источников
                 problem_categories:
                     type: array
                     items:
@@ -1273,6 +1324,343 @@ components:
                     type: integer
                     format: int64
                     example: 1
+        Story:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                title:
+                    type: string
+                    example: "Заголовок новости"
+                content:
+                    type: string
+                    example: "текстовое содержимое истории"
+                group_name:
+                    type: string
+                    example: "ЖКХ"
+                    description: Группа, по которой можно объединить истории под одну плитку
+                position:
+                    type: integer
+                    example: 1
+                    description: Позиция в общей выдаче (позиция в рамках группы формируется по дате добавления)
+                author:
+                    type: string
+                    example: "Народная дружина"
+                    description: Имя отправителя новости
+                content_type:
+                    type: string
+                    enum:
+                        - "IMAGE"
+                        - "VIDEO"
+                    description: >
+                        Тип содержимого:
+                        * `IMAGE` - история, фоном которой является изображение
+                        * `VIDEO` - история, фоном которой является видео
+                content_url:
+                    type: string
+                    example: "http://vk.com/test.jpg"
+                    description: Ссылка на контента согласно типу
+                live_to:
+                    type: string
+                    example: "2022-05-20 10:11:00"
+                    description: Срок жизни новости
+                duration:
+                    type: number
+                    example: 23.3
+                    description: Длительность слайда
+                story_type:
+                    type: string
+                    enum:
+                        - "INFORMATION"
+                        - "WARNING"
+                        - "DANGER"
+                        - "ADVERTING"
+                    description: >
+                        * `INFORMATION` - информационная история (цвет зеленый)
+                        * `WARNING` - предупреждающая история (оранжевый цвет)
+                        * `DANGER` - критически важная новость (красный цвет)
+                        * `ADVERTING` - реклама (синий цвет)
+                moderator_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                    description: идентификатор администратора, который добавил новость (историю)
+                is_active:
+                    type: boolean
+                    default: true
+                    description: состояния активности (отображения) новости
+                watch_count:
+                    type: integer
+                    description: Число просмотров (расчетное поле)
+                    example: 200
+                    default: 0
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        StoryForm:
+            type: object
+            properties:
+                title:
+                    type: string
+                    example: "Заголовок новости"
+                content:
+                    type: string
+                    example: "текстовое содержимое истории"
+                group_name:
+                    type: string
+                    example: "ЖКХ"
+                    description: Группа, по которой можно объединить истории под одну плитку
+                position:
+                    type: integer
+                    example: 1
+                    description: Позиция в общей выдаче (позиция в рамках группы формируется по дате добавления)
+                author:
+                    type: string
+                    example: "Народная дружина"
+                    description: Имя отправителя новости
+                content_type:
+                    type: string
+                    enum:
+                        - "IMAGE"
+                        - "VIDEO"
+                    description: >
+                        Тип содержимого:
+                        * `IMAGE` - история, фоном которой является изображение
+                        * `VIDEO` - история, фоном которой является видео
+                content_url:
+                    type: string
+                    example: "http://vk.com/test.jpg"
+                    description: Ссылка на контента согласно типу
+                live_to:
+                    type: string
+                    example: "2022-05-20 10:11:00"
+                    description: Срок жизни новости
+                duration:
+                    type: number
+                    example: 23.3
+                    description: Длительность слайда
+                story_type:
+                    type: string
+                    enum:
+                        - "INFORMATION"
+                        - "WARNING"
+                        - "DANGER"
+                        - "ADVERTING"
+                    description: >
+                        * `INFORMATION` - информационная история (цвет зеленый)
+                        * `WARNING` - предупреждающая история (оранжевый цвет)
+                        * `DANGER` - критически важная новость (красный цвет)
+                        * `ADVERTING` - реклама (синий цвет)
+                moderator_id:
+                    type: integer
+                    format: int64
+                    example: 1
+                    description: идентификатор администратора, который добавил новость (историю)
+                is_active:
+                    type: boolean
+                    default: true
+                    description: состояния активности (отображения) новости
+        Region:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                title:
+                    type: string
+                    example: "Название региона"
+
+                positions:
+                    type: integer
+                    example: 2
+                    description: Позиция региона в списке
+
+                is_active:
+                    type: boolean
+                    default: true
+                    description: состояния активности региона
+
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        RegionForm:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                title:
+                    type: string
+                    example: "Название региона"
+
+                positions:
+                    type: integer
+                    example: 2
+                    description: Позиция региона в списке
+
+                is_active:
+                    type: boolean
+                    default: true
+                    description: состояния активности региона
+
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+
+        #дополнительная функциональность
+        StoppingPoint:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                title:
+                    type: string
+                    example: "Остановка Орешково"
+                    description: Название остановочного пункта
+                manager_company:
+                    type: string
+                    example: "АТП 234"
+                    description: название управляющего предприятия
+                city:
+                    type: string
+                    example: "г. Макеевка"
+                    description: город \ поселок \ село где расположен остановочный пункт
+                route:
+                    $ref: '#/components/schemas/TransportRoutes'
+                latitude:
+                    type: number
+                    default: 0
+                    example: 23.4232232
+                longitude:
+                    type: number
+                    default: 0
+                    example: 23.4232232
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        StoppingPointForm:
+            type: object
+            properties:
+                title:
+                    type: string
+                    example: "Остановка Орешково"
+                    description: Название остановочного пункта
+                manager_company:
+                    type: string
+                    example: "АТП 234"
+                    description: название управляющего предприятия
+                city:
+                    type: string
+                    example: "г. Макеевка"
+                    description: город \ поселок \ село где расположен остановочный пункт
+                latitude:
+                    type: number
+                    default: 0
+                    example: 23.4232232
+                longitude:
+                    type: number
+                    default: 0
+                    example: 23.4232232
+
+        TransportRoutes:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                title:
+                    type: string
+                    example: "Название маршрута"
+                    description: Название маршрута
+                route_number:
+                    type: string
+                    example: "23"
+                    description: номер маршрута
+                car_number:
+                    type: string
+                    example: "A555AA"
+                    description: Номер машины
+                drivers_on_route:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/User'
+
+                deleted_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                created_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+                updated_at:
+                    type: string
+                    example: '2022-01-01 12:00:00'
+                    default: null
+        TransportRoutesForm:
+            type: object
+            properties:
+                title:
+                    type: string
+                    example: "Название маршрута"
+                    description: Название маршрута
+                route_number:
+                    type: string
+                    example: "23"
+                    description: номер маршрута
+                drivers_user_ids:
+                    type: array
+                    description: идентификаторы пользователей-водителей на указанном маршруте
+                    items:
+                        type: integer
+                    example: [1,2,3]
+                car_number:
+                    type: string
+                    example: "A555AA"
+                    description: Номер машины
 
 paths:
     #методы авторизации, регистрации, логаута, восстановления пароля
@@ -1497,9 +1885,11 @@ paths:
                                 $ref: '#/components/schemas/Error'
     /auth/reset/update:
         post:
-            summary: сброс пароля
+            summary: смена пароля
             tags:
                 - Авторизация
+            security:
+                -   bearerAuth: [ ]
             requestBody:
                 content:
                     application/json:
@@ -1783,8 +2173,6 @@ paths:
             summary: тепловая карта проблемных \ решенных зон за период
             tags:
                 - Сервисные методы
-            security:
-                -   bearerAuth: [ ]
             requestBody:
                 content:
                     application/json:
@@ -1803,6 +2191,21 @@ paths:
                                     items:
                                         type: integer
                                     example: [1,2,3,4,5]
+                                radius:
+                                    type: integer
+                                    default: null
+                                    example: 50
+                                    description: Радиус, в котором отображается тепловая карта
+                                latitude:
+                                    type: integer
+                                    default: null
+                                    example: 23.445511
+                                    description: широта
+                                longitude:
+                                    type: integer
+                                    default: null
+                                    description: долгота
+                                    example: 51.667711
                                 type:
                                     type: string
                                     enum:
@@ -1930,6 +2333,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Error'
+
     #работа с пользователями
     /users/{userId}:
         get:
@@ -3144,6 +3548,45 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Error'
+    /requests/{requestId}/watch:
+        post:
+            summary: отмечаем просмотр заявки по идентификатору для текущего авторизованного пользователя
+            tags:
+                - Заявки
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+                -   name: requestId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор заявки
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '204':
+                    description: OK
+
+
+                '400':
+                    description: Указанный идентификатор заявки не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: Указанная заявка не найдена по идентификатору
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
     #исполнительные и контролирующие органы
     /contractors/{contractorId}:
         get:
@@ -4236,6 +4679,409 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/ContractorTask'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    #работа с историями (новостями)
+    /stories/{storyId}:
+        get:
+            summary: Находим историю по идентификатору
+            tags:
+                - Истории \ Новости
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+                -   name: storyId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор истории
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Story'
+                '400':
+                    description: Указанный идентификатор истории не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: История не найдена по идентификатору
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        put:
+            summary: Обновляем историю по идентификатору
+            tags:
+                - Истории \ Новости
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+                -   name: storyId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор истории
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/StoryForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Story'
+                '400':
+                    description: Указанный идентификатор истории не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: История не найдена по идентификатору.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            summary: Удаляем историю по идентификатору
+            tags:
+                - Истории \ Новости
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+                -   name: storyId
+                    in: path
+                    required: true
+                    description: Parameter description in CommonMark or HTML.
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Role'
+                '400':
+                    description: Указанный идентификатор не является числом
+                '404':
+                    description: История данным идентификатором не найдена
+                default:
+                    description: Unexpected error
+    /stories/{storyId}/watch:
+        post:
+            summary: Устанавливает просмотр истории для текущего пользователя
+            tags:
+                - Истории \ Новости
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+                -   name: storyId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор истории
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '204':
+                    description: OK
+
+                '400':
+                    description: Указанный идентификатор истории не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: История не найдена по идентификатору
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    /stories:
+        get:
+            summary: Список всех историй
+            tags:
+                - Истории \ Новости
+            parameters:
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Story'
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            summary: Создаем новую историю
+            tags:
+                - Истории \ Новости
+            security:
+                -   bearerAuth: [ ]
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/StoryForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Story'
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+    #работа с регионами
+    /regions/{regionId}:
+        get:
+            summary: Находим регион по идентификатору
+            tags:
+                - Регионы
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+                -   name: regionId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор истории
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Region'
+                '400':
+                    description: Указанный идентификатор региона не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: Регион не найден по идентификатору
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        put:
+            summary: Обновляем регион по идентификатору
+            tags:
+                - Регионы
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+                -   name: regionId
+                    in: path
+                    required: true
+                    description: Целочисленный идентификатор регион
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/RegionForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Region'
+                '400':
+                    description: Указанный идентификатор региона не является числом
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                '404':
+                    description: Регион не найден по идентификатору.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        delete:
+            summary: Удаляем регион по идентификатору
+            tags:
+                - Регионы
+            security:
+                -   bearerAuth: [ ]
+            parameters:
+                -   name: regionId
+                    in: path
+                    required: true
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Region'
+                '400':
+                    description: Указанный идентификатор не является числом
+                '404':
+                    description: Регион с данным идентификатором не найден
+                default:
+                    description: Unexpected error
+    /regions:
+        get:
+            summary: Список всех регионов
+            tags:
+                - Регионы
+            parameters:
+                -   name: page
+                    in: query
+                    required: false
+                    description: идентификатор страницы
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+                -   name: size
+                    in: query
+                    required: false
+                    description: размер выдачи на странице
+                    schema:
+                        type: integer
+                        format: int64
+                        minimum: 1
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Region'
+                                allOf:
+                                    -   $ref: '#/components/schemas/PaginateObject'
+
+
+                default:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+        post:
+            summary: Создаем новуый регион
+            tags:
+                - Регионы
+            security:
+                -   bearerAuth: [ ]
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/RegionForm'
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Region'
 
                 default:
                     description: Unexpected error
