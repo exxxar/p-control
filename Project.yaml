@@ -2927,7 +2927,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/User'
+                                $ref: '#/components/schemas/ProblemCategory'
                 '400':
                     description: Указанный идентификатор пользователя не является числом
                     content:
@@ -4472,25 +4472,6 @@ paths:
             summary: запуск рассылок в CRON
             tags:
                 - Рассылки
-            security:
-                -   bearerAuth: [ ]
-            parameters:
-                -   name: page
-                    in: query
-                    required: false
-                    description: идентификатор страницы
-                    schema:
-                        type: integer
-                        format: int64
-                        minimum: 1
-                -   name: size
-                    in: query
-                    required: false
-                    description: размер выдачи на странице
-                    schema:
-                        type: integer
-                        format: int64
-                        minimum: 1
             responses:
                 '204':
                     description: OK
